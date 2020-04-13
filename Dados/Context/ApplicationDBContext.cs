@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Dominio.Entidades;
 using Dominio.Entidades.Acesso;
 using Microsoft.Extensions.Logging;
-using Sicle.Dados.Context.Config;
+using Sicle.Dados.Context.Config.Acessos;
 
 namespace Dados
 {

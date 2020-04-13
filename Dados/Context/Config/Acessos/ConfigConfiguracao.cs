@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Sicle.Dados.Context.Config
+namespace Sicle.Dados.Context.Config.Acessos
 {
     internal class ConfigConfiguracao
     {
