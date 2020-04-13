@@ -3,6 +3,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Dados\Sicle.Dados.csproj" />
     <ProjectReference Include="..\Dominio\Sicle.Dominio.csproj" />
+    <ProjectReference Include="..\Util\Sicle.Util.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -12,6 +12,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Util;
 
 namespace Web
 {
@@ -19,14 +20,7 @@ namespace Web
     {
         public static IWebHostEnvironment CurrentEnvironment { get; set; }
 
-        public static readonly ILoggerFactory ConsoleLoggerFactory
-                        = LoggerFactory.Create(builder =>
-                        {
-                            builder
-                                .AddFilter((category, level) =>
-                                    category == DbLoggerCategory.Database.Command.Name
-                                    && level == LogLevel.Information).AddConsole();
-                        });
+       
 
         public Startup(IConfiguration configuration)
         {
@@ -43,7 +37,7 @@ namespace Web
                     options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
                     if (Startup.CurrentEnvironment.IsDevelopment())
                     {
-                        options.UseLoggerFactory(ConsoleLoggerFactory).EnableSensitiveDataLogging();
+                        options.UseLoggerFactory(AppLooger.Factory).EnableSensitiveDataLogging();
                     }
                 });
 

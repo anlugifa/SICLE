@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sicle.Dominio", "Dominio\Si
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sicle.Dados", "Dados\Sicle.Dados.csproj", "{631B2086-2B7F-4C2E-A1A6-F80150F2B7FF}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sicle.Util", "Util\Sicle.Util.csproj", "{7F8C43BD-5FEF-47DB-969C-21C4DDDEF600}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -55,6 +57,18 @@ Global
 		{631B2086-2B7F-4C2E-A1A6-F80150F2B7FF}.Release|x64.Build.0 = Release|Any CPU
 		{631B2086-2B7F-4C2E-A1A6-F80150F2B7FF}.Release|x86.ActiveCfg = Release|Any CPU
 		{631B2086-2B7F-4C2E-A1A6-F80150F2B7FF}.Release|x86.Build.0 = Release|Any CPU
+		{7F8C43BD-5FEF-47DB-969C-21C4DDDEF600}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7F8C43BD-5FEF-47DB-969C-21C4DDDEF600}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7F8C43BD-5FEF-47DB-969C-21C4DDDEF600}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{7F8C43BD-5FEF-47DB-969C-21C4DDDEF600}.Debug|x64.Build.0 = Debug|Any CPU
+		{7F8C43BD-5FEF-47DB-969C-21C4DDDEF600}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{7F8C43BD-5FEF-47DB-969C-21C4DDDEF600}.Debug|x86.Build.0 = Debug|Any CPU
+		{7F8C43BD-5FEF-47DB-969C-21C4DDDEF600}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7F8C43BD-5FEF-47DB-969C-21C4DDDEF600}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7F8C43BD-5FEF-47DB-969C-21C4DDDEF600}.Release|x64.ActiveCfg = Release|Any CPU
+		{7F8C43BD-5FEF-47DB-969C-21C4DDDEF600}.Release|x64.Build.0 = Release|Any CPU
+		{7F8C43BD-5FEF-47DB-969C-21C4DDDEF600}.Release|x86.ActiveCfg = Release|Any CPU
+		{7F8C43BD-5FEF-47DB-969C-21C4DDDEF600}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
