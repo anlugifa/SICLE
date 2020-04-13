@@ -1,4 +1,5 @@
 ﻿using Dominio.Entidades;
+using Dominio.Entidades.Acesso;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -26,7 +27,6 @@ namespace Sicle.Dados.Context.Config
             model.Entity<AssociacaoGrupoUsuario>()
                         .HasOne(b => b.Grupo)
                         .WithMany(b => b.Usuarios)
-                        .HasForeignKey(b => b.GrupoUsuarioId);
                         .HasForeignKey(b => b.GrupoUsuarioId);
         }
     }
