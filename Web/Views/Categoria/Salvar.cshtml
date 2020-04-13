@@ -1,0 +1,31 @@
+@{   
+    ViewData["Title"] = "Categoria";
+}
+@model Dominio.Entidades.Categoria
+
+<h2>Salvar Categoria</h2>
+
+<div class="form-group">
+    <div class="col-md-6">
+        <label class="col-md-6 control-label">@ViewBag.Msg</label>
+    </div>        
+</div>
+
+<form class="form-horizontal" asp-action="Salvar" asp-controller="Categoria" method="POST">
+    <input type="hidden" class="form-control" asp-for="Id">
+    <div class="form-group">
+        <label class="col-md-1 control-label" for="Name">Name</label>
+        <div class="col-md-2">
+            <input type="text" class="form-control" asp-for="Name">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-2">
+            <button class="btn btn-success btn-sm">Save</button>
+        </div>        
+    </div>
+
+</form>
+
+

@@ -1,0 +1,35 @@
+@{   
+    ViewData["Title"] = "Configuração";
+}
+@model IEnumerable<Dominio.Entidades.Configuracao>
+
+<a href="/Configuracao/Salvar" class="btn">Nova Configuração</a>
+
+
+<div class="row">
+    <div class="col-md-12">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.Code</td>
+                        <td>@item.Value</td>
+                        <td>
+                            <a href="/Configuracao/Editar/@item.Code" class="btn btn-primary btn-sm">Editar</a>
+                        </td>
+                        <td>
+                            <a href="/Configuracao/Remover/@item.Code" class="btn btn-danger btn-sm">Remover</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+

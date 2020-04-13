@@ -1,0 +1,161 @@
+@model Sicle.Web.Areas.Acessos.Models.AssociacaoGrupoUsuarioModel
+@{
+    ViewData["Title"] = "Associação de Grupo de Usuários";
+}
+
+
+<div class="row">
+    <div class="col-md-6">
+        <h2>Associação Grupo de Usuários</h2>
+    </div>
+</div>
+
+<p></p>
+<div class="row">
+    <div class="col-md-12 float-left">
+        <form asp-action="Associar" method="get">
+            <div class="form-group row">
+                <div class="col-sm-1">
+                    <label for="Grupo" class="col-form-label">Grupo:</label>
+                </div>
+                <div class="col-sm-4">
+                    <select class="form-control" asp-for="GrupoId" 
+                            data-val="false" 
+                            id="ddlGrupos" 
+                            onchange="location.href='/Acessos/AssociacaoGrupoUsuarios/index?grupoId='+this.value"
+                            asp-items='@(new SelectList(Model.Grupos, "Id", "Nome", Model.GrupoId))'>
+                    </select>
+                </div>
+                <div class="col-sm-1">
+                    <label for="Grupo" class="col-form-label">Usuário:</label>
+                </div>
+                <div class="col-sm-4">
+
+                    <select class="form-control" asp-for="UsuarioId" data-val="false" id="ddlUsuarios"
+                            asp-items='@(new SelectList(Model.Usuarios, "Id", "Nome", Model.UsuarioId))'>
+                    </select>
+
+                </div>
+
+                <div class="col-sm-2">
+                    <input type="submit" name="btnAdd" value="Associar" class="btn btn-light" />
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<hr class="my-4">
+<div class="row">
+    <div class="col-md-12 float-right">
+        <form asp-action="Index" method="get">
+            <div class="form-group row">
+
+                <div class="col-sm-1">
+                    <label for="Nome" class="col-form-label">Nome:</label>
+                </div>
+                <div class="col-sm-4">
+                    <input type="text" name="SearchString" class="form-control" value='@ViewData["currentFilter"]' />
+                </div>
+                <div class="col-sm-4">
+                    <input type="submit" name="btnSearch" value="Pesquisar" class="btn btn-light" /> |
+                    <a asp-action="Index" class="btn btn-light">Limpar</a> |
+                    <a href="/Acesso/Usuario/Salvar" class="btn btn-light">Novo</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>
+                        <a asp-action="Index"
+                           asp-route-sortOrder="@ViewData["MatriculaSortParm"]"
+                           asp-route-currentFilter="@ViewData["CurrentFilter"]">Matricula</a>
+                    </th>
+                    <th>
+                        <a asp-action="Index"
+                           asp-route-sortOrder="@ViewData["NameSortParm"]"
+                           asp-route-currentFilter="@ViewData["CurrentFilter"]">Nome</a>
+                    </th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(modelItem => item.Usuario.Matricula)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Usuario.Nome)</td>
+
+                        <td>
+                            @Html.ActionLink("Desassociar", "Desassociar",
+                            new { grupoId = @item.GrupoUsuarioId, usuarioId = @item.UsuarioId })
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+@{
+    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+}
+
+<nav aria-label="Page navigation example">
+    <ul class="pagination">
+        <li class="page-item">
+            <a asp-action="Index"
+               asp-route-grupoUserId='@ViewData["GrupoId"]'
+               asp-route-sortOrder='@ViewData["CurrentSort"]'
+               asp-route-pageNumber='@(Model.PageIndex - 1)'
+               asp-route-currentFilter='@ViewData["CurrentFilter"]'
+               class="btn btn-default @prevDisabled">
+                Anterior
+            </a>
+        </li>
+
+        <li class="page-item">
+            <a asp-action="Index"
+               asp-route-grupoUserId='@ViewData["GrupoId"]'
+               asp-route-sortOrder='@ViewData["CurrentSort"]'
+               asp-route-pageNumber='@(Model.PageIndex + 1)'
+               asp-route-currentFilter='@ViewData["CurrentFilter"]'
+               class="btn btn-default @nextDisabled">
+                Próximo
+            </a>
+        </li>
+    </ul>
+</nav>
+
+@section Scripts
+{
+    <script type="text/javascript">
+
+
+        $(document).ready(function () {
+
+            var input = document.getElementById("SearchString");
+
+            if (input != null) {
+                // Execute a function when the user releases a key on the keyboard
+                input.addEventListener("keyup", function (event) {
+                    // Number 13 is the "Enter" key on the keyboard
+                    if (event.keyCode === 13) {
+                        // Cancel the default action, if needed
+                        event.preventDefault();
+                        // Trigger the button element with a click
+                        document.getElementById("btnSearch").click();
+                    }
+                });
+            }
+           
+        });
+
+
+    </script>
+}

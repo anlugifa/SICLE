@@ -1,0 +1,133 @@
+@{
+    ViewData["Title"] = "Usuários";
+}
+@model Web.Models.PaginatedList<Dominio.Entidades.Acesso.Usuario>
+
+<div class="row">
+    <div class="col-md-6">
+        <h2>Usuários</h2>
+    </div>
+</div>
+
+<p></p>
+<div class="row">
+    <div class="col-md-12 float-right">
+        <form asp-action="Index" method="get">
+            <div class="form-group row">
+
+                <div class="col-sm-2">
+                    <label for="ex1" class="col-form-label">Nome:</label>
+                </div>
+                <div class="col-sm-5">
+                    <input type="text" name="SearchString" class="form-control" value='@ViewData["currentFilter"]' />
+                </div>
+                <div class="col-sm-5">
+                    <input type="submit" name="btnSearch" value="Pesquisar" class="btn btn-light" /> |
+                    <a asp-action="Index" class="btn btn-light">Limpar</a> |
+                    <a href="/Acesso/Usuario/Salvar" class="btn btn-light">Novo</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>
+                        <a asp-action="Index"
+                           asp-route-sortOrder="@ViewData["MatriculaSortParm"]"
+                           asp-route-currentFilter="@ViewData["CurrentFilter"]">Matricula</a>
+                    </th>
+                    <th>
+                        <a asp-action="Index"
+                           asp-route-sortOrder="@ViewData["NameSortParm"]"
+                           asp-route-currentFilter="@ViewData["CurrentFilter"]">Nome</a>
+                    </th>
+                    <th>
+                        Nome SGP
+                    </th>
+                    <th>
+                        Combustível
+                    </th>
+                    <th>
+                        Energia
+                    </th>
+                    <th>
+                        Ativo
+                    </th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.Matricula)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Nome)</td>
+                    <td>@Html.DisplayFor(modelItem => item.NomeSGP)</td>
+                    <td>@Html.CheckBoxFor(modelItem => item.IsTraderComb, new { disabled = "disabled" })</td>
+                    <td>@Html.CheckBoxFor(modelItem => item.IsTraderEAB, new { disabled = "disabled" })</td>
+                    <td>@Html.CheckBoxFor(modelItem => item.IsAtivo, new { disabled = "disabled" })</td>
+                    <td>
+                        @Html.ActionLink("Editar", "Editar", new {id=@item.Id})
+                    </td>
+                    <td>
+                        @Html.ActionLink("Desabilitar", "Desabilitar", new { id = @item.Id })
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+@{
+    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+}
+
+<nav aria-label="Page navigation example">
+    <ul class="pagination">
+        <li class="page-item">
+            <a asp-action="Index"
+               asp-route-sortOrder='@ViewData["CurrentSort"]'
+               asp-route-pageNumber='@(Model.PageIndex - 1)'
+               asp-route-currentFilter='@ViewData["CurrentFilter"]'
+               class="btn btn-default @prevDisabled">
+                Anterior
+            </a>
+        </li>
+
+        <li class="page-item">
+            <a asp-action="Index"
+               asp-route-sortOrder='@ViewData["CurrentSort"]'
+               asp-route-pageNumber='@(Model.PageIndex + 1)'
+               asp-route-currentFilter='@ViewData["CurrentFilter"]'
+               class="btn btn-default @nextDisabled">
+                Próximo
+            </a>
+        </li>
+    </ul>
+</nav>
+
+
+<script>
+    var input = document.getElementById("SearchString");
+
+    var input = document.getElementById("SearchString");
+
+    if (input != null) {
+        // Execute a function when the user releases a key on the keyboard
+        input.addEventListener("keyup", function (event) {
+            // Number 13 is the "Enter" key on the keyboard
+            if (event.keyCode === 13) {
+                // Cancel the default action, if needed
+                event.preventDefault();
+                // Trigger the button element with a click
+                document.getElementById("btnSearch").click();
+            }
+        });
+    }
+</script>
