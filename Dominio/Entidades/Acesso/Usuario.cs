@@ -8,20 +8,20 @@ namespace Dominio.Entidades.Acesso
     {
         public int Id { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Matrícula obrigatória")]
         [MaxLength(8)]
         public string Matricula { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Nome obrigatório")]
         [MaxLength(50)]
         public string Nome { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Nome SGP obrigatório")]
         [MaxLength(50)]
         [Display(Name = "Nome SGP")]
         public string NomeSGP { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "E-mail obrigatório")]
         [EmailAddress]
         public string Email { get; set; }
 

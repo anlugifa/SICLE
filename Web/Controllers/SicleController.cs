@@ -27,13 +27,16 @@ namespace Web.Controllers
             if (!ModelState.IsValid)
             {
                 var sb = new StringBuilder();
+                sb.AppendLine("<ul>");
                 foreach (var modelState in ViewData.ModelState.Values)
                 {
                     foreach (var error in modelState.Errors)
                     {
-                        sb.AppendLine(error.ErrorMessage);
+                        sb.AppendLine("<li>"+error.ErrorMessage+"</li>");
+                        sb.Append(Environment.NewLine);
                     }
                 }
+                sb.AppendLine("</ul>");
 
                 var str = sb.ToString();
                 _log.Info(str);
