@@ -9,7 +9,8 @@ using log4net.Config;
 using log4net.Repository;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Hosting;
+using Microsoft.AspNetCore;
+using Microsoft.Extensions.Logging;
 
 namespace Web
 {
@@ -27,11 +28,16 @@ namespace Web
             XmlConfigurator.Configure(logRepository, new FileInfo("log4net.config"));
         }
 
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder =>
+        public static IWebHostBuilder CreateHostBuilder(string[] args) =>
+            WebHost.CreateDefaultBuilder(args)
+                .ConfigureLogging((hostingContext, logging) =>
                 {
-                    webBuilder.UseStartup<Startup>();
-                });
+                    // Requires `using Microsoft.Extensions.Logging;`
+                    logging.AddConfiguration(hostingContext.Configuration.GetSection("Logging"));
+                    logging.AddConsole();
+                    logging.AddDebug();
+                    logging.AddEventSourceLogger();
+                })
+                .UseStartup<Startup>();
     }
 }

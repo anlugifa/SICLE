@@ -3,21 +3,25 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Dados;
+using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Util;
+using IHostingEnvironment = Microsoft.AspNetCore.Hosting.IHostingEnvironment;
 
 namespace Web
 {
     public class Startup
     {
-        public static IWebHostEnvironment CurrentEnvironment { get; set; }
+        public static IHostingEnvironment CurrentEnvironment { get; set; }
              
 
         public Startup(IConfiguration configuration)
@@ -30,23 +34,32 @@ namespace Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            
+            services.Configure<CookiePolicyOptions>(options =>
+            {
+                // This lambda determines whether user consent for non-essential cookies is needed for a given request.
+                options.CheckConsentNeeded = context => true;
+                options.MinimumSameSitePolicy = SameSiteMode.None;
+            });
+
+
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
             services.AddDbContext<ApplicationDBContext>(options =>
-                {
-                    options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
-                    ///comentar para executar migrations
-                    if (Startup.CurrentEnvironment.IsDevelopment())
-                    {
-                        options.UseLoggerFactory(AppLogger.Factory).EnableSensitiveDataLogging();
-                    }
-                });
+            {
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
+                ///comentar para executar migrations
+                //if (Startup.CurrentEnvironment.IsDevelopment())
+                //{
+                //    options.UseLoggerFactory(AppLogger.Factory).EnableSensitiveDataLogging();
+                //}
+            });
 
-
-           
-            services.AddControllersWithViews().AddRazorRuntimeCompilation();           
+            //services.AddControllersWithViews().AddRazorRuntimeCompilation();           
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             Startup.CurrentEnvironment = env;
 
@@ -64,24 +77,24 @@ namespace Web
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
-            app.UseRouting();            
+            //app.UseRouting();            
 
-            app.UseAuthorization();
+            //app.UseAuthorization();
 
-            app.UseEndpoints(endpoints =>
+            app.UseMvc(routes =>
             {
-                endpoints.MapAreaControllerRoute(
+                routes.MapAreaRoute(
                     name: "AreaAcessos",
                     areaName: "Acessos",
-                    pattern: "Acessos/{controller=Home}/{action=Index}/{id?}");
+                    template: "Acessos/{controller=Home}/{action=Index}/{id?}");
 
-                endpoints.MapControllerRoute(
+                routes.MapRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    template: "{controller=Home}/{action=Index}/{id?}");
 
-                endpoints.MapControllerRoute(
+                routes.MapRoute(
                     name: "areas",
-                    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+                    template: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
             });
         }
     }

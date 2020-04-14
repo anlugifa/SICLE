@@ -15,13 +15,13 @@ namespace Util
             {
                 if (_factory == null)
                 {
-                    _factory = LoggerFactory.Create(builder =>
-                    {
-                        builder
-                            .AddFilter((category, level) =>
-                                category == DbLoggerCategory.Database.Command.Name
-                                && level == LogLevel.Information).AddConsole();
-                    });
+                    //_factory = LoggerFactory.CreateLogger(builder =>
+                    //{
+                    //    builder
+                    //        .AddFilter((category, level) =>
+                    //            category == DbLoggerCategory.Database.Command.Name
+                    //            && level == LogLevel.Information).AddConsole();
+                    //});
                 }
                 return _factory;
             }

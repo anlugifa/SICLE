@@ -95,6 +95,7 @@ namespace Web.Controllers
                 await _repo.SaveOrUpdate(modelo);
             }
 
+            ViewBag.SuccessMsg = "Usuário salvo com sucesso!"; 
             return View(modelo);
         }
     }
