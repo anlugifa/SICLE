@@ -25,39 +25,10 @@ namespace Dados.Repository
             return (int)typeof(Perfil).GetProperty("Id").GetValue(entity);
         }
 
-        //public override Perfil MergeFromDB(Perfil localCopy)
-        //{
-        //    var objFromDB = Get(localCopy.Id);
-
-        //    if (objFromDB == null)
-        //        throw new ArgumentException("ERRO: ID " + localCopy.Code + 
-        //            " NOT FOUND FOR ENTITY: PERFIL");
-
-        //    objfromdb.code = localcopy.code;
-        //    objfromdb.nome = localcopy.nome;
-        //    objfromdb.volume = localcopy.volume;
-        //    objfromdb.prazo = localcopy.prazo;
-        //    objfromdb.preco = localcopy.preco;
-        //    objfromdb.rating = localcopy.rating;
-        //    objfromdb.volumecontrato = localcopy.volumecontrato;
-        //    objfromdb.volumecomplemento = localcopy.volumecomplemento;
-
-        //    objfromdb.vlvolumeenergia = localcopy.vlvolumeenergia;
-        //    objfromdb.vlvolumecontratoenergia = localcopy.vlvolumecontratoenergia;
-        //    objfromdb.vlvolumeimportacao = localcopy.vlvolumeimportacao;
-        //    objfromdb.vlprecoenergia = localcopy.vlprecoenergia;
-        //    objfromdb.vlprazoenergia = localcopy.vlprazoenergia;
-        //    objfromdb.vlvolumecomplementoenergia = localcopy.vlvolumecomplementoenergia;
-
-        //    objfromdb.vlvolumecomplementoenergia = localcopy.vlvolumecomplementoenergia;
-        //    objfromdb.vlvolumecomplementoenergia = localcopy.vlvolumecomplementoenergia;
-        //    objfromdb.vlvolumecomplementoenergia = localcopy.vlvolumecomplementoenergia;
-        //    objfromdb.vlvolumecomplementoenergia = localcopy.vlvolumecomplementoenergia;
-
-
-        //    objfromdb.profilelevel = localcopy.profilelevel;
-
-        //    return objFromDB;
-        //}
+        public IQueryable<AssociacaoUsuarioPerfil> GetAssociacaoUsuario(int perfilId)
+        {
+            return _context.AssociacaoUsuarioPerfis.Where(g => g.PerfilId == perfilId)
+                                    .AsQueryable<AssociacaoUsuarioPerfil>();
+        }
     }
 }

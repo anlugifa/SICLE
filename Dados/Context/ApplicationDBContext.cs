@@ -41,5 +41,7 @@ namespace Dados
         public DbSet<PerfilVenda> PerfisVendas { get; set; }
         public DbSet<GrupoUsuario> GruposUsuarios { get; set; }
         public DbSet<AssociacaoGrupoUsuario> AssociacaoGruposUsuarios { get; set; }
+        public DbSet<AssociacaoUsuarioPerfil> AssociacaoUsuarioPerfis { get; set; }
+        public DbSet<AssociacaoUsuarioPerfilVenda> AssociacaoUsuarioPerfilVendas { get; set; }
     }
 }

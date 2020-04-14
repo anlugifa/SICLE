@@ -24,5 +24,11 @@ namespace Dados.Repository
         {
             return (int)typeof(PerfilVenda).GetProperty("Id").GetValue(entity);
         }
+
+        public IQueryable<AssociacaoUsuarioPerfilVenda> GetAssociacaoUsuario(int perfilId)
+        {
+            return _context.AssociacaoUsuarioPerfilVendas.Where(g => g.PerfilVendaId == perfilId)
+                                    .AsQueryable<AssociacaoUsuarioPerfilVenda>();
+        }
     }
 }

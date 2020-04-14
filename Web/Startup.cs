@@ -33,6 +33,7 @@ namespace Web
             services.AddDbContext<ApplicationDBContext>(options =>
                 {
                     options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
+                    ///comentar para executar migrations
                     if (Startup.CurrentEnvironment.IsDevelopment())
                     {
                         options.UseLoggerFactory(AppLogger.Factory).EnableSensitiveDataLogging();

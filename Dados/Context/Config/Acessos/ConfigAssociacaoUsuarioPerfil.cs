@@ -22,12 +22,12 @@ namespace Sicle.Dados.Context.Config.Acessos
             model.Entity<AssociacaoUsuarioPerfil>()
                         .HasOne(b => b.Usuario)
                         .WithMany(b => b.Perfis)
-                        .HasForeignKey(b => b.PerfilId);
+                        .HasForeignKey(b => b.UsuarioId);
 
             model.Entity<AssociacaoUsuarioPerfil>()
                         .HasOne(b => b.Perfil)
                         .WithMany(b => b.Usuarios)
-                        .HasForeignKey(b => b.UsuarioId);
+                        .HasForeignKey(b => b.PerfilId);
         }
     }
 }

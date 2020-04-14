@@ -21,17 +21,17 @@ namespace Sicle.Web.Areas.Acessos.Controllers
     /// Ao selecionar o grupo no DDL os usuários associados são mostrados na tabela de associação. 
     /// </summary>
     [Area("Acessos")]
-    public class AssociacaoGrupoUsuariosController : SicleController
+    public class AssociacaoUsuarioPerfilController : SicleController
     {
-        private readonly GrupoUsuarioRepository _grpUsrRepo;
+        private readonly PerfilRepository _perfilRepo;
         private readonly UsuarioRepository _usrRepo;
 
         public GrupoUsuario _grupoUsuarioselected;
 
-        public AssociacaoGrupoUsuariosController(ApplicationDBContext context) : base(context)
+        public AssociacaoUsuarioPerfilController(ApplicationDBContext context) : base(context)
         {
             _usrRepo = new UsuarioRepository(_context);
-            _grpUsrRepo = new GrupoUsuarioRepository(_context);
+            _perfilRepo = new PerfilRepository(_context);
         }
 
         public async Task<IActionResult> Index(int? grupoId,
@@ -59,7 +59,7 @@ namespace Sicle.Web.Areas.Acessos.Controllers
             ViewData["GrupoId"] = grupoId;
             ViewData["CurrentFilter"] = searchString;
             
-            IQueryable<AssociacaoGrupoUsuario> query = _grpUsrRepo.GetAssociacaoGrupoUsuarios(grupoId.Value);
+            IQueryable<AssociacaoUsuarioPerfil> query = _perfilRepo.GetAssociacaoUsuario(grupoId.Value);
             
             if (!String.IsNullOrEmpty(searchString))
             {
@@ -81,35 +81,35 @@ namespace Sicle.Web.Areas.Acessos.Controllers
                     break;
             }
             var list = query.ToList();
-            var model = new AssociacaoGrupoUsuarioModel(list, list.Count(), pageNumber ?? 1, _pageSize);
+            var model = new AssociacaoUsuarioPerfilModel(list, list.Count(), pageNumber ?? 1, _pageSize);
 
             // aguardamos a thread finalizar para não gerar concorrência de Thread no dbContext em _usrRepo.GetAllAsync()
-            model.Grupos = await _grpUsrRepo.GetAllAsync();
+            model.Perfis = await _perfilRepo.GetAllAsync();
             model.Usuarios = _usrRepo.GetAllAsync().Result;
 
             return View(model);            
         }
 
-        public IActionResult Associar(int grupoId, int usuarioId)
+        public IActionResult Associar(int perfilId, int usuarioId)
         {
-            _log.Info(String.Format("Associar usuário {0} no grupo {1} ", usuarioId, grupoId));
-            if (usuarioId == 0 || grupoId == 0)
-                throw new ArgumentException(String.Format("Usuário {0} ou Grupo {1} inválidos.", usuarioId, grupoId));
+            _log.Info(String.Format("Associar usuário {0} no grupo {1} ", usuarioId, perfilId));
+            if (usuarioId == 0 || perfilId == 0)
+                throw new ArgumentException(String.Format("Usuário {0} ou Perfil {1} inválidos.", usuarioId, perfilId));
 
-            _usrRepo.AssociarGrupo(usuarioId, grupoId);
+            _usrRepo.AssociarPerfil(usuarioId, perfilId);
 
-            return RedirectToAction("Index", new { grupoId = grupoId });
+            return RedirectToAction("Index", new { grupoId = perfilId });
         }
 
-        public IActionResult Desassociar(int grupoId, int usuarioId)
+        public IActionResult Desassociar(int perfilId, int usuarioId)
         {
-            _log.Info(String.Format("Desassociar usuário {0} no grupo {1} ", usuarioId, grupoId));
-            if (usuarioId == 0 || grupoId == 0)
-                throw new ArgumentException(String.Format("Usuário {0} ou Grupo {1} inválidos.", usuarioId, grupoId));
+            _log.Info(String.Format("Desassociar usuário {0} no perfil {1} ", usuarioId, perfilId));
+            if (usuarioId == 0 || perfilId == 0)
+                throw new ArgumentException(String.Format("Usuário {0} ou Perfil {1} inválidos.", usuarioId, perfilId));
 
-            _usrRepo.DesassociarGrupo(usuarioId, grupoId);
+            _usrRepo.DesassociarPerfil(usuarioId, perfilId);
 
-            return RedirectToAction("Index", new { grupoId = grupoId });
+            return RedirectToAction("Index", new { grupoId = perfilId });
         }
     }
 }

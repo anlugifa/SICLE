@@ -78,5 +78,76 @@ namespace Dados.Repository
             _context.AssociacaoGruposUsuarios.Remove(associacao);
             _context.SaveChanges();
         }
+
+        public void AssociarPerfil(int usuarioId, int perfilId)
+        {
+            var associacao = _context.AssociacaoUsuarioPerfis
+                                .Where(g => g.UsuarioId == usuarioId && g.PerfilId == perfilId)
+                                .FirstOrDefault();
+
+            if (associacao != null)
+                throw new ArgumentException(
+                    String.Format("Usuário {0} JÁ associado ao perfil {1}", usuarioId, perfilId));
+
+            associacao = new AssociacaoUsuarioPerfil()
+            {
+                UsuarioId = usuarioId,
+                PerfilId = perfilId
+            };
+
+            _context.AssociacaoUsuarioPerfis.Add(associacao);
+            _context.SaveChanges();
+        }
+
+        public void DesassociarPerfil(int usuarioId, int perfilId)
+        {
+            var associacao = _context.AssociacaoUsuarioPerfis
+                                .Where(g => g.UsuarioId == usuarioId && g.PerfilId == perfilId)
+                                .FirstOrDefault();
+
+            if (associacao == null)
+                if (associacao != null)
+                    throw new ArgumentException(
+                        String.Format("Usuário {0} NÃO associado ao perfil {1}", usuarioId, perfilId));
+
+            _context.AssociacaoUsuarioPerfis.Remove(associacao);
+            _context.SaveChanges();
+        }
+
+        ////
+        public void AssociarPerfilVenda(int usuarioId, int perfilVendaId)
+        {
+            var associacao = _context.AssociacaoUsuarioPerfilVendas
+                                .Where(g => g.UsuarioId == usuarioId && g.PerfilVendaId == perfilVendaId)
+                                .FirstOrDefault();
+
+            if (associacao != null)
+                throw new ArgumentException(
+                    String.Format("Usuário {0} JÁ associado ao perfil {1}", usuarioId, perfilVendaId));
+
+            associacao = new AssociacaoUsuarioPerfilVenda()
+            {
+                UsuarioId = usuarioId,
+                PerfilVendaId = perfilVendaId
+            };
+
+            _context.AssociacaoUsuarioPerfilVendas.Add(associacao);
+            _context.SaveChanges();
+        }
+
+        public void DesassociarPerfilVenda(int usuarioId, int perfilVendaId)
+        {
+            var associacao = _context.AssociacaoUsuarioPerfilVendas
+                                .Where(g => g.UsuarioId == usuarioId && g.PerfilVendaId == perfilVendaId)
+                                .FirstOrDefault();
+
+            if (associacao == null)
+                if (associacao != null)
+                    throw new ArgumentException(
+                        String.Format("Usuário {0} NÃO associado ao PerfilVenda {1}", usuarioId, perfilVendaId));
+
+            _context.AssociacaoUsuarioPerfilVendas.Remove(associacao);
+            _context.SaveChanges();
+        }
     }
 }
