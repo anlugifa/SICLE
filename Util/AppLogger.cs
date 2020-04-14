@@ -5,7 +5,7 @@ using Microsoft.Extensions.Logging.Console;
 
 namespace Util
 {
-    public class AppLooger
+    public class AppLogger
     {
         private static ILoggerFactory _factory = null;
 

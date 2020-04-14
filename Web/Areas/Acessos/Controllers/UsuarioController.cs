@@ -6,14 +6,19 @@ using System.Linq;
 using Web.Models;
 using Dominio.Entidades.Acesso;
 using Microsoft.EntityFrameworkCore;
+using System.Text;
+using Dados.Repository;
 
 namespace Web.Controllers
 {
     [Area("Acessos")]
     public class UsuarioController : SicleController
-    { 
+    {
+        private readonly UsuarioRepository _repo;
+
         public UsuarioController(ApplicationDBContext context) : base(context)
         {
+            _repo = new UsuarioRepository(context);
         }  
 
         public async Task<IActionResult> Index(string sortOrder,
@@ -36,30 +41,61 @@ namespace Web.Controllers
 
             ViewData["CurrentFilter"] = searchString;
 
-            var usuarios = from s in _context.Usuarios
-                           select s;
+            var query = _repo.AsQueryable();
 
             if (!String.IsNullOrEmpty(searchString))
             {
-                usuarios = usuarios.Where(s => s.Nome.Contains(searchString)
+                query = query.Where(s => s.Nome.Contains(searchString)
                                        || s.NomeSGP.Contains(searchString));
             }
             switch (sortOrder)
             {
                 case "name_desc":
-                    usuarios = usuarios.OrderByDescending(s => s.Nome);
+                    query = query.OrderByDescending(s => s.Nome);
                     break;
                 case "matricula_desc":
-                    usuarios = usuarios.OrderBy(s => s.Matricula);
+                    query = query.OrderBy(s => s.Matricula);
                     break;                
                 default:
-                    usuarios = usuarios.OrderBy(s => s.Nome);
+                    query = query.OrderBy(s => s.Nome);
                     break;
             }
 
-            int pageSize = 20;
             return View(await PaginatedList<Usuario>
-                        .CreateAsync(usuarios.AsNoTracking(), pageNumber ?? 1, pageSize));
+                        .CreateAsync(query.AsNoTracking(), pageNumber ?? 1, _pageSize));
+        }
+
+        [HttpGet]
+        public IActionResult Editar(int id)
+        {
+            var usuario = _repo.Get(id);
+
+            return View("Salvar", usuario);
+        }
+
+        [HttpGet]
+        public IActionResult Remover(int id)
+        {
+            _repo.Delete(id);
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public IActionResult Salvar()
+        {
+            return View(new Usuario());
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Salvar(Usuario modelo)
+        {
+            if (ValidateModel())
+            {              
+                await _repo.SaveOrUpdate(modelo);
+            }
+
+            return View(modelo);
         }
     }
 }

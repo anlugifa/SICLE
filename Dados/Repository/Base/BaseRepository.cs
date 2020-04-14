@@ -50,42 +50,42 @@ namespace Dados.Repository.Base
             return q;
         }
 
-        public virtual void SaveOrUpdate(TEntity e)
+        public virtual Task SaveOrUpdate(TEntity e)
         {
             if (!Exists(e))
             {
-                Save(e);
+                return Save(e);
             }
             else
             {
                 var fromDB = MergeFromDB(e);
-                Update(fromDB);
+                return Update(fromDB);
             }
         }
 
-        public virtual void Save(TEntity e)
+        public virtual Task Save(TEntity e)
         {
             _context.Set<TEntity>().Add(e);
-            _context.SaveChangesAsync();
+            return _context.SaveChangesAsync();
         }
 
-        public virtual void Update(TEntity e)
+        public virtual Task Update(TEntity e)
         {
             _context.Set<TEntity>().Attach(e);
-            _context.SaveChangesAsync();
+            return _context.SaveChangesAsync();
         }
 
 
-        public virtual void Delete(IdType e)
+        public virtual Task Delete(IdType e)
         {
             var item = Get(e);
-            Delete(e);
+            return Delete(e);
         }
 
-        public virtual void Delete(TEntity e)
+        public virtual Task Delete(TEntity e)
         {
             var result = _context.Set<TEntity>().Remove(e);
-            _context.SaveChangesAsync();
+            return _context.SaveChangesAsync();
         }
 
         public virtual Task<List<TEntity>> GetAllAsync()

@@ -31,6 +31,19 @@ namespace Dados.Repository
                                     .AsQueryable<AssociacaoGrupoUsuario>();
         }
 
+        public override Task Delete(int e)
+        {
+            var u = Get(e);
+            u.IsAtivo = false;
+
+            return Update(u);
+        }
+
+        public override Task Delete(Usuario e)
+        {
+            return Delete(e.Id);
+        }
+
         public void AssociarGrupo(int usuarioId, int grupoId)
         {            
             var associacao = _context.AssociacaoGruposUsuarios

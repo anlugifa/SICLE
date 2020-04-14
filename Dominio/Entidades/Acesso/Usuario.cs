@@ -18,13 +18,14 @@ namespace Dominio.Entidades.Acesso
 
         [Required]
         [MaxLength(50)]
+        [Display(Name = "Nome SGP")]
         public string NomeSGP { get; set; }
 
         [Required]
         [EmailAddress]
         public string Email { get; set; }
 
-        public bool IsPerfil { get; set; }
+        public bool IsScaPerfil { get; set; }
 
         public bool IsAtivo { get; set; }
 

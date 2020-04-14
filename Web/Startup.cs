@@ -11,7 +11,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Util;
 
 namespace Web
@@ -19,8 +18,7 @@ namespace Web
     public class Startup
     {
         public static IWebHostEnvironment CurrentEnvironment { get; set; }
-
-       
+             
 
         public Startup(IConfiguration configuration)
         {
@@ -37,11 +35,13 @@ namespace Web
                     options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
                     if (Startup.CurrentEnvironment.IsDevelopment())
                     {
-                        options.UseLoggerFactory(AppLooger.Factory).EnableSensitiveDataLogging();
+                        options.UseLoggerFactory(AppLogger.Factory).EnableSensitiveDataLogging();
                     }
                 });
 
-            services.AddControllersWithViews();
+
+           
+            services.AddControllersWithViews().AddRazorRuntimeCompilation();           
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -59,10 +59,11 @@ namespace Web
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
-            app.UseRouting();
+            app.UseRouting();            
 
             app.UseAuthorization();
 

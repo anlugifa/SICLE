@@ -63,9 +63,8 @@ namespace Web.Controllers
                     break;
             }
 
-            int pageSize = 20;
             return View(await PaginatedList<GrupoUsuario>
-                        .CreateAsync(query.AsNoTracking(), pageNumber ?? 1, pageSize));
+                        .CreateAsync(query.AsNoTracking(), pageNumber ?? 1, _pageSize));
         }
     }
 }
