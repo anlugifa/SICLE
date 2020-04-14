@@ -21,18 +21,18 @@ namespace Sicle.Web.Areas.Acessos.Controllers
     /// Ao selecionar o grupo no DDL os usuários associados são mostrados na tabela de associação. 
     /// </summary>
     [Area("Acessos")]
-    public class AssociacaoUsuarioPerfilController : SicleController
+    public class AssociacaoUsuarioPerfilVendaController : SicleController
     {
-        private readonly PerfilRepository _perfilRepo;
+        private readonly PerfilVendaRepository _perfilRepo;
         private readonly UsuarioRepository _usrRepo;
 
-        public AssociacaoUsuarioPerfilController(ApplicationDBContext context) : base(context)
+        public AssociacaoUsuarioPerfilVendaController(ApplicationDBContext context) : base(context)
         {
             _usrRepo = new UsuarioRepository(_context);
-            _perfilRepo = new PerfilRepository(_context);
+            _perfilRepo = new PerfilVendaRepository(_context);
         }
 
-        public async Task<IActionResult> Index(int? perfilId,
+        public async Task<IActionResult> Index(int? perfilVendaId,
                                     string sortOrder,
                                     string currentFilter,
                                     string searchString,
@@ -52,12 +52,12 @@ namespace Sicle.Web.Areas.Acessos.Controllers
                 searchString = currentFilter;
             }
 
-            perfilId = (perfilId ?? 1); // se grupo id não informado, pegar o primeiro
+            perfilVendaId = (perfilVendaId ?? 1); // se grupo id não informado, pegar o primeiro
 
-            ViewData["PerfilId"] = perfilId;
+            ViewData["PerfilVendaId"] = perfilVendaId;
             ViewData["CurrentFilter"] = searchString;
             
-            IQueryable<AssociacaoUsuarioPerfil> query = _perfilRepo.GetAssociacaoUsuario(perfilId.Value);
+            IQueryable<AssociacaoUsuarioPerfilVenda> query = _perfilRepo.GetAssociacaoUsuario(perfilVendaId.Value);
             
             if (!String.IsNullOrEmpty(searchString))
             {
@@ -79,7 +79,7 @@ namespace Sicle.Web.Areas.Acessos.Controllers
                     break;
             }
             var list = query.ToList();
-            var model = new AssociacaoUsuarioPerfilModel(list, list.Count(), pageNumber ?? 1, _pageSize);
+            var model = new AssociacaoUsuarioPerfilVendaModel(list, list.Count(), pageNumber ?? 1, _pageSize);
 
             // aguardamos a thread finalizar para não gerar concorrência de Thread no dbContext em _usrRepo.GetAllAsync()
             model.Perfis = await _perfilRepo.GetAllAsync();
@@ -88,26 +88,26 @@ namespace Sicle.Web.Areas.Acessos.Controllers
             return View(model);            
         }
 
-        public IActionResult Associar(int perfilId, int usuarioId)
+        public IActionResult Associar(int perfilVendaId, int usuarioId)
         {
-            _log.Info(String.Format("Associar usuário {0} no Perfil {1} ", usuarioId, perfilId));
-            if (usuarioId == 0 || perfilId == 0)
-                throw new ArgumentException(String.Format("Usuário {0} ou Perfil {1} inválidos.", usuarioId, perfilId));
+            _log.Info(String.Format("Associar usuário {0} no PerfilVenda {1} ", usuarioId, perfilVendaId));
+            if (usuarioId == 0 || perfilVendaId == 0)
+                throw new ArgumentException(String.Format("Usuário {0} ou PerfilVenda {1} inválidos.", usuarioId, perfilVendaId));
 
-            _usrRepo.AssociarPerfil(usuarioId, perfilId);
+            _usrRepo.AssociarPerfilVenda(usuarioId, perfilVendaId);
 
-            return RedirectToAction("Index", new { grupoId = perfilId });
+            return RedirectToAction("Index", new { grupoId = perfilVendaId });
         }
 
-        public IActionResult Desassociar(int perfilId, int usuarioId)
+        public IActionResult Desassociar(int perfilVendaId, int usuarioId)
         {
-            _log.Info(String.Format("Desassociar usuário {0} no Perfil {1} ", usuarioId, perfilId));
-            if (usuarioId == 0 || perfilId == 0)
-                throw new ArgumentException(String.Format("Usuário {0} ou Perfil {1} inválidos.", usuarioId, perfilId));
+            _log.Info(String.Format("Desassociar usuário {0} no PerfilVenda {1} ", usuarioId, perfilVendaId));
+            if (usuarioId == 0 || perfilVendaId == 0)
+                throw new ArgumentException(String.Format("Usuário {0} ou PerfilVenda {1} inválidos.", usuarioId, perfilVendaId));
 
-            _usrRepo.DesassociarPerfil(usuarioId, perfilId);
+            _usrRepo.DesassociarPerfilVenda(usuarioId, perfilVendaId);
 
-            return RedirectToAction("Index", new { grupoId = perfilId });
+            return RedirectToAction("Index", new { grupoId = perfilVendaId });
         }
     }
 }

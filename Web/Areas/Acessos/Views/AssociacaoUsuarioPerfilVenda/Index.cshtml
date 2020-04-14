@@ -1,12 +1,12 @@
-@model Sicle.Web.Areas.Acessos.Models.AssociacaoUsuarioPerfilModel
+@model Sicle.Web.Areas.Acessos.Models.AssociacaoUsuarioPerfilVendaModel
 @{
-    ViewData["Title"] = "Associação de Usuários em Perfil";
+    ViewData["Title"] = "Associação de Usuários em Perfil de Venda";
 }
 
 
 <div class="row">
     <div class="col-md-12">
-        <h2>Associação de Usuários em Perfil de Compra</h2>
+        <h2>Associação de Usuários em Perfil de Venda</h2>
     </div>
 </div>
 
@@ -19,11 +19,11 @@
                     <label for="Perfil" class="col-form-label">Perfil:</label>
                 </div>
                 <div class="col-sm-4">
-                    <select class="form-control" asp-for="PerfilId" 
+                    <select class="form-control" asp-for="PerfilVendaId" 
                             data-val="false" 
                             id="ddlPerfis" 
-                            onchange="location.href='/Acessos/AssociacaoUsuarioPerfil/index?perfilId='+this.value"
-                            asp-items='@(new SelectList(Model.Perfis, "Id", "Nome", Model.PerfilId))'>
+                            onchange="location.href='/Acessos/AssociacaoUsuarioPerfilVenda/index?perfilId='+this.value"
+                            asp-items='@(new SelectList(Model.Perfis, "Id", "Nome", Model.PerfilVendaId))'>
                     </select>
                 </div>
                 <div class="col-sm-1">
@@ -92,7 +92,7 @@
 
                         <td>
                             @Html.ActionLink("Desassociar", "Desassociar",
-                            new { perfilId = @item.PerfilId, usuarioId = @item.UsuarioId })
+                            new { perfilVendaId = @item.PerfilVendaId, usuarioId = @item.UsuarioId })
                         </td>
                     </tr>
                 }
@@ -109,7 +109,7 @@
     <ul class="pagination">
         <li class="page-item">
             <a asp-action="Index"
-               asp-route-perfilId='@ViewData["PerfilId"]'
+               asp-route-perfilVendaId='@ViewData["PerfilVendaId"]'
                asp-route-sortOrder='@ViewData["CurrentSort"]'
                asp-route-pageNumber='@(Model.PageIndex - 1)'
                asp-route-currentFilter='@ViewData["CurrentFilter"]'
@@ -120,7 +120,7 @@
 
         <li class="page-item">
             <a asp-action="Index"
-               asp-route-perfilId='@ViewData["PerfilId"]'
+               asp-route-perfilVendaId='@ViewData["PerfilVendaId"]'
                asp-route-sortOrder='@ViewData["CurrentSort"]'
                asp-route-pageNumber='@(Model.PageIndex + 1)'
                asp-route-currentFilter='@ViewData["CurrentFilter"]'
