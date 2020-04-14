@@ -66,5 +66,38 @@ namespace Sicle.Web.Controllers.Acesso
             return View(await PaginatedList<Perfil>
                         .CreateAsync(perfis.AsNoTracking(), pageNumber ?? 1, pageSize));
         }
+
+        [HttpGet]
+        public IActionResult Editar(int id)
+        {
+            var item = _repo.Get(id);
+
+            return View("Salvar", item);
+        }
+
+        [HttpGet]
+        public IActionResult Remover(int id)
+        {
+            _repo.Delete(id);
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public IActionResult Salvar()
+        {
+            return View(new Perfil());
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Salvar(Perfil modelo)
+        {
+            if (ValidateModel())
+            {
+                await _repo.SaveOrUpdate(modelo);
+            }
+
+            return View(modelo);
+        }
     }
 }

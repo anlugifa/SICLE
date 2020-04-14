@@ -5,7 +5,7 @@
 
 <div class="row">
     <div class="col-md-6">
-        <h2>@this.ViewContext.RouteData.Values["controller"]</h2>
+        <h2>Grupo de Usuários</h2>
     </div>
 </div>
 
@@ -24,7 +24,7 @@
                 <div class="col-sm-5">
                     <input type="submit" name="btnSearch" value="Pesquisar" class="btn btn-light" /> |
                     <a asp-action="Index" class="btn btn-light">Limpar</a> |
-                    <a href="/Acesso/Usuario/Salvar" class="btn btn-light">Novo</a>
+                    <a href="@Url.Action("Salvar", "GrupoUsuario")" class="btn btn-light">Novo</a>
                 </div>
             </div>
         </form>

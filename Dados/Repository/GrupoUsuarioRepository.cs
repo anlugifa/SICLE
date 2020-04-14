@@ -17,7 +17,7 @@ namespace Dados.Repository
 
         public override GrupoUsuario Get(int id)
         {
-            return _context.GruposUsuarios.First(o => o.Code.Equals(id));
+            return _context.GruposUsuarios.First(o => o.Id == id);
         }
 
         public override int GetPkValue(GrupoUsuario entity)

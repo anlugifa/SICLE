@@ -1,0 +1,197 @@
+﻿@model Dominio.Entidades.Acesso.Perfil
+@using  Dominio.Entidades.Acesso
+@{
+    ViewData["Title"] = "Perfis";
+}
+
+<div class="form-group">
+    <div class="col-md-6">
+        <a href="@Url.Action("Index", "Perfil")" class="text-secondary"><h2>Perfis</h2></a>
+    </div>
+</div>
+<div class="form-group">
+    <div class="col-md-6">
+        <label class="col-md-6 control-label">@ViewBag.Msg</label>
+    </div>
+</div>
+
+
+<form class="form-horizontal" asp-action="Salvar" asp-controller="Perfil" asp-area="Acessos" method="POST">
+
+    <input type="hidden" class="form-control" asp-for="Id">
+
+    <div class="form-group">
+        <label class="col-md-4 control-label" for="Code">Code</label>
+        <div class="col-md-8">
+            <input type="text" class="form-control" asp-for="Code">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-md-4 control-label" for="Nome">Nome</label>
+        <div class="col-md-8">
+            <input type="text" class="form-control" asp-for="Nome">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-md-4 control-label" for="Volume">Volume</label>
+        <div class="col-md-8">
+            <input type="text" class="form-control" asp-for="Volume">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-md-4 control-label" for="Prazo">Prazo</label>
+        <div class="col-md-8">
+            <input type="text" class="form-control" asp-for="Prazo">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-md-4 control-label" for="Preco">Preço</label>
+        <div class="col-md-8">
+            <input type="text" class="form-control" asp-for="Preco">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-md-4 control-label" for="VolumeContrato">Volume Contrato</label>
+        <div class="col-md-8">
+            <input type="text" class="form-control" asp-for="VolumeContrato">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-md-4 control-label" for="VolumeComplemento">Volume Complemento</label>
+        <div class="col-md-8">
+            <input type="text" class="form-control" asp-for="VolumeComplemento">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-md-4 control-label" for="VlVolumeEnergia">Volume Energia</label>
+        <div class="col-md-8">
+            <input type="text" class="form-control" asp-for="VlVolumeEnergia">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-md-4 control-label" for="VlVolumeContratoEnergia">Volume Contrato Energia</label>
+        <div class="col-md-8">
+            <input type="text" class="form-control" asp-for="VlVolumeContratoEnergia">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-md-4 control-label" for="VlVolumeImportacao">Volume Importacao</label>
+        <div class="col-md-8">
+            <input type="text" class="form-control" asp-for="VlVolumeImportacao">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-md-4 control-label" for="VlPrecoEnergia">Preço Energia</label>
+        <div class="col-md-8">
+            <input type="text" class="form-control" asp-for="VlPrecoEnergia">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-md-2 control-label" for="VlPrazoEnergia">Prazo Energia</label>
+        <div class="col-md-4">
+            <input type="text" class="form-control" asp-for="VlPrazoEnergia">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-md-4 control-label" for="VlVolumeComplementoEnergia">Volume Complemento Energia</label>
+        <div class="col-md-8">
+            <input type="text" class="form-control" asp-for="VlVolumeComplementoEnergia">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-md-4 control-label" for="VlVolumeMaxPurchaseDetivatives">Máx. Volume Compra Derivativos</label>
+        <div class="col-md-8">
+            <input type="text" class="form-control" asp-for="VlVolumeMaxPurchaseDetivatives">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-md-4 control-label" for="VlVolumeMaxOrderDerivatives">Máx. Volume Venda Derivativos</label>
+        <div class="col-md-8">
+            <input type="text" class="form-control" asp-for="VlVolumeMaxOrderDerivatives">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-md-4 control-label" for="VlVolumeMaxPurchaseSubproduct">Máx. Volume de Compra de Subprodutos</label>
+        <div class="col-md-8">
+            <input type="text" class="form-control" asp-for="VlVolumeMaxPurchaseSubproduct">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-md-4 control-label" for="VlVolumeMaxOrderSubproduct">Máx. Volume de Venda Subprodutos</label>
+        <div class="col-md-8">
+            <input type="text" class="form-control" asp-for="VlVolumeMaxOrderSubproduct">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-md-4 control-label" for="MaxPeriodImportContract">Máx. Periodo de Contrato de Importação</label>
+        <div class="col-md-8">
+            <input type="text" class="form-control" asp-for="MaxPeriodImportContract">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-md-4 control-label" for="MaxPeriodContract">Máx. Período de Contrato</label>
+        <div class="col-md-8">
+            <input type="text" class="form-control" asp-for="MaxPeriodContract">
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        <label class="col-md-4 control-label" for="MaxCreditLimit">Máx. Limite de Crédito</label>
+        <div class="col-md-8">
+            <input type="text" class="form-control" asp-for="MaxCreditLimit">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-md-4 control-label" for="ProfileLevel">Nível do Perfil</label>
+        <div class="col-md-8">
+            <select asp-for="ProfileLevel" asp-items="Html.GetEnumSelectList<ProfileLevel>()" class="form-control">
+                <option selected="selected" value="">Selecione</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-md-4 control-label" for="Rating">Rating</label>
+        <div class="col-md-8">
+            <select asp-for="Rating" asp-items="Html.GetEnumSelectList<PurchaseRating>()"  class="form-control">
+                <option selected="selected" value="">Selecione</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="custom-control custom-checkbox custom-control-inline">
+            <input class="custom-control-input" type="checkbox" asp-for="IsProvisionApprover">
+            <label class="custom-control-label" for="IsProvisionApprover">Aprova Provisão</label>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-2">
+            <button class="btn btn-success">Salvar</button>
+        </div>
+    </div>
+
+</form>
+
+

@@ -17,7 +17,7 @@ namespace Dados.Repository
 
         public override PerfilVenda Get(int id)
         {
-            return _context.PerfisVendas.First(o => o.Code.Equals(id));
+            return _context.PerfisVendas.First(o => o.Id == id);
         }
 
         public override int GetPkValue(PerfilVenda entity)

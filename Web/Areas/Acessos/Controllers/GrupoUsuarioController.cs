@@ -66,5 +66,38 @@ namespace Web.Controllers
             return View(await PaginatedList<GrupoUsuario>
                         .CreateAsync(query.AsNoTracking(), pageNumber ?? 1, _pageSize));
         }
+
+        [HttpGet]
+        public IActionResult Editar(int id)
+        {
+            var item = _repo.Get(id);
+
+            return View("Salvar", item);
+        }
+
+        [HttpGet]
+        public IActionResult Remover(int id)
+        {
+            _repo.Delete(id);
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public IActionResult Salvar()
+        {
+            return View(new GrupoUsuario());
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Salvar(GrupoUsuario modelo)
+        {
+            if (ValidateModel())
+            {
+                await _repo.SaveOrUpdate(modelo);
+            }
+
+            return View(modelo);
+        }
     }
 }

@@ -24,7 +24,7 @@
                 <div class="col-sm-5">
                     <input type="submit" name="btnSearch" value="Pesquisar" class="btn btn-light" /> |
                     <a asp-action="Index" class="btn btn-light">Limpar</a> |
-                    <a href="/Acesso/Usuario/Salvar" class="btn btn-light">Novo</a>
+                    <a href="@Url.Action("Salvar", "Usuario")" class="btn btn-light">Novo</a>
                 </div>
             </div>
         </form>
@@ -75,7 +75,7 @@
                         @Html.ActionLink("Editar", "Editar", new {id=@item.Id})
                     </td>
                     <td>
-                        @Html.ActionLink("Desabilitar", "Desabilitar", new { id = @item.Id })
+                        @*@Html.ActionLink("Desabilitar", "Desabilitar", new { id = @item.Id })*@
                     </td>
                 </tr>
                 }

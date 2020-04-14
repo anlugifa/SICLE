@@ -1,0 +1,43 @@
+﻿@model Dominio.Entidades.Acesso.GrupoUsuario
+@{
+    ViewData["Title"] = "Grupo de Usuário";
+}
+
+<div class="form-group">
+    <div class="col-md-6">
+       <a href="@Url.Action("Index", "GrupoUsuario")" class="text-secondary"><h2>Grupo de Usuário</h2></a>
+    </div>
+</div>
+<div class="form-group">
+    <div class="col-md-6">
+        <label class="col-md-6 control-label">@ViewBag.Msg</label>
+    </div>
+</div>
+
+<form class="form-horizontal" asp-action="Salvar" asp-controller="Usuario" asp-area="Acessos" method="POST">
+
+    <input type="hidden" class="form-control" asp-for="Id">
+
+    <div class="form-group">
+        <label class="col-md-2 control-label" for="Code">Code</label>
+        <div class="col-md-4">
+            <input type="text" class="form-control" asp-for="Code">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-md-2 control-label" for="Nome">Nome</label>
+        <div class="col-md-4">
+            <input type="text" class="form-control" asp-for="Nome">
+        </div>
+    </div>       
+
+    <div class="form-group">
+        <div class="col-md-2">
+            <button class="btn btn-success">Salvar</button>
+        </div>
+    </div>
+
+</form>
+
+
