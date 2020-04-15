@@ -24,7 +24,7 @@ namespace Sicle.Dados.Context.Config.Acessos
                 t.Property(p => p.VlPrazo).HasColumnName("VL_PRAZO").HasColumnType("decimal(38, 0)");
                 t.Property(p => p.VlVolumeContrato).HasColumnName("VL_VOLUME_CONTRATO").HasColumnType("decimal(9, 2)");
                 t.Property(p => p.VlVolumeComplemento).HasColumnName("VL_VOLUME_COMPLEMENTO").HasColumnType("decimal(9, 2)");
-                t.Property(p => p.VlVolumeMaxOrderDerivatives).HasColumnName("VL_VOLUME_DERIVATIVO");
+                t.Property(p => p.VlVolumeMaxOrderDerivatives).HasColumnName("VL_VOLUME_DERIVATIVOS");
                 t.Property(p => p.VlVolumeMaxOrderSubproduct).HasColumnName("VL_VOLUME_SUBPRODUTO");
                 t.Property(p => p.VlValorComplementoPreco).HasColumnName("VL_VALOR_COMPLEMENTO_PRECO");
                 t.Property(p => p.VlVolumeMaxOrderContrato).HasColumnName("VL_VOLUME_ORDEM_CONTRATO").HasColumnType("decimal(9, 2)");
