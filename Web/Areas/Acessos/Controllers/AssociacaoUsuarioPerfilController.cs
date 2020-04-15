@@ -54,7 +54,7 @@ namespace Sicle.Web.Areas.Acessos.Controllers
 
             perfilId = (perfilId ?? 1); // se grupo id não informado, pegar o primeiro
 
-            ViewData["PerfilId"] = perfilId;
+            ViewData["PerfilId"] = perfilId.Value;
             ViewData["CurrentFilter"] = searchString;
             
             IQueryable<AssociacaoUsuarioPerfil> query = _perfilRepo.GetAssociacaoUsuario(perfilId.Value);
@@ -82,8 +82,9 @@ namespace Sicle.Web.Areas.Acessos.Controllers
             var model = new AssociacaoUsuarioPerfilModel(list, list.Count(), pageNumber ?? 1, _pageSize);
 
             // aguardamos a thread finalizar para não gerar concorrência de Thread no dbContext em _usrRepo.GetAllAsync()
-            model.Perfis = await _perfilRepo.GetAllAsync();
-            model.Usuarios = _usrRepo.GetAllAsync().Result;
+            model.Perfis = await _perfilRepo.AsQueryable().OrderBy(g => g.Nome).ToListAsync();
+            model.Usuarios = await _usrRepo.AsQueryable().OrderBy(g => g.Nome).ToListAsync();
+            model.PerfilId = perfilId.Value;
 
             return View(model);            
         }

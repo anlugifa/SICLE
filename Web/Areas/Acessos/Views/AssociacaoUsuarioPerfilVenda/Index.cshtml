@@ -22,19 +22,18 @@
                     <select class="form-control" asp-for="PerfilVendaId" 
                             data-val="false" 
                             id="ddlPerfis" 
-                            onchange="location.href='/Acessos/AssociacaoUsuarioPerfilVenda/index?perfilId='+this.value"
+                            onchange="location.href='/Acessos/AssociacaoUsuarioPerfilVenda/index?perfilVendaId='+this.value"
                             asp-items='@(new SelectList(Model.Perfis, "Id", "Nome", Model.PerfilVendaId))'>
                     </select>
                 </div>
+
                 <div class="col-sm-1">
                     <label for="Usuario" class="col-form-label">Usuário:</label>
                 </div>
                 <div class="col-sm-4">
-
                     <select class="form-control" asp-for="UsuarioId" data-val="false" id="ddlUsuarios"
                             asp-items='@(new SelectList(Model.Usuarios, "Id", "Nome", Model.UsuarioId))'>
                     </select>
-
                 </div>
 
                 <div class="col-sm-2">
@@ -49,7 +48,7 @@
     <div class="col-md-12 float-right">
         <form asp-action="Index" method="get">
             <div class="form-group row">
-
+                <input type="hidden" name="perfilVendaId" class="form-control" value='@ViewData["PerfilVendaId"]' />
                 <div class="col-sm-1">
                     <label for="Nome" class="col-form-label">Nome:</label>
                 </div>

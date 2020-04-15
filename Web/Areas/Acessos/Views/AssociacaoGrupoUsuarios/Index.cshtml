@@ -50,6 +50,7 @@
         <form asp-action="Index" method="get">
             <div class="form-group row">
 
+                <input type="hidden" name="grupoId" class="form-control" value='@ViewData["GrupoId"]' />
                 <div class="col-sm-1">
                     <label for="Nome" class="col-form-label">Nome:</label>
                 </div>
@@ -109,7 +110,7 @@
     <ul class="pagination">
         <li class="page-item">
             <a asp-action="Index"
-               asp-route-grupoUserId='@ViewData["GrupoId"]'
+               asp-route-grupoId='@ViewData["GrupoId"]'
                asp-route-sortOrder='@ViewData["CurrentSort"]'
                asp-route-pageNumber='@(Model.PageIndex - 1)'
                asp-route-currentFilter='@ViewData["CurrentFilter"]'
@@ -120,7 +121,7 @@
 
         <li class="page-item">
             <a asp-action="Index"
-               asp-route-grupoUserId='@ViewData["GrupoId"]'
+               asp-route-grupoId='@ViewData["GrupoId"]'
                asp-route-sortOrder='@ViewData["CurrentSort"]'
                asp-route-pageNumber='@(Model.PageIndex + 1)'
                asp-route-currentFilter='@ViewData["CurrentFilter"]'

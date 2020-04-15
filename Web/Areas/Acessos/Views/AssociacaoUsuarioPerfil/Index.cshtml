@@ -15,6 +15,7 @@
     <div class="col-md-12 float-left">
         <form asp-action="Associar" method="get">
             <div class="form-group row">
+
                 <div class="col-sm-1">
                     <label for="Perfil" class="col-form-label">Perfil:</label>
                 </div>
@@ -26,6 +27,7 @@
                             asp-items='@(new SelectList(Model.Perfis, "Id", "Nome", Model.PerfilId))'>
                     </select>
                 </div>
+
                 <div class="col-sm-1">
                     <label for="Usuario" class="col-form-label">Usuário:</label>
                 </div>
@@ -49,7 +51,7 @@
     <div class="col-md-12 float-right">
         <form asp-action="Index" method="get">
             <div class="form-group row">
-
+                <input type="hidden" name="perfilId" class="form-control" value='@ViewData["PerfilId"]' />
                 <div class="col-sm-1">
                     <label for="Nome" class="col-form-label">Nome:</label>
                 </div>
