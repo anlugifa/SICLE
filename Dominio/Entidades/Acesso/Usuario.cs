@@ -8,20 +8,19 @@ namespace Dominio.Entidades.Acesso
     {
         public int Id { get; set; }
 
-        [Required(ErrorMessage = "Matrícula obrigatória")]
+        [Required(ErrorMessage = "Matrï¿½cula obrigatï¿½ria")]
         [MaxLength(8)]
         public string Matricula { get; set; }
 
-        [Required(ErrorMessage = "Nome obrigatório")]
+        [Required(ErrorMessage = "Nome obrigatï¿½rio")]
         [MaxLength(50)]
         public string Nome { get; set; }
-
-        [Required(ErrorMessage = "Nome SGP obrigatório")]
+        
         [MaxLength(50)]
         [Display(Name = "Nome SGP")]
         public string NomeSGP { get; set; }
 
-        [Required(ErrorMessage = "E-mail obrigatório")]
+        [Required(ErrorMessage = "E-mail obrigatï¿½rio")]
         [EmailAddress]
         public string Email { get; set; }
 
@@ -29,7 +28,7 @@ namespace Dominio.Entidades.Acesso
 
         public bool IsAtivo { get; set; }
 
-        public bool IsTraderComb { get; set; }
+        public bool IsTraderComb { get ; set; }
 
         public bool IsTraderEAB { get; set; }
 

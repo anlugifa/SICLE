@@ -47,7 +47,9 @@ namespace Web
 
             services.AddDbContext<ApplicationDBContext>(options =>
             {
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
+                options.UseOracle(Configuration.GetConnectionString("SicleDev"), b =>
+                    b.UseOracleSQLCompatibility("11")
+                );
                 ///comentar para executar migrations
                 //if (Startup.CurrentEnvironment.IsDevelopment())
                 //{
