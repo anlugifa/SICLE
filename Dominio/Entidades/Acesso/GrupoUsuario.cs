@@ -11,8 +11,7 @@ namespace Dominio.Entidades.Acesso
         [Required]
         [MaxLength(25)]
         public String Code { get; set; }
-    
-        [Required]
+            
         [MaxLength(50)]
         public String Nome { get; set; }
 
