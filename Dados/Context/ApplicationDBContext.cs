@@ -4,6 +4,8 @@ using Dominio.Entidades;
 using Dominio.Entidades.Acesso;
 using Microsoft.Extensions.Logging;
 using Sicle.Dados.Context.Config.Acessos;
+using Sicle.Dados.Context.Config.Contratos;
+using Dominio.Entidades.Contrato;
 
 namespace Dados
 {
@@ -20,9 +22,7 @@ namespace Dados
 
         protected override void OnModelCreating(ModelBuilder model)
         {
-            model.Entity<Produto>().ToTable("Produto");
-            model.Entity<Categoria>().ToTable("Categoria");
-
+            //acessos
             ConfigConfiguracao.Config(model);
             ConfigUsuario.Config(model);
             ConfigPerfil.Config(model);
@@ -31,10 +31,13 @@ namespace Dados
             ConfigAssociacaoUsuarioPerfilVenda.Config(model);
             ConfigGrupoUsuario.Config(model);
             ConfigAssociacaoGrupoUsuario.Config(model);
+
+            //contratos
+            ConfigBroker.Config(model);
+            ConfigContratoVenda.Config(model);
         }
 
-        public DbSet<Categoria> Categorias { get; set; }
-        public DbSet<Produto> Produtos { get; set; }
+        public DbSet<Product> Produtos { get; set; }
         public DbSet<Configuracao> Configuracoes { get; set; }
         public DbSet<Usuario> Usuarios { get; set; }
         public DbSet<Perfil> Perfis { get; set; }
@@ -43,5 +46,7 @@ namespace Dados
         public DbSet<AssociacaoGrupoUsuario> AssociacaoGruposUsuarios { get; set; }
         public DbSet<AssociacaoUsuarioPerfil> AssociacaoUsuarioPerfis { get; set; }
         public DbSet<AssociacaoUsuarioPerfilVenda> AssociacaoUsuarioPerfilVendas { get; set; }
+
+        public DbSet<ContratoVenda> ContratosVendas { get; set; }
     }
 }

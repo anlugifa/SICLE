@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using Dominio.Entidades.Contrato;
 
 namespace Dominio.Entidades.Acesso
 {
@@ -37,6 +38,10 @@ namespace Dominio.Entidades.Acesso
         public ICollection<AssociacaoGrupoUsuario> Grupos { get; set; }
 
         public ICollection<AssociacaoUsuarioPerfilVenda> PerfilVendas { get; set; }
+
+        public ICollection<ContratoVendaMestre> ContratosMestres { get; set; }
+
+        // public ICollection<ContratoVenda> ContratosVendas { get; set; }
 
         public override String ToString()
         {
