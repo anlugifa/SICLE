@@ -7,7 +7,7 @@ namespace Dominio.Entidades.Acesso
 {
     public class Usuario
     {
-        public int Id { get; set; }
+        public long Id { get; set; }
 
         [Required(ErrorMessage = "Matr�cula obrigat�ria")]
         [MaxLength(8)]

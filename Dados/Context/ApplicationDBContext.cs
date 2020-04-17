@@ -6,6 +6,10 @@ using Microsoft.Extensions.Logging;
 using Sicle.Dados.Context.Config.Acessos;
 using Sicle.Dados.Context.Config.Contratos;
 using Dominio.Entidades.Contrato;
+using Dominio.Entidades.Produtos;
+using Dominio.Entidades.Localidade;
+using Sicle.Dados.Context.Config.Localidades;
+using Sicle.Dados.Context.Config.Produtos;
 
 namespace Dados
 {
@@ -34,7 +38,24 @@ namespace Dados
 
             //contratos
             ConfigBroker.Config(model);
+            ConfigContratoVendaMestre.Config(model);
             ConfigContratoVenda.Config(model);
+            ConfigPaymentTerm.Config(model);
+            ConfigProductGroup.Config(model);
+
+            ConfigProduct.Config(model);
+            ConfigProductComponent.Config(model);
+            ConfigSpecialUnit.Config(model);
+
+            ConfigProductInPlant.Config(model);
+            ConfigLocalidades.Config(model);
+            ConfigLocalidadeGeografica.Config(model);
+            ConfigRegiao.Config(model);
+            ConfigPlant.Config(model);
+            ConfigCompany.Config(model);
+            ConfigRestricaoCargaDescarga.Config(model);
+            ConfigClientGroup.Config(model);
+            ConfigClient.Config(model);
         }
 
         public DbSet<Product> Produtos { get; set; }
@@ -47,6 +68,25 @@ namespace Dados
         public DbSet<AssociacaoUsuarioPerfil> AssociacaoUsuarioPerfis { get; set; }
         public DbSet<AssociacaoUsuarioPerfilVenda> AssociacaoUsuarioPerfilVendas { get; set; }
 
+        public DbSet<ContratoVendaMestre> ContratosVendasMestres { get; set; }
         public DbSet<ContratoVenda> ContratosVendas { get; set; }
+
+        public DbSet<Broker> Brokers { get; set; }
+        public DbSet<PaymentTerm> PaymentTerms { get; set; }
+        public DbSet<ProductGroup> ProductGroups { get; set; }
+        public DbSet<Product> Products { get; set; }
+        public DbSet<ProductComponent> ProductComponents { get; set; }
+        public DbSet<SpecialUnit> SpecialUnits { get; set; }
+
+        public DbSet<ProductInPlant> ProductInPlants { get; set; }
+        public DbSet<Localidade> Localidades { get; set; }
+        public DbSet<LocalidadeGeografica> LocalidadeGeograficas { get; set; }
+        public DbSet<Regiao> Regioes { get; set; }
+        public DbSet<Plant> Plants { get; set; }
+        public DbSet<Company> Companies { get; set; }
+        public DbSet<RestricaoCargaDescarga> RestricoesCargasDescargas { get; set; }
+        public DbSet<ClientGroup> ClientGroups { get; set; }
+        public DbSet<Client> Clients { get; set; }
+
     }
 }

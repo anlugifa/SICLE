@@ -4,7 +4,7 @@ namespace Dominio.Entidades.Acesso
 {
     public class AssociacaoUsuarioPerfil
     {
-        public int UsuarioId { get; set; }
+        public long UsuarioId { get; set; }
 
         public int PerfilId { get; set; }
 

@@ -7,7 +7,8 @@ namespace Dominio.Entidades.Localidade
     {
         public double Capacity { get; set; }
 
-        public Plant Planta {get; set;}
+        public int PlantId {get; set;}
+        public Plant Plant {get; set;}
 
 	    public TipoRestricao TipoRestricao {get; set;}
     }

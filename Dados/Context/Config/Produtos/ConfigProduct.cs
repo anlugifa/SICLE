@@ -53,6 +53,11 @@ namespace Sicle.Dados.Context.Config.Produtos
                         .HasOne(b => b.ProductGroup)
                         .WithMany(b => b.Products)
                         .HasForeignKey(f => f.ProductGroupId);
+
+            model.Entity<Product>()
+                        .HasMany(b => b.Components)
+                        .WithOne(b => b.Product)
+                        .HasForeignKey(f => f.ProductId);
         }
     }
 }

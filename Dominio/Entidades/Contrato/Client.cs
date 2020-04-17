@@ -1,17 +1,18 @@
 using System;
+using System.ComponentModel.DataAnnotations;
 using Dominio.Entidades.Localidade;
 
 namespace Dominio.Entidades.Contrato
 {
     public class Client : LocalidadeGeografica
     {
+        [EmailAddress]
         public String Email { get; set; }
         public String UndoingEmail { get; set; }
-        public String Ie { get; set; }
-        public String Cnpj { get; set; }
+        public String IE { get; set; }
+        public String CNPJ { get; set; }
         public String Operation { get; set; }
-        public ClientGroup Operator { get; set; }
-
+        
         public ClientType Type { get; set; }
         public Double CreditLimit { get; set; }
         public Double CreditDisp{ get; set; }
@@ -19,10 +20,18 @@ namespace Dominio.Entidades.Contrato
         public String Hierarchy1 { get; set; }
         public String Hierarchy2 { get; set; }
         public String Hierarchy3 { get; set; }
-        public Boolean Blockade { get; set; }
+        
         public String Rating { get; set; }
-        public ClientGroup ClientGroup { get; set; }
-        public Boolean Armazenagem { get; set; }
-        public Boolean ScaProfile { get; set; }
+        
+        public Boolean IsBlockade { get; set; }
+        public Boolean IsArmazenagem { get; set; }
+        public Boolean IsScaProfile { get; set; }
+
+        public long ClientGroupId { get; set; }
+        public virtual ClientGroup ClientGroup { get; set; }
+
+        public long OperatorId { get; set; }
+        public ClientGroup Operator { get; set; }
+
     }
 }

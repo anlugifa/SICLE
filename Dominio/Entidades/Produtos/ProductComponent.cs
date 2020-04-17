@@ -8,10 +8,10 @@ namespace Dominio.Entidades.Produtos
     {
         public int Id { get; set; }
 
-        public int ProductId { get; set; }
+        public long ProductId { get; set; }
         public Product Product { get; set; }
         
-        public int ComponentId { get; set; }
+        public long ComponentId { get; set; }
         public Product Component { get; set; }
 
         public int PlantId { get; set; }

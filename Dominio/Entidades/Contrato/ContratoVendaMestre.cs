@@ -18,9 +18,8 @@ namespace Dominio.Entidades.Contrato
         public Boolean IsActive {get; set;}
         public DateTime CreationDate {get; set;}
 
-        public int CreationUserId {get; set;}
+        public long CreationUserId {get; set;}
         public Usuario CreationUser {get; set;}
-
         
         public ICollection<ContratoVenda> Contratos {get; set;}
     }

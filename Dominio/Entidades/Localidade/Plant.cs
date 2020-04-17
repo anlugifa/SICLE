@@ -2,10 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using Dominio.Entidades.Contrato;
+using Dominio.Entidades.Produtos;
 
 namespace Dominio.Entidades.Localidade
 {
-    public abstract class Plant : LocalidadeGeografica
+    public class Plant : LocalidadeGeografica
     {
         public String IE {get; set;}
         public String CNPJ { get; set; }
@@ -40,15 +41,16 @@ namespace Dominio.Entidades.Localidade
 
         public Double Diflog { get; set; }
 
-        public Boolean PossibleOriginationDestinations{ get; set; }
-        public Boolean PisCofinsNotApplied { get; set; }
+        public Boolean IsPossibleOriginationDestinations{ get; set; }
+        public Boolean IsPisCofinsNotApplied { get; set; }
 
+        public int ImportCompanyId { get; set; }
     	public Company ImportCompany { get; set; }
 
+        public long OperatorId { get; set; }
         public ClientGroup Operator { get; set; }
 
-        public ICollection<RestricaoCargaDescarga> LoadUnloadRestriction { get; set; }
-        
+        public ICollection<RestricaoCargaDescarga> LoadUnloadRestriction { get; set; }        
 	    public ICollection<ProductInPlant> ProductInLocation { get; set; }
     }
 }
