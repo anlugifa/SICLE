@@ -11,11 +11,12 @@ namespace Dominio.Entidades.Contrato
         [MaxLength(30)]
         public long Id {get; set;}
 
-        [MaxLength(255)]
-        [EmailAddress]
+        [MaxLength(255)]        
         public String Nickname {get; set;}
         public String Observation {get; set;}
         public Boolean IsActive {get; set;}
+
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
         public DateTime CreationDate {get; set;}
 
         public long CreationUserId {get; set;}

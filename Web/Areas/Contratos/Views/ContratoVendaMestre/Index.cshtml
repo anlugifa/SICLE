@@ -1,0 +1,154 @@
+@model Sicle.Web.Areas.Contratos.Models.ContratoVendaMestreModel
+@using Util
+
+@{
+    ViewData["Title"] = "SICLE";
+}
+
+@section Styles
+{
+    <style>
+
+        table th {
+            font-size: 12px;
+            text-align:center;
+        }        
+
+        table td {
+            font-size: 10px;
+            text-align:center;
+        }      
+
+        .col-id {
+            width: 70px;
+        }  
+
+    </style>
+}
+
+<div class="row">
+    <div class="col-md-6">
+        <h2>Contrato Mestre de Venda</h2>
+    </div>
+</div>
+
+<p></p>
+<div class="row">
+    <div class="col-md-12 float-right">
+        <form asp-action="Index" method="get">
+            <div class="form-group row">
+                <input type="hidden" name="Id" class="form-control" value='@ViewData["ContratoId"]' />
+                <div class="col-sm-2">
+                    <label for="ex1" class="col-form-label">Nome:</label>
+                </div>
+                <div class="col-sm-5">
+                    <input type="text" name="SearchString" class="form-control" value='@ViewData["currentFilter"]' />
+                </div>
+                <div class="col-sm-5">
+                    <input type="submit" name="btnSearch" value="Pesquisar" class="btn btn-light" /> |
+                    <a asp-action="Index" class="btn btn-light">Limpar</a> |
+                    <a href="@Url.Action("Salvar", "ContratoVendaMestre")" class="btn btn-light">Novo</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Farol</th>
+                    <th class="col-id">Id</th>                  
+                    <th>Status</th>
+                    <th>Farol Endosso</th>                                   
+                    <th>Status Endosso</th>
+                    <th>Apelido</th>
+                    <th>Início</th>
+                    <th>Fim</th>
+                    <th>Volume Total</th>
+                    <th>Volume Máximo</th>
+                    <th>Ativo</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    Model.PrepareRowToShow(item);
+
+                <tr>
+                    <td><img src="@Model.Farol"/></td>
+                    <td>@Model.GetId(item)</td>
+                    <td>@Model.ContractStatus.GetEnumDescription()</td>     
+
+                    <td><img src="@Model.EndorsementIcon"/></td> 
+                    <td>@Model.EndorsementStatus.GetEnumDescription()</td>       
+
+                    <td>@Html.DisplayFor(modelItem => item.Nickname)</td>
+
+                    <td>@Html.Display("MinDate", Model.MinDate)</td>
+                    <td>@Html.Display("MaxDate", Model.MaxDate)</td>
+                    
+                    <td>@Html.Display("TotalVolume", Model.TotalVolume)</td>
+                    <td>@Html.Display("MaxVolume", Model.MaxVolume)</td>
+
+                    <td>@Html.CheckBoxFor(modelItem => item.IsActive, new { disabled = "disabled" })</td>                   
+                    
+                    <td>
+                        @Html.ActionLink("Editar", "Editar", new {id=@item.Id})
+                    </td>                   
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+@{
+    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+}
+
+<nav aria-label="Page navigation example">
+    <ul class="pagination">
+        <li class="page-item">
+            <a asp-action="Index"
+                asp-route-contratoId='@ViewData["ContratoId"]'
+                asp-route-sortOrder='@ViewData["CurrentSort"]'
+                asp-route-pageNumber='@(Model.PageIndex - 1)'
+                asp-route-currentFilter='@ViewData["CurrentFilter"]'
+                class="btn btn-default @prevDisabled">
+                Anterior
+            </a>
+        </li>
+
+        <li class="page-item">
+            <a asp-action="Index"
+                asp-route-contratoId='@ViewData["ContratoId"]'
+                asp-route-sortOrder='@ViewData["CurrentSort"]'
+                asp-route-pageNumber='@(Model.PageIndex + 1)'
+                asp-route-currentFilter='@ViewData["CurrentFilter"]'
+                class="btn btn-default @nextDisabled">
+                Próximo
+            </a>
+        </li>
+    </ul>
+</nav>
+
+
+<script>
+    var input = document.getElementById("SearchString");
+
+    if (input != null) {
+        // Execute a function when the user releases a key on the keyboard
+        input.addEventListener("keyup", function (event) {
+            // Number 13 is the "Enter" key on the keyboard
+            if (event.keyCode === 13) {
+                // Cancel the default action, if needed
+                event.preventDefault();
+                // Trigger the button element with a click
+                document.getElementById("btnSearch").click();
+            }
+        });
+    }
+</script>

@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel.DataAnnotations;
 using Dominio.Entidades.Acesso;
 using Dominio.Entidades.Produtos;
 
@@ -26,9 +27,17 @@ namespace Dominio.Entidades.Contrato
         
         public String Safra { get; set; }
         public String Reason { get; set; }
+
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
         public DateTime? CreationDate { get; set; }        
+
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
         public DateTime? DateOfApproval { get; set; }        
+
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
         public DateTime? DateOfTradingApproval { get; set; }
+
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
         public DateTime? DateOfFinancesApproval { get; set; }
 
         public String Approver { get; set; }
