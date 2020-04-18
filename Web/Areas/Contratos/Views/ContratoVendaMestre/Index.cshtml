@@ -1,4 +1,6 @@
 @model Sicle.Web.Areas.Contratos.Models.ContratoVendaMestreModel
+
+@using Dominio.Entidades.Contrato
 @using Util
 
 @{
@@ -28,7 +30,7 @@
 
 <div class="row">
     <div class="col-md-6">
-        <h2>Contrato Mestre de Venda</h2>
+        <h2>Contrato Mestres de Venda</h2>
     </div>
 </div>
 
@@ -37,14 +39,28 @@
     <div class="col-md-12 float-right">
         <form asp-action="Index" method="get">
             <div class="form-group row">
-                <input type="hidden" name="Id" class="form-control" value='@ViewData["ContratoId"]' />
-                <div class="col-sm-2">
-                    <label for="ex1" class="col-form-label">Nome:</label>
+                                
+                <div class="col-sm-1">
+                    <label for="ex1" class="col-form-label">Apelido:</label>
                 </div>
-                <div class="col-sm-5">
+                <div class="col-sm-3">
                     <input type="text" name="SearchString" class="form-control" value='@ViewData["currentFilter"]' />
                 </div>
-                <div class="col-sm-5">
+
+
+                <div class="col-sm-1">
+                    <label for="Grupo" class="col-form-label">Status:</label>
+                </div>
+                <div class="col-sm-3">
+
+                    <select class="form-control" data-val="false" id="ddlStatus" name="status"                            
+                            asp-items='Html.GetEnumSelectList<ContractStatus>()'>
+                        @* asp-items='@(new SelectList(Model.ListStatus, "Value", "Text"))'*@
+                            <option value="">Selecione</option>
+                    </select>
+
+                </div>
+                <div class="col-sm-4">
                     <input type="submit" name="btnSearch" value="Pesquisar" class="btn btn-light" /> |
                     <a asp-action="Index" class="btn btn-light">Limpar</a> |
                     <a href="@Url.Action("Salvar", "ContratoVendaMestre")" class="btn btn-light">Novo</a>
@@ -59,11 +75,15 @@
             <thead>
                 <tr>
                     <th>Farol</th>
-                    <th class="col-id">Id</th>                  
+                    <th class="col-id"><a asp-action="Index"
+                           asp-route-sortOrder="@ViewData["ContratoIdSortParm"]"
+                           asp-route-currentFilter="@ViewData["CurrentFilter"]">Id</a></th>                  
                     <th>Status</th>
                     <th>Farol Endosso</th>                                   
                     <th>Status Endosso</th>
-                    <th>Apelido</th>
+                    <th><a asp-action="Index"
+                           asp-route-sortOrder="@ViewData["ApelidoSortParm"]"
+                           asp-route-currentFilter="@ViewData["CurrentFilter"]">Apelido</a></th>
                     <th>Início</th>
                     <th>Fim</th>
                     <th>Volume Total</th>
@@ -80,10 +100,10 @@
                 <tr>
                     <td><img src="@Model.Farol"/></td>
                     <td>@Model.GetId(item)</td>
-                    <td>@Model.ContractStatus.GetEnumDescription()</td>     
+                    <td>@Model.StatusMestre</td>     
 
                     <td><img src="@Model.EndorsementIcon"/></td> 
-                    <td>@Model.EndorsementStatus.GetEnumDescription()</td>       
+                    <td>@Model.EndossoMestre</td>       
 
                     <td>@Html.DisplayFor(modelItem => item.Nickname)</td>
 
@@ -112,8 +132,7 @@
 <nav aria-label="Page navigation example">
     <ul class="pagination">
         <li class="page-item">
-            <a asp-action="Index"
-                asp-route-contratoId='@ViewData["ContratoId"]'
+            <a asp-action="Index"                
                 asp-route-sortOrder='@ViewData["CurrentSort"]'
                 asp-route-pageNumber='@(Model.PageIndex - 1)'
                 asp-route-currentFilter='@ViewData["CurrentFilter"]'
@@ -123,8 +142,7 @@
         </li>
 
         <li class="page-item">
-            <a asp-action="Index"
-                asp-route-contratoId='@ViewData["ContratoId"]'
+            <a asp-action="Index"                
                 asp-route-sortOrder='@ViewData["CurrentSort"]'
                 asp-route-pageNumber='@(Model.PageIndex + 1)'
                 asp-route-currentFilter='@ViewData["CurrentFilter"]'

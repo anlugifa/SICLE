@@ -2,7 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using System.Reflection;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Util
 {
@@ -31,33 +33,33 @@ namespace Util
             }
         }
 
-        // public static IEnumerable<SelectListItem> GetSelectList()
-        // {
-        //     var groupDictionary = new Dictionary<string, SelectListGroup>();
+        public static IEnumerable<SelectListItem> GetSelectList(this Enum type)
+        {
+            var groupDictionary = new Dictionary<string, SelectListGroup>();
 
-        //     var enumType = typeof(T);
-        //     var fields = from field in enumType.GetFields()
-        //                  where field.IsLiteral
-        //                  select field;
+            var enumType = type.GetType();
+            var fields = from field in enumType.GetFields()
+                         where field.IsLiteral
+                         select field;
 
-        //     foreach (var field in fields)
-        //     {
-        //         var display = field.GetCustomAttribute<DisplayAttribute>(false);
-        //         var description = field.GetCustomAttribute<DescriptionAttribute>(false);
-        //         var group = field.GetCustomAttribute<CategoryAttribute>(false);
+            foreach (var field in fields)
+            {
+                var display = field.GetCustomAttribute<DisplayAttribute>(false);
+                var description = field.GetCustomAttribute<DescriptionAttribute>(false);
+                var group = field.GetCustomAttribute<CategoryAttribute>(false);
 
-        //         var text = display?.GetName() ?? display?.GetShortName() ?? display?.GetDescription() ?? display?.GetPrompt() ?? description?.Description ?? field.Name;
-        //         var value = field.Name;
-        //         var groupName = display?.GetGroupName() ?? group?.Category ?? string.Empty;
-        //         if (!groupDictionary.ContainsKey(groupName)) { groupDictionary.Add(groupName, new SelectListGroup { Name = groupName }); }
+                var text = display?.GetName() ?? display?.GetShortName() ?? display?.GetDescription() ?? display?.GetPrompt() ?? description?.Description ?? field.Name;
+                var value = field.Name;
+                var groupName = display?.GetGroupName() ?? group?.Category ?? string.Empty;
+                if (!groupDictionary.ContainsKey(groupName)) { groupDictionary.Add(groupName, new SelectListGroup { Name = groupName }); }
 
-        //         yield return new SelectListItem
-        //         {
-        //             Text = text,
-        //             Value = value,
-        //             Group = groupDictionary[groupName],
-        //         };
-        //     }
-        // }
+                yield return new SelectListItem
+                {
+                    Text = text,
+                    Value = value,
+                    Group = groupDictionary[groupName],
+                };
+            }
+        }
     }
 }
