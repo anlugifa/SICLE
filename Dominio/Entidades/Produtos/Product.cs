@@ -30,7 +30,7 @@ namespace Dominio.Entidades
         public int SpecialUnitId { get; set; }
         public SpecialUnit SpecialUnit { get; set; }
 
-        public long ProductGroupId { get; set; }
+        public int ProductGroupId { get; set; }
         public ProductGroup ProductGroup  { get; set; }
 
         public ProductPurpose Purpose { get; set; }        

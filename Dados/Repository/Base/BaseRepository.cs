@@ -33,7 +33,7 @@ namespace Dados.Repository.Base
 
             foreach (var pinfo in typeof(TEntity).GetProperties())
             {
-                // Não pode alterar PK!!
+                // NÃ£o pode alterar PK!!
                 pinfo.SetValue(objFromDB, pinfo.GetValue(localCopy));
             }
 

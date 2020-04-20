@@ -24,6 +24,6 @@ namespace Dados.Repository
         public override long GetPkValue(ContratoVenda entity)
         {
             return (long)typeof(ContratoVenda).GetProperty("Id").GetValue(entity);
-        }
+        }        
     }
 }

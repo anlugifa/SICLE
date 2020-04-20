@@ -21,13 +21,13 @@ namespace Sicle.Dados.Context.Config.Contratos
                 t.Property(p => p.Nickname).HasColumnName("DS_APELIDO");
                 t.Property(p => p.Name).HasColumnName("NM_CONTRATO");
                 t.Property(p => p.Begin).HasColumnName("DT_INICIO");
-                t.Property(p => p.End).HasColumnName("DT_FIM");
+                t.Property(p => p.End).HasColumnName("DT_FIM");                
 
                 t.Property(p => p.Flexibility).HasColumnName("VL_FLEXIBILIDADE");
                 t.Property(p => p.TotalVolume).HasColumnName("VL_VOLUME_TOTAL");
                 t.Property(p => p.EconomicGroup).HasColumnName("DS_GRUPO_ECONOMICO");
-                t.Property(p => p.IsAvailableForBroker).HasColumnName("ST_DISP_BROKER");
                 t.Property(p => p.Observation).HasColumnName("DS_OBSERVACAO");
+                t.Property(p => p.IsAvailableForBroker).HasColumnName("ST_DISP_BROKER");                
                 t.Property(p => p.IsActive).HasColumnName("DS_ATIVO");
                 t.Property(p => p.IsDeleted).HasColumnName("DS_DELETADO");
 
@@ -55,6 +55,7 @@ namespace Sicle.Dados.Context.Config.Contratos
                             .HasConversion(ColumnConverter.PeriodTypeConverter());
                 t.Property(p => p.EndorsementStatus).HasColumnName("ST_STATUS_ENDOSSO")
                             .HasConversion(ColumnConverter.EndorsementStatusConverter());
+                
                 t.Property(p => p.CreationUserId).HasColumnName("CD_USUARIO_CRIACAO");
                 t.Property(p => p.EditorId).HasColumnName("CD_USUARIO_EDICAO");
                 t.Property(p => p.TraderId).HasColumnName("CD_SEQ_TRADER");
@@ -95,7 +96,12 @@ namespace Sicle.Dados.Context.Config.Contratos
             model.Entity<ContratoVenda>()
                         .HasOne(b => b.ClientGroup)
                         .WithMany()
-                        .HasForeignKey(f => f.ClientGroupId);                  
+                        .HasForeignKey(f => f.ClientGroupId);       
+
+                model.Entity<ContratoVenda>()
+                        .HasOne(b => b.PaymentTerm)
+                        .WithMany()
+                        .HasForeignKey(f => f.PaymentTermId);           
 
             model.Entity<ContratoVenda>()
                         .HasOne(b => b.ContratoMestre)

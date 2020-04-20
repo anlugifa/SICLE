@@ -1,4 +1,5 @@
 using System;
+using Dominio.Entidades.Contrato;
 
 namespace Web.Util
 {
@@ -10,6 +11,45 @@ namespace Web.Util
         public static string CIRCLE_ORANGE = "/img/circle_orange.png";
         public static string CIRCLE_GREEN = "/img/circle_green.png";
         public static string DASH = "/img/dash.png";
+
+
+        public static String GetContractIcon(ContractStatus status)
+        {
+            switch (status)
+            {
+                case ContractStatus.APPROVED:
+                    return CIRCLE_GREEN;
+                case ContractStatus.REJECTED:
+                    return CIRCLE_RED;
+                case ContractStatus.CREATED_IN_APPROVAL:
+                    return CIRCLE_YELLOW;
+                case ContractStatus.MODIFIED_IN_APPROVAL:
+                    return CIRCLE_YELLOW;
+                case ContractStatus.REMOVED:
+                    return CIRCLE_RED;
+                default:
+                    return CIRCLE_GRAY;
+            }
+        }
+
+        public static String GetEndorsementIcon(EndorsementStatus status)
+        {
+            switch (status)
+            {
+                case EndorsementStatus.ENDORSED:
+                    return CIRCLE_GREEN;
+                case EndorsementStatus.IN_ENDORSEMENT:
+                    return CIRCLE_RED;
+                case EndorsementStatus.NOT_NECESSARY:
+                    return CIRCLE_YELLOW;
+                case EndorsementStatus.UNVALUED:
+                    return CIRCLE_YELLOW;
+                case EndorsementStatus.NONE:
+                    return CIRCLE_RED;
+                default:
+                    return DASH;
+            }
+        }
 
     }
 }

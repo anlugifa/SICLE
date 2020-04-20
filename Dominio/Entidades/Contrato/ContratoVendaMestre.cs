@@ -12,6 +12,7 @@ namespace Dominio.Entidades.Contrato
         public long Id {get; set;}
 
         [MaxLength(255)]        
+        [Display(Name="Apelido")]
         public String Nickname {get; set;}
         public String Observation {get; set;}
         public Boolean IsActive {get; set;}
@@ -23,5 +24,10 @@ namespace Dominio.Entidades.Contrato
         public Usuario CreationUser {get; set;}
         
         public ICollection<ContratoVenda> Contratos {get; set;}
+
+        public override string ToString()
+        {
+            return "RM-" + Id;
+        }
     }
 }

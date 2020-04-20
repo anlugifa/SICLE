@@ -1,19 +1,16 @@
-using Dominio.Entidades.Acesso;
-using Dominio.Entidades.Contrato;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Web.Models;
+using Dominio.Entidades.Contrato;
 using Web.Util;
 using Util;
 
 namespace Sicle.Web.Areas.Contratos.Models
 {
-    public class ContratoVendaMestreModel : PaginatedList<ContratoVendaMestre>
+    public class ContratoVendaMestreModel
     {
+
+        public ContratoVendaMestre ContratoMestre {get; set;}
+
+        public String Id { get; set; }
         public String Farol { get; set; }
         public String EndorsementIcon { get; set; }
         public String StatusMestre { get; set; }
@@ -21,28 +18,17 @@ namespace Sicle.Web.Areas.Contratos.Models
         public String MinDate { get; set; }
         public String MaxDate { get; set; }
         public String TotalVolume { get; set; }
-        public String MaxVolume { get; set; }        
+        public String MaxVolume { get; set; }  
 
-        public IEnumerable<SelectListItem> ListStatus {
-            get {
-                return ContractStatus.APPROVED.GetSelectList();
-            }
+        public ContratoVendaMestreModel(ContratoVendaMestre mestre)
+        {
+            this.ContratoMestre = mestre;
+
+            FillFields();
         }
 
-        public ContratoVendaMestreModel(List<ContratoVendaMestre> items,
-            int count, int pageIndex, int pageSize) : base(items, count, pageIndex, pageSize)
-        {
-        }
-
-        public static new async Task<ContratoVendaMestreModel> CreateAsync(IQueryable<ContratoVendaMestre> source, int pageIndex, int pageSize)
-        {
-            var count = await source.CountAsync();
-            var items = await source.Skip((pageIndex - 1) * pageSize).Take(pageSize).ToListAsync();
-            return new ContratoVendaMestreModel(items, count, pageIndex, pageSize);
-        }
-
-        public void PrepareRowToShow(ContratoVendaMestre model)
-        {
+        private void FillFields()
+        {            
             ContractStatus? mestreStatus = null;
             EndorsementStatus? mestreEndorsementStatus = null;
             Double totalVolume = 0;
@@ -50,13 +36,13 @@ namespace Sicle.Web.Areas.Contratos.Models
             DateTime? minDate = null;
             DateTime? maxDate = null;
 
-            if (model.Contratos.Count > 0)
+            if (ContratoMestre.Contratos.Count > 0)
             {
                 mestreStatus = ContractStatus.REJECTED;
                 mestreEndorsementStatus = EndorsementStatus.NONE;
             }
 
-            foreach (ContratoVenda contract in model.Contratos)
+            foreach (ContratoVenda contract in ContratoMestre.Contratos)
             {
                 mestreStatus = GetContractStatus(mestreStatus, contract);
                 mestreEndorsementStatus = GetEndosementStatus(mestreEndorsementStatus, contract);
@@ -82,7 +68,7 @@ namespace Sicle.Web.Areas.Contratos.Models
 
             FinalRowResult(mestreStatus, mestreEndorsementStatus, minDate, maxDate, totalVolume, maxVolume);
         }
-		
+
         private void FinalRowResult(ContractStatus? status,
                     EndorsementStatus? endorsementStatus,
                     DateTime? minDate,
@@ -90,6 +76,7 @@ namespace Sicle.Web.Areas.Contratos.Models
                     double totalVolume,
                     double maxVolume)
         {
+            Id = ContratoMestre.ToString();
             Farol = GetFarol(status);
             EndorsementIcon = GetEndorsementIcon(endorsementStatus);
 
@@ -105,22 +92,8 @@ namespace Sicle.Web.Areas.Contratos.Models
         {
             if (status == null)
                 return ResourceMap.DASH;
-
-            switch (status)
-            {
-                case ContractStatus.APPROVED:
-                    return ResourceMap.CIRCLE_GREEN;
-                case ContractStatus.REJECTED:
-                    return ResourceMap.CIRCLE_RED;
-                case ContractStatus.CREATED_IN_APPROVAL:
-                    return ResourceMap.CIRCLE_YELLOW;
-                case ContractStatus.MODIFIED_IN_APPROVAL:
-                    return ResourceMap.CIRCLE_YELLOW;
-                case ContractStatus.REMOVED:
-                    return ResourceMap.CIRCLE_RED;
-                default:
-                    return ResourceMap.CIRCLE_GRAY;
-            }
+            
+            return ResourceMap.GetContractIcon(status.Value);            
         }
 
         private String GetEndorsementIcon(EndorsementStatus? status)
@@ -128,28 +101,8 @@ namespace Sicle.Web.Areas.Contratos.Models
             if (status == null)
                 return ResourceMap.DASH;
             
-            switch (status) 
-            {
-                case EndorsementStatus.ENDORSED:
-                    return ResourceMap.CIRCLE_GREEN;
-                case EndorsementStatus.IN_ENDORSEMENT:
-                    return ResourceMap.CIRCLE_YELLOW;
-                case EndorsementStatus.NOT_NECESSARY:
-                    return ResourceMap.CIRCLE_GRAY;
-                case EndorsementStatus.UNVALUED:
-                    return ResourceMap.DASH;
-                case EndorsementStatus.NONE:
-                    return ResourceMap.DASH;
-                default:
-                    return ResourceMap.DASH;
-                }
-	
-        }
-
-        public String GetId(ContratoVendaMestre model)
-        {
-            return "RM-" + model.Id;
-        }
+            return ResourceMap.GetEndorsementIcon(status.Value);	
+        }        
 
         protected ContractStatus? GetContractStatus(ContractStatus? statusMestre, ContratoVenda contract)
         {

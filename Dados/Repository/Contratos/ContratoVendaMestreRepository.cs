@@ -25,5 +25,16 @@ namespace Dados.Repository
         {
             return (long)typeof(ContratoVendaMestre).GetProperty("Id").GetValue(entity);
         }
+
+        public async Task<List<ContratoVenda>> GetByMaster(long masterId, int pageIndex, int pageSize)
+        {
+            var q = _context.ContratosVendas
+                         .Where(x => x.ContratoMestreId == masterId)
+                         .Skip((pageIndex - 1) * pageSize)
+                         .Take(pageSize)
+                         .ToListAsync();
+
+            return await q;
+        }
     }
 }

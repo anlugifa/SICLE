@@ -21,12 +21,13 @@ namespace Dominio.Entidades.Contrato
         public long Id { get; set; }
         public String Code { get; set; }
         public PaymentTermType PaymentTermType { get; set; }
+
         public SAPEnvType Env { get; set; }        
         public double Days{ get; set; }
 
         [MaxLength(100)]
         public String Description { get; set; }
-        public Boolean IsFixDate { get; set; }
-        public Boolean IsActive { get; set; }
+        public bool IsFixDate { get; set; }
+        public bool IsActive { get; set; }
     }
 }

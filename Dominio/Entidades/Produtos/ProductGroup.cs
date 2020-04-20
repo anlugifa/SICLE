@@ -7,7 +7,7 @@ namespace Dominio.Entidades.Produtos
     public class ProductGroup
     {
         [Required]
-        public long Id { get; set; }
+        public int Id { get; set; }
 
         [MaxLength(20)]
         public String Code{ get; set; }
@@ -16,7 +16,7 @@ namespace Dominio.Entidades.Produtos
         public String Description{ get; set; }
         public String EnglishDescription{ get; set; }
         public ProductEsalqType EsalqType{ get; set; }
-        public Double ProductPremium{ get; set; }
+        public Double? ProductPremium{ get; set; }
 
         public ICollection<Product> Products {get; set;}
     }

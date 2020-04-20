@@ -17,10 +17,12 @@ namespace Web.Controllers
     public class ContratoVendaMestreController : SicleController
     {
         private readonly ContratoVendaMestreRepository _repo;
+        private readonly ContratoVendaRepository _repoContract;
 
         public ContratoVendaMestreController(ApplicationDBContext context) : base(context)
         {
             _repo = new ContratoVendaMestreRepository(context);
+            _repoContract = new ContratoVendaRepository(context);
         }
 
         public async Task<IActionResult> Index(string sortOrder,
@@ -71,10 +73,10 @@ namespace Web.Controllers
                                        || s.Observation.Contains(searchString));
             }
 
-            if (status != null)
-            {
-                query = query.Where(s => s.Contratos.Any(x => x.Status == status));
-            }
+            // if (status != null)
+            // {
+            //     query = query.Where(s => s.Contratos.Any(x => x.Status == status));
+            // }
             #endregion
 
             switch (sortOrder)
@@ -96,16 +98,29 @@ namespace Web.Controllers
                     break;
             }
 
-            return View(await ContratoVendaMestreModel
+            return View(await IndexContratoVendaMestreModel
                         .CreateAsync(query.AsNoTracking(), pageNumber ?? 1, _pageSize));
         }
 
         [HttpGet]
-        public IActionResult Editar(int id)
+        public async Task<IActionResult> Editar(long id, string sortOrder, int? pageNumber)
         {
-            var usuario = _repo.Get(id);
+            var contrato = _repo.Get(id);
 
-            return View("Salvar", usuario);
+            if (contrato == null)
+                throw new ArgumentException("Id {0} de ContratoVendaMestre não encontrado.");
+
+            var query = _repoContract.AsQueryable()
+                                .Include("ProductGroup")
+                                .Include("ClientGroup")
+                                .Include("PaymentTerm")
+                                .Where(x => x.ContratoMestreId == id)
+                                .OrderByDescending(x => x.Id);          
+
+            var model = EditContratoVendaMestreModel.CreateAsync(contrato, 
+                                query.AsNoTracking(), pageNumber ?? 1, _pageSize);
+
+            return View("Edit", await model);
         }
 
         [HttpGet]

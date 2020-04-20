@@ -12,15 +12,32 @@ namespace Dominio.Entidades.Contrato
     {
         public long Id { get; set; }
         public long? ContratoVendaAnteriorId { get; set; }
+
+        [Display(Name="Nome")]
         public String Name { get; set; }
+
+        [Display(Name="Apelido")]
         public String Nickname { get; set; }
+
+        [Display(Name="Início")]
         public DateTime Begin { get; set; }
+
+        [Display(Name="Fim")]
         public DateTime End { get; set; }
+
+        [Display(Name="Flexibilidade")]
         public double Flexibility { get; set; }
+
+        [Display(Name="Vol. Total")]
         public double? TotalVolume { get; set; }
+
+        [Display(Name="Grupo Econômico")]
         public String EconomicGroup { get; set; }
-        public bool IsAvailableForBroker { get; set; }
+
+        [Display(Name="Observação")]
         public String Observation { get; set; }
+
+        public bool IsAvailableForBroker { get; set; }
         public bool IsDeleted { get; set; }
         public bool IsActive { get; set; }
 
@@ -65,7 +82,7 @@ namespace Dominio.Entidades.Contrato
         public String BrokerId { get; set; }
         public virtual Broker Broker { get; set; }
         
-        public long? ProductGroupId { get; set; }
+        public int? ProductGroupId { get; set; }
         public virtual ProductGroup ProductGroup { get; set; }
 
         public long? ClientGroupId { get; set; }
@@ -80,6 +97,11 @@ namespace Dominio.Entidades.Contrato
         public ContratoVenda()
         {
             ContractVersion = 1;
+        }
+
+        public override string ToString()
+        {
+            return "RE-" + Id;
         }
     }
 }

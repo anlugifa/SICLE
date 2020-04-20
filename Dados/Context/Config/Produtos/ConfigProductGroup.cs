@@ -19,10 +19,12 @@ namespace Sicle.Dados.Context.Config.Produtos
                 t.HasKey(p => p.Id);
 
                 t.Property(p => p.Id).HasColumnName("CD_SEQ_GRUPOPRODUTO");
+
                 t.Property(p => p.Code).HasColumnName("CD_GRUPOPRODUTO");
                 t.Property(p => p.Description).HasColumnName("DS_GRUPOPRODUTO");
                 t.Property(p => p.EnglishDescription).HasColumnName("DS_GRUPOPRODUTO_INGLES");
-                t.Property(p => p.EsalqType).HasColumnName("TP_ESALQ"); 
+                t.Property(p => p.EsalqType).HasColumnName("TP_ESALQ")
+                                .HasConversion(ColumnConverter.ProductEsalqConverter());
                 t.Property(p => p.ProductPremium).HasColumnName("VL_PREMIOPRODUTO");
             });
         }
