@@ -60,10 +60,11 @@
         <div class="form-group">
             <label class="col-md-2 control-label" for="PaymentTermId">Condição de Pagamento</label>
             <div class="col-md-4">
-                <select asp-for="@Model.Contrato.PaymentTermId" class="form-control"
-                         asp-items='new SelectList(@Model.PaymentTerms, "Id", "Code")'>
-                    <option value="0">Selecione</option>
-                </select>        
+                <input type="hidden" id="paymentTermId" asp-for="@Model.Contrato.PaymentTermId">
+                <input type="text" id="paymentTerm" class="form-control typeahead" data-provide="typeahead" 
+                        asp-for="@Model.Contrato.PaymentTerm.Code">  
+
+                
             </div>
         </div>
 

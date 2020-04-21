@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Mvc;
 using Dados.Repository;
 using Dominio.Entidades.Contrato;
 using Sicle.Web.Areas.Contratos.Models;
+using System.Linq;
+using Newtonsoft.Json;
 
 namespace Web.Controllers
 {
@@ -57,6 +59,16 @@ namespace Web.Controllers
 
             ViewBag.SuccessMsg = "Contrato salvo com sucesso!";
             return View(modelo);
+        }
+
+        public JsonResult GetPaymentTermList(string name)
+        {
+            var repo = new PaymentTermRepository(_context);
+            var list = repo.AsQueryable().Where(x => x.Code.StartsWith(name) && x.IsActive)
+                                .OrderBy(x => x.Code).Take(10).ToList();
+
+            return Json(list);
+
         }
     }
 }
