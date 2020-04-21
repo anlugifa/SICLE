@@ -6,6 +6,7 @@
     <title>@ViewData["Title"] - SICLE</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/lib/bootstrap-datepicker/css/bootstrap-datepicker.css" />
     <style>
         .navbar-nav li:hover > ul.dropdown-menu {
             display: block;
@@ -166,8 +167,21 @@
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>    
+    
+    <script src="~/lib/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+    <script src="~/lib/bootstrap-datepicker/locales/bootstrap-datepicker.pt-BR.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+
+    <script language="javascript">
+
+        $(function () {
+           $(".datepicker").datepicker({language:'pt-BR'});
+        });
+
+    </script>
+
+
     @RenderSection("Scripts", required: false)
 </body>
 </html>
