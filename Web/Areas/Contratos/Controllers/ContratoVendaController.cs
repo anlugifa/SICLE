@@ -7,6 +7,7 @@ using Dominio.Entidades.Contrato;
 using Sicle.Web.Areas.Contratos.Models;
 using System.Linq;
 using Newtonsoft.Json;
+using Microsoft.EntityFrameworkCore;
 
 namespace Web.Controllers
 {
@@ -23,14 +24,17 @@ namespace Web.Controllers
         [HttpGet]
         public async Task<IActionResult> Editar(long id, string sortOrder, int? pageNumber)
         {
-            var contrato = _repo.Get(id);
+            var contrato = _repo.AsQueryable()
+                        .Include("PaymentTerm")
+                        .Include("ClientGroup")
+                        .Include("ProductGroup")
+                        .FirstOrDefault(x => x.Id == id);
 
             if (contrato == null)
                 throw new ArgumentException("Id {0} de ContratoVenda não encontrado.");
             
             var vm = new EditContratoVendaVM(contrato);
             vm.ProductGroups = await new ProductGroupRepository(_context).GetAllAsync();
-            vm.PaymentTerms = await new PaymentTermRepository(_context).GetAllAsync();
             
             return View("Edit", vm);
         }
@@ -59,6 +63,16 @@ namespace Web.Controllers
 
             ViewBag.SuccessMsg = "Contrato salvo com sucesso!";
             return View(modelo);
+        }
+
+        public JsonResult GetClientGroupList(string name)
+        {
+            var repo = new ClientGroupRepository(_context);
+            var list = repo.AsQueryable().Where(x => x.Code.StartsWith(name))
+                                .OrderBy(x => x.Code).Take(10).ToList();
+
+            return Json(list);
+
         }
 
         public JsonResult GetPaymentTermList(string name)

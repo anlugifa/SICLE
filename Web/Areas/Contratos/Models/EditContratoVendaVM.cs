@@ -18,11 +18,9 @@ namespace Sicle.Web.Areas.Contratos.Models
         public long ContratoVendaId { get; set; }
         public long ContratoMestreId { get; set; }
         public ContratoVenda Contrato { get; set; }
-
-        public IEnumerable<ClientGroup> ClientGroups {get; set;}
+       
         public IEnumerable<ProductGroup> ProductGroups {get; set;}
-        public IEnumerable<PaymentTerm> PaymentTerms {get; set;}
-
+       
         public EditContratoVendaVM(ContratoVenda contrato)
         {
             this.Contrato = contrato;

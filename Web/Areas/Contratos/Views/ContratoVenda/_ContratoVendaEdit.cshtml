@@ -58,12 +58,21 @@
         </div>
 
         <div class="form-group">
-            <label class="col-md-2 control-label" for="PaymentTermId">Condição de Pagamento</label>
+            <label class="col-md-4 control-label" for="ClientGroupId">Grupo de Cliente</label>
+            <div class="col-md-4">
+                <input type="hidden" id="clientGroupId" asp-for="@Model.Contrato.ClientGroupId">
+                <input type="text" id="clientGroup" class="form-control typeahead" data-provide="typeahead" 
+                        asp-for="@Model.Contrato.ClientGroup.Code"  value="@Model.Contrato.ClientGroup.Code">
+                
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="PaymentTermId">Condição de Pagamento</label>
             <div class="col-md-4">
                 <input type="hidden" id="paymentTermId" asp-for="@Model.Contrato.PaymentTermId">
                 <input type="text" id="paymentTerm" class="form-control typeahead" data-provide="typeahead" 
-                        asp-for="@Model.Contrato.PaymentTerm.Code">  
-
+                        asp-for="@Model.Contrato.PaymentTerm.Code"  value="@Model.Contrato.PaymentTerm.Code">
                 
             </div>
         </div>
