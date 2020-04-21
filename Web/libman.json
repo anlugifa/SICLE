@@ -1,0 +1,14 @@
+{
+  "version": "1.0",
+  "defaultProvider": "cdnjs",
+  "libraries": [
+    {
+      "library": "bootstrap-datepicker@1.9.0",
+      "destination": "wwwroot/lib/bootstrap-datepicker/"
+    },
+    {
+      "library": "bootstrap-3-typeahead@4.0.2",
+      "destination": "wwwroot/lib/bootstrap-3-typeahead/"
+    }
+  ]
+}
