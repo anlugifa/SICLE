@@ -1,0 +1,48 @@
+@model Dominio.Entidades.Contrato.ContratoVenda
+@using Dominio.Entidades.Contrato
+@using Util
+
+<form asp-action="Salvar" method="post">
+    <div class="form-group">
+
+        <input type="hidden" class="form-control" name="Id" value="@Model.ContratoMestreId"/>           
+
+        <div class="form-group">
+            <label class="col-md-2 control-label" for="ContratoMestre.Nickname">Contrato Mestre</label>
+            <div class="col-md-4">
+                <input type="text" class="form-control" asp-for="ContratoMestre.Nickname" disabled="disabled">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-md-2 control-label" for="Nickname">Apelido</label>
+            <div class="col-md-4">
+                <input type="text" class="form-control" asp-for="Nickname">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-md-2 control-label" for="Begin">Início</label>
+            <div class="col-md-4">
+                <input id="begin" type="text" class="form-control datepicker" asp-for="Begin" asp-format="{0:dd/MM/yyyy}">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-md-2 control-label" for="End">Fim</label>
+            <div class="col-md-4">
+                <input type="text" class="form-control" asp-for="End" asp-format="{0:dd/MM/yyyy}">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-md-2 control-label" for="Period">Periodicidade</label>
+            <div class="col-md-4">
+                <select asp-for="Period" class="form-control"
+                        asp-items="Html.GetEnumSelectList(typeof (PeriodType))">
+                    <option value="0">Selecione</option>
+                </select>        
+            </div>
+        </div>
+    </div>
+</form>

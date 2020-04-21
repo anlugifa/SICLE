@@ -1,0 +1,86 @@
+@model Dominio.Entidades.Contrato.ContratoVenda
+@using Dominio.Entidades.Contrato
+@using Util
+
+@{
+    ViewData["Title"] = "SICLE";
+}
+
+@section Styles
+{
+    <style>
+
+        table th {
+            font-size: 12px;
+            text-align:center;
+        }        
+
+        table td {
+            font-size: 10px;
+            text-align:center;
+        }      
+
+        .col-id {
+            width: 70px;
+        }  
+
+    </style>
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <h2>Contrato de Venda</h2>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-md-12">  
+        <ul class="nav nav-tabs">
+            <li class="nav-item">
+                <a  href="#tab1" data-toggle="tab"  class="nav-link active">Contrato</a>
+            </li>
+            <li class="nav-item">
+                <a href="#tab2" data-toggle="tab"  class="nav-link">Cotas</a>
+            </li>
+            <li class="nav-item">
+                <a href="#tab3" data-toggle="tab"  class="nav-link">Volume</a>
+            </li>
+            <li class="nav-item">
+                <a href="#tab4" data-toggle="tab"  class="nav-link">Precificação</a>
+            </li>
+            <li class="nav-item">
+                <a href="#tab5" data-toggle="tab"  class="nav-link">Justificativa</a>
+            </li>
+        </ul>
+
+        <div class="tab-content ">
+            <div class="tab-pane fade show active" id="tab1">              
+                <partial name="_ContratoVendaEdit.cshtml" model="Model"></partial>
+            </div>
+            <div class="tab-pane fade" id="tab2">
+                <h3>Tab 2</h3>
+            </div>
+            <div class="tab-pane fade" id="tab3">
+                <h3>Tab 3</h3>
+            </div>
+             <div class="tab-pane fade" id="tab3">
+                <h3>Tab 4</h3>
+            </div>
+             <div class="tab-pane fade" id="tab3">
+                <h3>Tab 5</h3>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+@section Scripts
+{
+
+    <script language="javascript">
+
+        @* $('#begin input').datepicker({}); *@
+
+    </script>
+}
