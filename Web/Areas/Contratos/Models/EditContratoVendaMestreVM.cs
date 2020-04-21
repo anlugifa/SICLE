@@ -12,7 +12,7 @@ using Util;
 
 namespace Sicle.Web.Areas.Contratos.Models
 {
-    public class EditContratoVendaMestreModel : PaginatedList<ContratoVenda>
+    public class EditContratoVendaMestreVM : PaginatedList<ContratoVenda>
     {
         public long ContratoMestreId { get; set; }
         public ContratoVendaMestre ContratoMeste { get; set; }
@@ -25,19 +25,19 @@ namespace Sicle.Web.Areas.Contratos.Models
             }
         }
 
-        public EditContratoVendaMestreModel(ContratoVendaMestre contrato, List<ContratoVenda> items,
+        public EditContratoVendaMestreVM(ContratoVendaMestre contrato, List<ContratoVenda> items,
             int count, int pageIndex, int pageSize) : base(items, count, pageIndex, pageSize)
         {
             this.ContratoMeste = contrato;
             this.ContratoMestreId = contrato.Id;
         }
 
-        public static async Task<EditContratoVendaMestreModel> 
+        public static async Task<EditContratoVendaMestreVM> 
                 CreateAsync(ContratoVendaMestre contrato, IQueryable<ContratoVenda> source, int pageIndex, int pageSize)
         {
             var count = await source.CountAsync();
             var items = await source.Skip((pageIndex - 1) * pageSize).Take(pageSize).ToListAsync();
-            return new EditContratoVendaMestreModel(contrato, items, count, pageIndex, pageSize);
+            return new EditContratoVendaMestreVM(contrato, items, count, pageIndex, pageSize);
         }
 
         public ContratoVendaModel ConvertoToViewModel(ContratoVenda model)

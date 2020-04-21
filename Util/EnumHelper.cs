@@ -50,6 +50,7 @@ namespace Util
                 return value.ToString();
         }
 
+
         public static IEnumerable<SelectListItem> GetSelectList<T>()
         {
             var groupDictionary = new Dictionary<string, SelectListGroup>();
@@ -69,25 +70,41 @@ namespace Util
                 var text = display?.GetName() ?? display?.GetShortName() ?? display?.GetDescription() ?? display?.GetPrompt() ?? description?.Description ?? field.Name;
                 var value = field.Name;
                 var groupName = display?.GetGroupName() ?? group?.Category ?? string.Empty;
-                if (!groupDictionary.ContainsKey(groupName)) { groupDictionary.Add(groupName, new SelectListGroup { Name = groupName }); }
-
-                list.Add( new SelectListItem
+                if (!groupDictionary.ContainsKey(groupName))
                 {
-                    Text = text,
-                    Value = value,
-                    Group = groupDictionary[groupName],
-                });
+                    groupDictionary.Add(groupName, new SelectListGroup { Name = groupName });
+                }
+
+                if (String.IsNullOrEmpty(groupName))
+                {
+                    list.Add(new SelectListItem
+                    {
+                        Text = text,
+                        Value = value
+                    });
+                }
+                else
+                {
+                    list.Add(new SelectListItem
+                    {
+                        Text = text,
+                        Value = value,
+                        Group = groupDictionary[groupName],
+                    });
+                }
             }
 
             return list.OrderBy(p => p.Text);
         }
 
-        public static IHtmlContent EnumDropDownListFor<TModel, TEnum>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TEnum>> expression)
+        public static IHtmlContent EnumDropDownListFor<TModel, TEnum>(this HtmlHelper<TModel> htmlHelper,
+                    Expression<Func<TModel, TEnum>> expression)
         {
             return EnumDropDownListFor(htmlHelper, expression, null);
         }
 
-        public static IHtmlContent EnumDropDownListFor<TModel, TEnum>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TEnum>> expression, object htmlAttributes)
+        public static IHtmlContent EnumDropDownListFor<TModel, TEnum>(this HtmlHelper<TModel> htmlHelper,
+                            Expression<Func<TModel, TEnum>> expression, object htmlAttributes)
         {
             var metadata = ExpressionMetadataProvider.FromLambdaExpression(expression, htmlHelper.ViewData, htmlHelper.MetadataProvider);
             Type enumType = GetNonNullableModelType(metadata);

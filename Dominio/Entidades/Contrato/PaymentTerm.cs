@@ -29,5 +29,11 @@ namespace Dominio.Entidades.Contrato
         public String Description { get; set; }
         public bool IsFixDate { get; set; }
         public bool IsActive { get; set; }
+
+
+        public override String ToString()
+        {
+            return Code;
+        }
     }
 }

@@ -19,5 +19,10 @@ namespace Dominio.Entidades.Produtos
         public Double? ProductPremium{ get; set; }
 
         public ICollection<Product> Products {get; set;}
+
+        public override String  ToString()
+        {
+            return Code;
+        }
     }
 }

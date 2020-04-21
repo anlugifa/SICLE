@@ -1,5 +1,6 @@
-@model Dominio.Entidades.Contrato.ContratoVenda
+@model Sicle.Web.Areas.Contratos.Models.EditContratoVendaVM
 @using Dominio.Entidades.Contrato
+@using Dominio.Entidades.Produtos
 @using Util
 
 <form asp-action="Salvar" method="post">
@@ -8,41 +9,63 @@
         <input type="hidden" class="form-control" name="Id" value="@Model.ContratoMestreId"/>           
 
         <div class="form-group">
-            <label class="col-md-2 control-label" for="ContratoMestre.Nickname">Contrato Mestre</label>
+            <label class="col-md-2 control-label" for="Model.Contrato.ContratoMestre.Nickname">Contrato Mestre</label>
             <div class="col-md-4">
-                <input type="text" class="form-control" asp-for="ContratoMestre.Nickname" disabled="disabled">
+                <input type="text" class="form-control" asp-for="@Model.Contrato.ContratoMestre.Nickname" 
+                    disabled="disabled">
             </div>
         </div>
 
         <div class="form-group">
             <label class="col-md-2 control-label" for="Nickname">Apelido</label>
             <div class="col-md-4">
-                <input type="text" class="form-control" asp-for="Nickname">
+                <input type="text" class="form-control" asp-for="@Model.Contrato.Nickname">
             </div>
         </div>
 
         <div class="form-group">
             <label class="col-md-2 control-label" for="Begin">Início</label>
             <div class="col-md-4">
-                <input id="begin" type="text" class="form-control datepicker" asp-for="Begin">                
+                <input id="begin" type="text" class="form-control datepicker" asp-for="@Model.Contrato.Begin">                
             </div>
         </div>
 
         <div class="form-group">
             <label class="col-md-2 control-label" for="End">Fim</label>
             <div class="col-md-4">
-                <input type="text" class="form-control datepicker" asp-for="End">
+                <input type="text" class="form-control datepicker" asp-for="@Model.Contrato.End">
             </div>
         </div>
 
         <div class="form-group">
             <label class="col-md-2 control-label" for="Period">Periodicidade</label>
             <div class="col-md-4">
-                <select asp-for="Period" class="form-control"
-                        asp-items="Html.GetEnumSelectList(typeof (PeriodType))">
+                <select asp-for="@Model.Contrato.Period" class="form-control"
+                        asp-items="EnumHelper.GetSelectList<PeriodType>()">
                     <option value="0">Selecione</option>
                 </select>        
             </div>
         </div>
+
+        <div class="form-group">
+            <label class="col-md-2 control-label" for="ProductGroupId">Grupo de Produto</label>
+            <div class="col-md-4">
+                <select asp-for="@Model.Contrato.ProductGroupId" class="form-control"
+                        asp-items='new SelectList(@Model.ProductGroups, "Id", "Code")'>
+                    <option value="0">Selecione</option>
+                </select>        
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-md-2 control-label" for="PaymentTermId">Condição de Pagamento</label>
+            <div class="col-md-4">
+                <select asp-for="@Model.Contrato.PaymentTermId" class="form-control"
+                         asp-items='new SelectList(@Model.PaymentTerms, "Id", "Code")'>
+                    <option value="0">Selecione</option>
+                </select>        
+            </div>
+        </div>
+
     </div>
 </form>

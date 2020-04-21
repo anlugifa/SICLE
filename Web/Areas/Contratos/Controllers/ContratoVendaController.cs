@@ -4,6 +4,7 @@ using Dados;
 using Microsoft.AspNetCore.Mvc;
 using Dados.Repository;
 using Dominio.Entidades.Contrato;
+using Sicle.Web.Areas.Contratos.Models;
 
 namespace Web.Controllers
 {
@@ -18,16 +19,18 @@ namespace Web.Controllers
         }
 
         [HttpGet]
-        public IActionResult Editar(long id, string sortOrder, int? pageNumber)
+        public async Task<IActionResult> Editar(long id, string sortOrder, int? pageNumber)
         {
             var contrato = _repo.Get(id);
 
             if (contrato == null)
                 throw new ArgumentException("Id {0} de ContratoVenda não encontrado.");
-
-            var model = _repo.Get(id);
-
-            return View("Edit", model);
+            
+            var vm = new EditContratoVendaVM(contrato);
+            vm.ProductGroups = await new ProductGroupRepository(_context).GetAllAsync();
+            vm.PaymentTerms = await new PaymentTermRepository(_context).GetAllAsync();
+            
+            return View("Edit", vm);
         }
 
         [HttpGet]

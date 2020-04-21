@@ -12,7 +12,7 @@ using Util;
 
 namespace Sicle.Web.Areas.Contratos.Models
 {
-    public class IndexContratoVendaMestreModel : PaginatedList<ContratoVendaMestre>
+    public class IndexContratoVendaMestreVM : PaginatedList<ContratoVendaMestre>
     {
         public IEnumerable<SelectListItem> ListStatus {
             get {
@@ -20,16 +20,16 @@ namespace Sicle.Web.Areas.Contratos.Models
             }
         }
 
-        public IndexContratoVendaMestreModel(List<ContratoVendaMestre> items,
+        public IndexContratoVendaMestreVM(List<ContratoVendaMestre> items,
             int count, int pageIndex, int pageSize) : base(items, count, pageIndex, pageSize)
         {
         }
 
-        public static new async Task<IndexContratoVendaMestreModel> CreateAsync(IQueryable<ContratoVendaMestre> source, int pageIndex, int pageSize)
+        public static new async Task<IndexContratoVendaMestreVM> CreateAsync(IQueryable<ContratoVendaMestre> source, int pageIndex, int pageSize)
         {
             var count = await source.CountAsync();
             var items = await source.Skip((pageIndex - 1) * pageSize).Take(pageSize).ToListAsync();
-            return new IndexContratoVendaMestreModel(items, count, pageIndex, pageSize);
+            return new IndexContratoVendaMestreVM(items, count, pageIndex, pageSize);
         }
 
         public ContratoVendaMestreModel ConvertoToViewModel(ContratoVendaMestre model)

@@ -98,7 +98,7 @@ namespace Web.Controllers
                     break;
             }
 
-            return View(await IndexContratoVendaMestreModel
+            return View(await IndexContratoVendaMestreVM
                         .CreateAsync(query.AsNoTracking(), pageNumber ?? 1, _pageSize));
         }
 
@@ -117,7 +117,7 @@ namespace Web.Controllers
                                 .Where(x => x.ContratoMestreId == id)
                                 .OrderByDescending(x => x.Id);          
 
-            var model = EditContratoVendaMestreModel.CreateAsync(contrato, 
+            var model = EditContratoVendaMestreVM.CreateAsync(contrato, 
                                 query.AsNoTracking(), pageNumber ?? 1, _pageSize);
 
             return View("Edit", await model);
