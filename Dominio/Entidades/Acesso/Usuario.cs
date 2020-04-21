@@ -9,11 +9,11 @@ namespace Dominio.Entidades.Acesso
     {
         public long Id { get; set; }
 
-        [Required(ErrorMessage = "Matr�cula obrigat�ria")]
+        [Required(ErrorMessage = "Matrícula obrigatória")]
         [MaxLength(8)]
         public string Matricula { get; set; }
 
-        [Required(ErrorMessage = "Nome obrigat�rio")]
+        [Required(ErrorMessage = "Nome obrigatória")]
         [MaxLength(50)]
         public string Nome { get; set; }
         
@@ -21,7 +21,7 @@ namespace Dominio.Entidades.Acesso
         [Display(Name = "Nome SGP")]
         public string NomeSGP { get; set; }
 
-        [Required(ErrorMessage = "E-mail obrigat�rio")]
+        [Required(ErrorMessage = "E-mail obrigatória")]
         [EmailAddress]
         public string Email { get; set; }
 

@@ -20,9 +20,13 @@ namespace Dominio.Entidades.Contrato
         public String Nickname { get; set; }
 
         [Display(Name="Início")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
+        [DataType(DataType.Date)]
         public DateTime Begin { get; set; }
 
         [Display(Name="Fim")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
+        [DataType(DataType.Date)]
         public DateTime End { get; set; }
 
         [Display(Name="Flexibilidade")]
