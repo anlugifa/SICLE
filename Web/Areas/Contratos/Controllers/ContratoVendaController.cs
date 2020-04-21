@@ -28,6 +28,8 @@ namespace Web.Controllers
                         .Include("PaymentTerm")
                         .Include("ClientGroup")
                         .Include("ProductGroup")
+                        .Include("Broker")
+                        .Include("Trader")
                         .FirstOrDefault(x => x.Id == id);
 
             if (contrato == null)
@@ -72,7 +74,6 @@ namespace Web.Controllers
                                 .OrderBy(x => x.Code).Take(10).ToList();
 
             return Json(list);
-
         }
 
         public JsonResult GetPaymentTermList(string name)
@@ -82,7 +83,26 @@ namespace Web.Controllers
                                 .OrderBy(x => x.Code).Take(10).ToList();
 
             return Json(list);
+        }
 
+        public JsonResult GetBrokerList(string name)
+        {
+            var repo = new BrokerRepository(_context);
+            var list = repo.AsQueryable().Where(x => x.Code.StartsWith(name))
+                                .OrderBy(x => x.Code).Take(10).ToList();
+
+            return Json(list);
+        }
+
+        public JsonResult GetTraderList(string name)
+        {
+            var repo = new UsuarioRepository(_context);
+            var list = repo.AsQueryable()
+                            .Where(x => x.Nome.StartsWith(name))
+                                .OrderBy(x => x.Nome)
+                                .Take(10).ToList();
+
+            return Json(list);
         }
     }
 }

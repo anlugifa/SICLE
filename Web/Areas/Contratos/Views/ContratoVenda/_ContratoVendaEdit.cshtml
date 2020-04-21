@@ -26,7 +26,7 @@
         <div class="form-group">
             <label class="col-md-2 control-label" for="Begin">Início</label>
             <div class="col-md-4">
-                <input id="begin" type="text" class="form-control datepicker" asp-for="@Model.Contrato.Begin">                
+                <input type="text" class="form-control datepicker" asp-for="@Model.Contrato.Begin">                
             </div>
         </div>
 
@@ -58,24 +58,69 @@
         </div>
 
         <div class="form-group">
-            <label class="col-md-4 control-label" for="ClientGroupId">Grupo de Cliente</label>
+            <label class="col-md-4 control-label" for="clientGroupId">Grupo de Cliente</label>
             <div class="col-md-4">
                 <input type="hidden" id="clientGroupId" asp-for="@Model.Contrato.ClientGroupId">
                 <input type="text" id="clientGroup" class="form-control typeahead" data-provide="typeahead" 
-                        asp-for="@Model.Contrato.ClientGroup.Code"  value="@Model.Contrato.ClientGroup.Code">
+                        asp-for="@Model.Contrato.ClientGroup.Code" >
                 
             </div>
         </div>
 
         <div class="form-group">
-            <label class="col-md-4 control-label" for="PaymentTermId">Condição de Pagamento</label>
+            <label class="col-md-4 control-label" for="paymentTermId">Condição de Pagamento</label>
             <div class="col-md-4">
                 <input type="hidden" id="paymentTermId" asp-for="@Model.Contrato.PaymentTermId">
                 <input type="text" id="paymentTerm" class="form-control typeahead" data-provide="typeahead" 
-                        asp-for="@Model.Contrato.PaymentTerm.Code"  value="@Model.Contrato.PaymentTerm.Code">
+                        asp-for="@Model.Contrato.PaymentTerm.Code" >
                 
             </div>
         </div>
 
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="brokerId">Broker</label>
+            <div class="col-md-4">
+                <input type="hidden" id="brokerId" asp-for="@Model.Contrato.BrokerId">
+                <input type="text" id="broker" class="form-control typeahead" data-provide="typeahead" 
+                        asp-for="@Model.Contrato.Broker.Code" >
+                
+            </div>
+        </div>        
+
+        <div class="form-group">
+     
+            <div class="custom-control custom-checkbox custom-control-inline">
+                <input class="custom-control-input position-static" type="checkbox" asp-for="Contrato.IsAvailableForBroker" id="chkBroker">
+                <label class="custom-control-label" for="chkBroker">Disponível para SCA</label>
+            </div>
+
+            <div class="custom-control custom-checkbox custom-control-inline">
+                <input class="custom-control-input position-static" type="checkbox" asp-for="Contrato.IsOperacaoNNE" id="chkNNE">
+                <label class="custom-control-label" for="chkNNE">Operação NNE</label>
+            </div>
+
+            <div class="custom-control custom-checkbox custom-control-inline">
+                <input class="custom-control-input position-static" type="checkbox" asp-for="Contrato.HasNegotiationBC" id="chkBC">
+                <label class="custom-control-label" for="chkBC">Negociação BC</label>
+            </div>        
+        
+        </div>
+
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="traderId">Trader</label>
+            <div class="col-md-4">
+                <input type="hidden" id="traderId" asp-for="Contrato.TraderId">
+                <input type="text" id="trader" class="form-control typeahead" data-provide="typeahead" 
+                        asp-for="Contrato.Trader.Nome" >
+                
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-md-2 control-label" for="Observation">Observação</label>
+            <div class="col-md-4">
+                <textarea type="text" class="form-control" asp-for="Contrato.Observation"></textarea>                
+            </div>
+        </div>        
     </div>
 </form>
