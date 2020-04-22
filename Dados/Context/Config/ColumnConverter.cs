@@ -89,5 +89,13 @@ namespace Sicle.Dados.Context.Config
                 v => (PeriodType)Enum.Parse(typeof(PeriodType), v)
             );
         }
+
+        public static ValueConverter CGCTypeConverter()
+        {
+            return new ValueConverter<Nullable<CGCType>, String>(
+                v => v.ToString(),
+                v => (CGCType)Enum.Parse(typeof(CGCType), v)
+            );
+        }
     }
 }

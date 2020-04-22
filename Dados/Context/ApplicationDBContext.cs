@@ -56,6 +56,7 @@ namespace Dados
             ConfigRestricaoCargaDescarga.Config(model);
             ConfigClientGroup.Config(model);
             ConfigClient.Config(model);
+            ConfigCGCRegister.Config(model);
         }
 
         public DbSet<Product> Produtos { get; set; }
@@ -87,6 +88,7 @@ namespace Dados
         public DbSet<RestricaoCargaDescarga> RestricoesCargasDescargas { get; set; }
         public DbSet<ClientGroup> ClientGroups { get; set; }
         public DbSet<Client> Clients { get; set; }
+        public DbSet<CGCRegister> CGCRegisters { get; set; }
 
     }
 }
