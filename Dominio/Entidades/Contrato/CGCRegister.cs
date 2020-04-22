@@ -13,10 +13,10 @@ namespace Dominio.Entidades.Contrato
 
         public CGCType Type { get; set; }
                 
-        public int ClientId { get; set; }
+        public int? ClientId { get; set; }
         public Client Client { get; set; }
 
-        public int ClientGroupId { get; set; }
+        public long? ClientGroupId { get; set; }
         public ClientGroup ClientGroup { get; set; }
 
 
