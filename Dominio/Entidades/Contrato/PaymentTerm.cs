@@ -1,7 +1,7 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 using Dominio.Entidades.Acesso;
-using Dominio.Entidades.Localidade;
+using Dominio.Entidades.Localidades;
 using Dominio.Entidades.Produtos;
 
 namespace Dominio.Entidades.Contrato

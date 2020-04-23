@@ -4,9 +4,9 @@ using System.ComponentModel.DataAnnotations;
 using Dominio.Entidades.Contrato;
 using Dominio.Entidades.Produtos;
 
-namespace Dominio.Entidades.Localidade
+namespace Dominio.Entidades.Localidades
 {
-    public class Plant : LocalidadeGeografica
+    public abstract class Plant : LocalidadeGeografica
     {
         public String IE {get; set;}
         public String CNPJ { get; set; }

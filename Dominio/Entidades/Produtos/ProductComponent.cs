@@ -1,6 +1,6 @@
 using System;
 using System.ComponentModel.DataAnnotations;
-using Dominio.Entidades.Localidade;
+using Dominio.Entidades.Localidades;
 
 namespace Dominio.Entidades.Produtos
 {

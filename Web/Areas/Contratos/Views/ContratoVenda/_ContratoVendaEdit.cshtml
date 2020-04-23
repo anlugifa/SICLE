@@ -6,7 +6,14 @@
 <form asp-action="Salvar" method="post">
     <div class="form-group">
 
-        <input type="hidden" class="form-control" name="Id" value="@Model.ContratoMestreId"/>           
+        <input type="hidden" class="form-control" name="Id" value="@Model.ContratoMestreId">           
+
+        <div class="form-group">
+            <div class="custom-control custom-checkbox custom-control-inline">
+                <input class="custom-control-input position-static" type="checkbox" asp-for="Contrato.IsActive" id="chkAtivo">
+                <label class="custom-control-label" for="chkAtivo">Ativo</label>
+            </div>
+        </div>
 
         <div class="form-group">
             <label class="col-md-2 control-label" for="Model.Contrato.ContratoMestre.Nickname">Contrato Mestre</label>
@@ -102,7 +109,7 @@
             <div class="custom-control custom-checkbox custom-control-inline">
                 <input class="custom-control-input position-static" type="checkbox" asp-for="Contrato.HasNegotiationBC" id="chkBC">
                 <label class="custom-control-label" for="chkBC">Negociação BC</label>
-            </div>        
+            </div>            
         
         </div>
 
@@ -111,8 +118,7 @@
             <div class="col-md-4">
                 <input type="hidden" id="traderId" asp-for="Contrato.TraderId">
                 <input type="text" id="trader" class="form-control typeahead" data-provide="typeahead" 
-                        asp-for="Contrato.Trader.Nome" >
-                
+                        asp-for="Contrato.Trader.Nome" >                
             </div>
         </div>
 
@@ -121,6 +127,12 @@
             <div class="col-md-4">
                 <textarea type="text" class="form-control" asp-for="Contrato.Observation"></textarea>                
             </div>
-        </div>        
+        </div>       
+
+         <div class="form-group">
+             <div class="col-md-4">
+                 <input type="submit" class="btn btn-success" value="Salvar">
+             </div>
+         </div> 
     </div>
 </form>

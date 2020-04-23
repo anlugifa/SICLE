@@ -1,10 +1,5 @@
-﻿using Dominio.Entidades;
-using Dominio.Entidades.Acesso;
-using Dominio.Entidades.Contrato;
+﻿using Dominio.Entidades.Contrato;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Sicle.Dados.Context.Config.Contratos
 {
@@ -14,10 +9,10 @@ namespace Sicle.Dados.Context.Config.Contratos
         {
             model.Entity<CGCRegister>(t =>
             {
-                t.ToTable("CD_CADASTRO_CGC");
+                t.ToTable("TB_CADASTRO_CGC");
                 t.HasKey(p => p.Id);
 
-                t.Property(p => p.Id).HasColumnName("CD_SEQ_GRUPO_CLIENTE").UseOracleIdentityColumn();
+                t.Property(p => p.Id).HasColumnName("CD_CADASTRO_CGC").UseOracleIdentityColumn();
                 t.Property(p => p.CGC).HasColumnName("DS_CGC");
                 t.Property(p => p.IsActive).HasColumnName("ST_ATIVO");
                 

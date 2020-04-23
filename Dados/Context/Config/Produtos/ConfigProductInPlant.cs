@@ -1,6 +1,6 @@
 using Dominio.Entidades.Acesso;
 using Dominio.Entidades.Contrato;
-using Dominio.Entidades.Localidade;
+using Dominio.Entidades.Localidades;
 using Dominio.Entidades.Produtos;
 using Microsoft.EntityFrameworkCore;
 using System;

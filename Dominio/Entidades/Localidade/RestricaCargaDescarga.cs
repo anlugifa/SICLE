@@ -1,7 +1,7 @@
 using System;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Dominio.Entidades.Localidade
+namespace Dominio.Entidades.Localidades
 {    
     public class RestricaoCargaDescarga 
     {

@@ -1,6 +1,6 @@
 using System;
 
-namespace Dominio.Entidades.Localidade
+namespace Dominio.Entidades.Localidades
 {
     public abstract class LocalidadeGeografica : Localidade
     {
@@ -11,10 +11,10 @@ namespace Dominio.Entidades.Localidade
         
         public Boolean IsAgro {get; set;}
 
-        public TaxGroupType TaxGroupType {get; set;}
-        public StatusLocalidade Status {get; set;}
+        public TaxGroupType? TaxGroupType {get; set;}
+        public StatusLocalidade? Status {get; set;}
 
-        public int  RegionId {get; set;}
+        public int?  RegionId {get; set;}
         public Regiao Region {get; set;}
     }
 }

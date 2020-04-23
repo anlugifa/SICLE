@@ -24,20 +24,51 @@ namespace Web.Controllers
         [HttpGet]
         public async Task<IActionResult> Editar(long id, string sortOrder, int? pageNumber)
         {
-            var contrato = _repo.AsQueryable()
-                        .Include("PaymentTerm")
-                        .Include("ClientGroup")
-                        .Include("ProductGroup")
-                        .Include("Broker")
-                        .Include("Trader")
-                        .FirstOrDefault(x => x.Id == id);
+            var contrato = _context.ContratosVendas
+                            .Include(p => p.PaymentTerm)
+                            .Include(p => p.ClientGroup)
+                            .Include(p => p.ProductGroup)
+                            .Include(p => p.Broker)
+                            .Include(p => p.Trader)       
+                            // .Include(p => p.Quotas)
+                            //     .ThenInclude(q => q.Origem)
+                            .Include(p => p.Quotas)
+                                 .ThenInclude(q => q.Destino) 
+                            .FirstOrDefault(x => x.Id == id);
 
             if (contrato == null)
                 throw new ArgumentException("Id {0} de ContratoVenda não encontrado.");
             
             var vm = new EditContratoVendaVM(contrato);
             vm.ProductGroups = await new ProductGroupRepository(_context).GetAllAsync();
-            
+            vm.Quotas = contrato.Quotas;
+
+            // var quotas = from q in _context.SaleContractQuotas
+            //         join o in _context.Localidades on q.OrigemId equals o.Id into origem
+            //         join c in _context.Clients on q.DestinoId equals c.Id into destino
+            //         where q.ContratoId == id
+            //         orderby q.Id descending
+            //         select new SaleContractQuota{
+            //             Id = q.Id,
+            //             QuotaVolume = q.QuotaVolume,
+            //             TotalVolume = q.TotalVolume,
+            //             Diflog = q.Diflog,
+            //             Freight = q.Freight,
+            //             Type = q.Type,
+
+            //             Origem = origem.FirstOrDefault(),
+            //             Destino = destino.FirstOrDefault()
+            //         };
+            // vm.Quotas = quotas.ToList();
+
+            // vm.Quotas = await new SaleContractQuotaRepositoy(_context)
+            //                 .AsQueryable()
+            //                 .Where( x => x.ContratoId == id)
+            //                 .Include(p => p.Origem)
+            //                 .Include(p => p.Destino)
+            //                 .OrderByDescending(x => x.Id)
+            //                 .ToListAsync();            
+
             return View("Edit", vm);
         }
 
@@ -103,7 +134,7 @@ namespace Web.Controllers
                                 .Take(10).ToList();
 
             return Json(list);
-        }
+        }       
     }
 }
 

@@ -1,14 +1,14 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace Dominio.Entidades.Localidade
+namespace Dominio.Entidades.Localidades
 {
     public class Regiao : Localidade
     {
         public Regiao(String code)
         {
             this.Code = code;
-            this.Tipo = TipoLocalidade.REGION;
+            this.Tipo = TipoLocalidade.R;
         }       
     }
 }

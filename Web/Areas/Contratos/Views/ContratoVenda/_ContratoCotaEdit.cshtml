@@ -1,0 +1,45 @@
+@model IEnumerable<SaleContractQuota>
+@using Dominio.Entidades.Contrato
+@using Web.Util
+@using Util
+
+<div class="row">
+    <div class="col-md-12">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Cota</th>
+                    <th>Origem</a></th>                  
+                    <th>Destino</th>
+                    <th>Diflog</th>                                   
+                    <th>Frete</th>                    
+                    <th>Incoterm</th>                    
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {   
+                    <tr>
+                        <td>@item.GetNameQuota()</td>
+                        <td>@item.GetOriginInitials()</td>
+                        <td>@item.GetDestinationInitials()</td>     
+
+                        <td>@item.Diflog.ToStr()</td> 
+                        <td>@item.Freight.ToStr()</td>
+                        <td>@item.Type.GetEnumDescription()</td>                      
+
+                        <td>
+                            @Html.ActionLink("Remover", "Remover", new {id=@item.Id})
+                        </td>              
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <input type="button" class="btn btn-success" value="Inserir">
+    </div>
+</div>

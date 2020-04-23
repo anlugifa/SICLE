@@ -15,13 +15,17 @@ namespace Util
             {
                 if (_factory == null)
                 {
-                    //_factory = LoggerFactory.CreateLogger(builder =>
-                    //{
+                    // _factory = LoggerFactory.CreateLogger(builder =>
+                    // {
                     //    builder
                     //        .AddFilter((category, level) =>
                     //            category == DbLoggerCategory.Database.Command.Name
                     //            && level == LogLevel.Information).AddConsole();
-                    //});
+                    // });
+
+                     _factory = new LoggerFactory(new[] { 
+                            new Microsoft.Extensions.Logging.Debug.DebugLoggerProvider()  });
+   
                 }
                 return _factory;
             }

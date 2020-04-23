@@ -1,7 +1,7 @@
 using System;
 using System.ComponentModel;
 
-namespace Dominio.Entidades.Localidade
+namespace Dominio.Entidades.Localidades
 {
     public enum TaxGroupType 
     {

@@ -24,6 +24,10 @@
             width: 70px;
         }  
 
+        .tab-pane:not(.active) {
+            display: none;
+        }
+
     </style>
 }
 
@@ -33,47 +37,43 @@
     </div>
 </div>
 
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+            <a  href="#tab1" data-toggle="tab"  class="nav-link active">Contrato</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tab2" data-toggle="tab"  class="nav-link">Cotas</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tab3" data-toggle="tab"  class="nav-link">Volume</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tab4" data-toggle="tab"  class="nav-link">Precificação</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tab5" data-toggle="tab"  class="nav-link">Justificativa</a>
+        </li>
+    </ul>
 
-<div class="row">
-    <div class="col-md-12">  
-        <ul class="nav nav-tabs">
-            <li class="nav-item">
-                <a  href="#tab1" data-toggle="tab"  class="nav-link active">Contrato</a>
-            </li>
-            <li class="nav-item">
-                <a href="#tab2" data-toggle="tab"  class="nav-link">Cotas</a>
-            </li>
-            <li class="nav-item">
-                <a href="#tab3" data-toggle="tab"  class="nav-link">Volume</a>
-            </li>
-            <li class="nav-item">
-                <a href="#tab4" data-toggle="tab"  class="nav-link">Precificação</a>
-            </li>
-            <li class="nav-item">
-                <a href="#tab5" data-toggle="tab"  class="nav-link">Justificativa</a>
-            </li>
-        </ul>
-
-        <div class="tab-content ">
-            <div class="tab-pane fade show active" id="tab1">              
-                <partial name="_ContratoVendaEdit.cshtml" model="Model"></partial>
-            </div>
-            <div class="tab-pane fade" id="tab2">
-                <h3>Tab 2</h3>
-            </div>
-            <div class="tab-pane fade" id="tab3">
-                <h3>Tab 3</h3>
-            </div>
-             <div class="tab-pane fade" id="tab3">
-                <h3>Tab 4</h3>
-            </div>
-             <div class="tab-pane fade" id="tab3">
-                <h3>Tab 5</h3>
-            </div>
+    <div class="tab-content ">
+        <div class="tab-pane fade show active" id="tab1">              
+            <partial name="_ContratoVendaEdit.cshtml" model="Model"></partial>
         </div>
-
+        <div class="tab-pane fade" id="tab2">
+            <partial name="_ContratoCotaEdit.cshtml" model="@Model.Quotas"></partial>           
+        </div>
+        <div class="tab-pane fade" id="tab3">
+            <h3>Tab 3</h3>
+        </div>
+            <div class="tab-pane fade" id="tab3">
+            <h3>Tab 4</h3>
+        </div>
+            <div class="tab-pane fade" id="tab3">
+            <h3>Tab 5</h3>
+        </div>
     </div>
-</div>
+
+   
 
 @section Scripts
 {

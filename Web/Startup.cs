@@ -50,11 +50,11 @@ namespace Web
                 options.UseOracle(Configuration.GetConnectionString("SicleDev"), b =>
                     b.UseOracleSQLCompatibility("11")
                 );
-                ///comentar para executar migrations
-                //if (Startup.CurrentEnvironment.IsDevelopment())
-                //{
-                //    options.UseLoggerFactory(AppLogger.Factory).EnableSensitiveDataLogging();
-                //}
+                //comentar para executar migrations
+                if (Startup.CurrentEnvironment.IsDevelopment())
+                {
+                   options.UseLoggerFactory(AppLogger.Factory).EnableSensitiveDataLogging();
+                }
             });
 
             //services.AddControllersWithViews().AddRazorRuntimeCompilation();           

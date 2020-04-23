@@ -1,6 +1,6 @@
 using Dominio.Entidades.Acesso;
 using Dominio.Entidades.Contrato;
-using Dominio.Entidades.Localidade;
+using Dominio.Entidades.Localidades;
 using Dominio.Entidades.Produtos;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -15,7 +15,7 @@ namespace Sicle.Dados.Context.Config.Localidades
         {
             model.Entity<Plant>(t =>
             {
-                t.ToTable("TP_LOCALIDADE");                
+                t.ToTable("TB_LOCALIDADES");                
 
                 t.Property(p => p.IE).HasColumnName("NR_IE");
                 t.Property(p => p.CNPJ).HasColumnName("NR_CNPJ");

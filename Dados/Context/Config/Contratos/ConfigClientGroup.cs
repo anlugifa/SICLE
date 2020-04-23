@@ -19,7 +19,7 @@ namespace Sicle.Dados.Context.Config.Contratos
 
                 t.Property(p => p.Id).HasColumnName("CD_SEQ_GRUPO_CLIENTE");
                 t.Property(p => p.Code).HasColumnName("CD_GRUPO_CLIENTE");
-                
+
                 t.Property(p => p.Type)
                                     .HasColumnName("TP_GRUPO_CLIENTE")
                                     .HasConversion(ColumnConverter.ClientGroupTypeConverter());
@@ -28,10 +28,10 @@ namespace Sicle.Dados.Context.Config.Contratos
                 t.Property(p => p.Email).HasColumnName("NM_EMAIL");
             });
 
-             model.Entity<ClientGroup>()
-                        .HasMany(b => b.Clientes)
-                        .WithOne(b => b.ClientGroup)
-                        .HasForeignKey(b => b.ClientGroupId);
+            model.Entity<ClientGroup>()
+                       .HasMany(b => b.Clientes)
+                       .WithOne(b => b.ClientGroup)
+                       .HasForeignKey(b => b.ClientGroupId);
         }
     }
 }

@@ -1,12 +1,20 @@
 using System;
+using System.ComponentModel;
 
-namespace Dominio.Entidades.Localidade
+namespace Dominio.Entidades.Localidades
 {
     public enum TipoLocalidade 
     {
-        REGION = 'R',
-		MILL = 'U',        
-		TERMINAL = 'T',
-		CLIENT = 'C'
+        [Description("Região")]
+        R = 'R',
+
+        [Description("Usinas")]
+		U = 'U',
+
+        [Description("Terminal")]
+		T = 'T',
+
+        [Description("Client")]
+		C = 'C'
     }
 }

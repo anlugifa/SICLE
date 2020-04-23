@@ -1,6 +1,6 @@
 using Dominio.Entidades.Acesso;
 using Dominio.Entidades.Contrato;
-using Dominio.Entidades.Localidade;
+using Dominio.Entidades.Localidades;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -14,7 +14,7 @@ namespace Sicle.Dados.Context.Config.Localidades
         {
             model.Entity<Regiao>(t =>
             {
-                t.ToTable("TP_LOCALIDADE");
+                t.ToTable("TB_LOCALIDADES");
             });
         }
     }

@@ -108,3 +108,6 @@ alter table TB_LOCALIDADES modify( ST_ARMAZENAGEM default(0) not null);
 
 update TB_LOCALIDADES set ST_PERFIL_SCA=0 where ST_PERFIL_SCA is null;
 alter table TB_LOCALIDADES modify( ST_PERFIL_SCA default(0) not null);
+
+
+commit;

@@ -7,7 +7,7 @@ using Sicle.Dados.Context.Config.Acessos;
 using Sicle.Dados.Context.Config.Contratos;
 using Dominio.Entidades.Contrato;
 using Dominio.Entidades.Produtos;
-using Dominio.Entidades.Localidade;
+using Dominio.Entidades.Localidades;
 using Sicle.Dados.Context.Config.Localidades;
 using Sicle.Dados.Context.Config.Produtos;
 
@@ -48,15 +48,21 @@ namespace Dados
             ConfigSpecialUnit.Config(model);
 
             ConfigProductInPlant.Config(model);
-            ConfigLocalidades.Config(model);
-            ConfigLocalidadeGeografica.Config(model);
-            ConfigRegiao.Config(model);
-            ConfigPlant.Config(model);
-            ConfigCompany.Config(model);
-            ConfigRestricaoCargaDescarga.Config(model);
             ConfigClientGroup.Config(model);
             ConfigClient.Config(model);
+            ConfigPlant.Config(model);
+            ConfigLocalidadeGeografica.Config(model);
+            ConfigRegiao.Config(model);
+            ConfigLocalidades.Config(model);
+            
+            ConfigCompany.Config(model);
+            ConfigRestricaoCargaDescarga.Config(model);
+           
             ConfigCGCRegister.Config(model);
+
+            ConfigSaleContractQuota.Config(model);
+            ConfigSaleContractVolumePeriod.Config(model);      
+
         }
 
         public DbSet<Product> Produtos { get; set; }
@@ -89,6 +95,9 @@ namespace Dados
         public DbSet<ClientGroup> ClientGroups { get; set; }
         public DbSet<Client> Clients { get; set; }
         public DbSet<CGCRegister> CGCRegisters { get; set; }
+
+        public DbSet<SaleContractQuota> SaleContractQuotas { get; set; }
+        public DbSet<SaleContractVolumePeriod> SaleContractVolumePeriods { get; set; }
 
     }
 }

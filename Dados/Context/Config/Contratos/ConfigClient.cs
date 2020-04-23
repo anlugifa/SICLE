@@ -1,5 +1,6 @@
 ﻿using Dominio.Entidades.Acesso;
 using Dominio.Entidades.Contrato;
+using Dominio.Entidades.Localidades;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -13,7 +14,7 @@ namespace Sicle.Dados.Context.Config.Contratos
         {
             model.Entity<Client>(t =>
             {
-                t.ToTable("TP_LOCALIDADE");
+                t.ToTable("TB_LOCALIDADES");               
 
                 t.Property(p => p.Email).HasColumnName("DS_EMAIL");
                 t.Property(p => p.UndoingEmail).HasColumnName("DS_EMAIL_DESFAZIMENTO");
@@ -29,7 +30,11 @@ namespace Sicle.Dados.Context.Config.Contratos
                 t.Property(p => p.Rating).HasColumnName("DS_RATING_FINANCEIRO");       
                 t.Property(p => p.IsBlockade).HasColumnName("ST_BLOQUEIO");
                 t.Property(p => p.IsArmazenagem).HasColumnName("ST_ARMAZENAGEM");                         
-                t.Property(p => p.IsScaProfile).HasColumnName("ST_PERFIL_SCA");
+                t.Property(p => p.IsScaProfile).HasColumnName("ST_PERFIL_SCA");                
+
+                t.Property(p => p.Type)
+                            .HasColumnName("DS_TIPO")
+                            .HasConversion(ColumnConverter.ClientTypeConverter());
 
                 t.Property(p => p.ClientGroupId).HasColumnName("CD_SEQ_GRUPO_CLIENTE");
                 t.Property(p => p.OperatorId).HasColumnName("CD_OPERADOR");
@@ -44,6 +49,7 @@ namespace Sicle.Dados.Context.Config.Contratos
                 .HasOne(x => x.Operator)
                 .WithMany()
                 .HasForeignKey(x => x.OperatorId);
+                
         }
     }
 }

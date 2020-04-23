@@ -1,7 +1,7 @@
 using Dominio.Entidades;
 using Dominio.Entidades.Acesso;
 using Dominio.Entidades.Contrato;
-using Dominio.Entidades.Localidade;
+using Dominio.Entidades.Localidades;
 using Dominio.Entidades.Produtos;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
@@ -31,6 +31,14 @@ namespace Sicle.Dados.Context.Config
             return new ValueConverter<bool, char>(
                 b => b ? '1' : '0',
                 b => b.Equals("1") ? true : false
+            );
+        }
+
+        public static ValueConverter TipoLocalidadeConverter()
+        {
+            return new ValueConverter<TipoLocalidade, char>(
+                v => Char.Parse(v.ToString()),
+                v => (TipoLocalidade)Enum.Parse(typeof(TipoLocalidade), v.ToString())
             );
         }
 
@@ -74,6 +82,30 @@ namespace Sicle.Dados.Context.Config
             );
         }
 
+        public static ValueConverter ClientTypeConverter()
+        {
+            return new ValueConverter<ClientType, String>(
+                v => v.ToString(),
+                v => (ClientType)Enum.Parse(typeof(ClientType), v)
+            );
+        }
+
+        public static ValueConverter StatusLocalidadeConverter()
+        {
+            return new ValueConverter<StatusLocalidade?, String>(
+                v => v.ToString(),
+                v => (StatusLocalidade)Enum.Parse(typeof(StatusLocalidade), v)
+            );
+        }
+
+        public static ValueConverter TaxGroupTypeConverter()
+        {
+            return new ValueConverter<TaxGroupType, String>(
+                v => v.ToString(),
+                v => (TaxGroupType)Enum.Parse(typeof(TaxGroupType), v)
+            );
+        }
+
         public static ValueConverter PaymentTermTypeConverter()
         {
             return new ValueConverter<PaymentTermType, String>(
@@ -95,6 +127,14 @@ namespace Sicle.Dados.Context.Config
             return new ValueConverter<Nullable<CGCType>, String>(
                 v => v.ToString(),
                 v => (CGCType)Enum.Parse(typeof(CGCType), v)
+            );
+        }
+
+        public static ValueConverter SaleTypeConverter()
+        {
+            return new ValueConverter<Nullable<SaleType>, String>(
+                v => v.ToString(),
+                v => (SaleType)Enum.Parse(typeof(SaleType), v)
             );
         }
     }
