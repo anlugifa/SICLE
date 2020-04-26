@@ -23,12 +23,17 @@ namespace Dominio.Entidades.Contrato
         public ContratoVenda Contrato { get; set; }
         
         public int? OrigemId { get; set; }       
-        public Localidade Origem { get; set; }
+        public Regiao Origem { get; set; }
 
         public int? DestinoId { get; set; }
         public Client Destino { get; set; }
 
         public ICollection<SaleContractVolumePeriod> VolumePeriods { get; set; }
+
+        public SaleContractQuota()
+        {
+            Origem = null;
+        }
 
         public String GetNameQuota()
         {

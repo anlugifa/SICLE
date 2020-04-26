@@ -2,6 +2,7 @@ using Dominio.Entidades;
 using Dominio.Entidades.Acesso;
 using Dominio.Entidades.Contrato;
 using Dominio.Entidades.Localidades;
+using Dominio.Entidades.Pricing;
 using Dominio.Entidades.Produtos;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
@@ -135,6 +136,46 @@ namespace Sicle.Dados.Context.Config
             return new ValueConverter<Nullable<SaleType>, String>(
                 v => v.ToString(),
                 v => (SaleType)Enum.Parse(typeof(SaleType), v)
+            );
+        }
+
+        public static ValueConverter EsalqTypeConverter()
+        {
+            return new ValueConverter<EsalqType, String>(
+                v => v.ToString(),
+                v => (EsalqType)Enum.Parse(typeof(EsalqType), v)
+            );
+        }
+
+        public static ValueConverter PrecoPBPeriodTypeConverter()
+        {
+            return new ValueConverter<PrecoPBPeriodType, String>(
+                v => v.ToString(),
+                v => (PrecoPBPeriodType)Enum.Parse(typeof(PrecoPBPeriodType), v)
+            );
+        }
+
+        public static ValueConverter PricingIncidenceTypeConverter()
+        {
+            return new ValueConverter<PricingIncidenceType, String>(
+                v => v.ToString(),
+                v => (PricingIncidenceType)Enum.Parse(typeof(PricingIncidenceType), v)
+            );
+        }
+
+        public static ValueConverter PricingTypeConverter()
+        {
+            return new ValueConverter<PricingType, String>(
+                v => v.ToString(),
+                v => (PricingType)Enum.Parse(typeof(PricingType), v)
+            );
+        }
+
+        public static ValueConverter PricingAdjustReferenceTypeConverter()
+        {
+            return new ValueConverter<PricingAdjustReferenceType, String>(
+                v => v.ToString(),
+                v => (PricingAdjustReferenceType)Enum.Parse(typeof(PricingAdjustReferenceType), v)
             );
         }
     }

@@ -14,7 +14,8 @@ namespace Sicle.Dados.Context.Config.Localidades
         {
             model.Entity<Regiao>(t =>
             {
-                t.ToTable("TB_LOCALIDADES");
+                t.ToTable("TB_LOCALIDADES")
+                    .HasBaseType(typeof(Localidade));
             });
         }
     }

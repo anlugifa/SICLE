@@ -69,7 +69,7 @@ namespace Dominio.Entidades.Contrato
         public double? MaxForecast { get; set; }
         public Boolean HasForecast { get; set; }
         public Boolean HasNegotiationBC { get; set; }
-        public Boolean IsOperacaoNNE { get; set; }
+        public Boolean IsOperacaoNNE { get; set; }  
 
         public virtual ContractStatus Status { get; set; }
         public virtual Nullable<PeriodType> Period { get; set; }

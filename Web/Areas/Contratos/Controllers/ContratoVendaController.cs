@@ -29,9 +29,9 @@ namespace Web.Controllers
                             .Include(p => p.ClientGroup)
                             .Include(p => p.ProductGroup)
                             .Include(p => p.Broker)
-                            .Include(p => p.Trader)       
-                            // .Include(p => p.Quotas)
-                            //     .ThenInclude(q => q.Origem)
+                            .Include(p => p.Trader)
+                            .Include(p => p.Quotas)
+                                .ThenInclude(q => q.Origem)
                             .Include(p => p.Quotas)
                                  .ThenInclude(q => q.Destino) 
                             .FirstOrDefault(x => x.Id == id);

@@ -35,7 +35,7 @@ namespace Sicle.Dados.Context.Config.Contratos
                         .HasForeignKey(b => b.ContratoId);
 
             model.Entity<SaleContractQuota>()
-                        .HasOne<Localidade>(b => b.Origem)
+                        .HasOne(b => b.Origem)
                         .WithMany()
                         .HasForeignKey(b => b.OrigemId);
 

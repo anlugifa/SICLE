@@ -15,7 +15,8 @@ namespace Sicle.Dados.Context.Config.Localidades
         {
             model.Entity<Plant>(t =>
             {
-                t.ToTable("TB_LOCALIDADES");                
+                t.ToTable("TB_LOCALIDADES")
+                    .HasBaseType(typeof(LocalidadeGeografica));           
 
                 t.Property(p => p.IE).HasColumnName("NR_IE");
                 t.Property(p => p.CNPJ).HasColumnName("NR_CNPJ");

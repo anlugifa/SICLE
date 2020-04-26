@@ -1,6 +1,8 @@
 using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using Dominio.Entidades.Contrato;
+using Dominio.Entidades.Pricing;
 
 namespace Dominio.Entidades.Produtos
 {
@@ -22,5 +24,24 @@ namespace Dominio.Entidades.Produtos
         
         [Description("Subproduto")]
         SUBPRODUTO
+    }
+
+    static class ProductEsalqTypeMethods
+    {
+
+        public static EsalqType ToEsalqType(this ProductEsalqType e)
+        {
+            switch (e)
+            {
+                case ProductEsalqType.ANIDRO:
+                    return EsalqType.ANIDRO; 
+
+                case ProductEsalqType.HIDRATADO:
+                    return EsalqType.HIDRATADO;
+
+                default:
+                    throw new Exception("Não há conversão para: " + e);                   
+            }
+        }
     }
 }

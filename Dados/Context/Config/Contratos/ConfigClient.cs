@@ -11,10 +11,11 @@ namespace Sicle.Dados.Context.Config.Contratos
     public class ConfigClient
     {
         internal static void Config(ModelBuilder model)
-        {
+        {            
             model.Entity<Client>(t =>
-            {
-                t.ToTable("TB_LOCALIDADES");               
+            {                
+                t.ToTable("TB_LOCALIDADES")
+                    .HasBaseType(typeof(LocalidadeGeografica));         
 
                 t.Property(p => p.Email).HasColumnName("DS_EMAIL");
                 t.Property(p => p.UndoingEmail).HasColumnName("DS_EMAIL_DESFAZIMENTO");

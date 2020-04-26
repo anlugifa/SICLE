@@ -14,7 +14,8 @@ namespace Sicle.Dados.Context.Config.Localidades
         {
             model.Entity<LocalidadeGeografica>(t =>
             {
-                t.ToTable("TB_LOCALIDADES");
+                t.ToTable("TB_LOCALIDADES")
+                    .HasBaseType(typeof(Localidade));
                 
                 t.Property(p => p.Latitude).HasColumnName("VL_LATITUDE");
                 t.Property(p => p.Longitude).HasColumnName("VL_LONGITUDE");

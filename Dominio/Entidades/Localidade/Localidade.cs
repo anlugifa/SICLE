@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Dominio.Entidades.Localidades
 {
-    public abstract class Localidade
+    public abstract class Localidade : ILocalidade
     {
         [Required]
         public int Id { get; set; }

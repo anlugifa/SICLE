@@ -86,8 +86,8 @@ namespace Dados
         public DbSet<SpecialUnit> SpecialUnits { get; set; }
 
         public DbSet<ProductInPlant> ProductInPlants { get; set; }
-        public DbSet<Localidade> Localidades { get; set; }
-        public DbSet<LocalidadeGeografica> LocalidadeGeograficas { get; set; }
+        
+        
         public DbSet<Regiao> Regioes { get; set; }
         public DbSet<Plant> Plants { get; set; }
         public DbSet<Company> Companies { get; set; }
@@ -95,6 +95,9 @@ namespace Dados
         public DbSet<ClientGroup> ClientGroups { get; set; }
         public DbSet<Client> Clients { get; set; }
         public DbSet<CGCRegister> CGCRegisters { get; set; }
+
+        public DbSet<LocalidadeGeografica> LocalidadeGeograficas { get; set; }
+        public DbSet<Localidade> Localidades { get; set; }
 
         public DbSet<SaleContractQuota> SaleContractQuotas { get; set; }
         public DbSet<SaleContractVolumePeriod> SaleContractVolumePeriods { get; set; }

@@ -17,7 +17,7 @@ namespace Sicle.Dados.Context.Config.Localidades
                 t.ToTable("TB_LOCALIDADES");
                 t.HasKey(p => p.Id);
 
-                t.HasDiscriminator(x => x.Tipo)                    
+                t.HasDiscriminator(x => x.Tipo)                
                     .HasValue<Client>(TipoLocalidade.C)
                     .HasValue<Regiao>(TipoLocalidade.R)
                     .HasValue<Usina>(TipoLocalidade.U)
