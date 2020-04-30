@@ -27,12 +27,12 @@ namespace Dominio.Entidades.Contrato
         public bool IsRebateWithinTaxes { get; set; }
         public bool IsWeeklyAverage { get; set; }        
 
-        public EsalqType EsalqType { get; set; }
-        public PeriodType EsalqPeriodType { get; set; }
-        public PricingType PricingType { get; set; }
-        public PricingIncidenceType DiflogIncidenceType { get; set; }
-        public PricingIncidenceType FreightIncidenceType { get; set; }
-        public PrecoPBPeriodType PrecoPBPeriodType { get; set; }
+        public EsalqType? EsalqType { get; set; }
+        public PeriodType? EsalqPeriodType { get; set; }
+        public PricingType? PricingType { get; set; }
+        public PricingIncidenceType? DiflogIncidenceType { get; set; }
+        public PricingIncidenceType? FreightIncidenceType { get; set; }
+        public PrecoPBPeriodType? PrecoPBPeriodType { get; set; }
         public PricingAdjustReferenceType? AdjustReferenceType { get; set; }
 
         public long ContratoVendaId { get; set; }

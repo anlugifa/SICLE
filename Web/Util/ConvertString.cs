@@ -9,7 +9,7 @@ namespace Web.Util
     {
         public static String ToStr(this double value)
         {
-            return String.Format("{0:N0}", value);
+            return String.Format("{0:0.00}", value);
         }
 
         public static String ToStr(this double? value)
