@@ -37,10 +37,10 @@ namespace Dominio.Entidades.Contrato
         public double? TotalVolume { get; set; }
 
         [Display(Name = "Grupo Econômico")]
-        public String EconomicGroup { get; set; }
+        public String EconomicGroup { get; set; } = null!;
 
         [Display(Name = "Observação")]
-        public String Observation { get; set; }
+        public String Observation { get; set; } = null!;
 
         public bool IsAvailableForBroker { get; set; }
         public bool IsDeleted { get; set; }
@@ -48,7 +48,7 @@ namespace Dominio.Entidades.Contrato
 
 
         public String Safra { get; set; }
-        public String Reason { get; set; }
+        public String Reason { get; set; } = null!;
 
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
         public DateTime? CreationDate { get; set; }
@@ -62,9 +62,9 @@ namespace Dominio.Entidades.Contrato
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
         public DateTime? DateOfFinancesApproval { get; set; }
 
-        public String Approver { get; set; }
-        public String TradingApprover { get; set; }
-        public String FinancesApprover { get; set; }
+        public String Approver { get; set; } = null!;
+        public String TradingApprover { get; set; } = null!;
+        public String FinancesApprover { get; set; } = null!;
         public long ContractVersion { get; set; }
         public double? MaxForecast { get; set; }
         public Boolean HasForecast { get; set; }
@@ -84,7 +84,7 @@ namespace Dominio.Entidades.Contrato
         public long? TraderId { get; set; }
         public virtual Usuario Trader { get; set; }
 
-        public String BrokerId { get; set; }
+        public String BrokerId { get; set; } = null!;
         public virtual Broker Broker { get; set; }
 
         public int? ProductGroupId { get; set; }
@@ -99,7 +99,9 @@ namespace Dominio.Entidades.Contrato
         public long? ContratoMestreId { get; set; }
         public virtual ContratoVendaMestre ContratoMestre { get; set; }
 
-        public virtual IEnumerable<SaleContractQuota> Quotas { get; set; }
+        public virtual ICollection<SaleContractQuota> Quotas { get; set; }
+        public virtual ICollection<SaleContractPricingRule> PricingRules { get; set; }
+        public virtual ICollection<SaleContractPricingPeriod> PricingPeriods { get; set; }
 
         public ContratoVenda()
         {

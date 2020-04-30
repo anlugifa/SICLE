@@ -33,7 +33,10 @@ namespace Web.Controllers
                             .Include(p => p.Quotas)
                                 .ThenInclude(q => q.Origem)
                             .Include(p => p.Quotas)
-                                 .ThenInclude(q => q.Destino) 
+                                .ThenInclude(q => q.Destino) 
+                            .Include(p => p.PricingPeriods)
+                                .ThenInclude(p => p.MapPricingRules)
+                            .Include(p => p.PricingRules)
                             .FirstOrDefault(x => x.Id == id);
 
             if (contrato == null)

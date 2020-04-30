@@ -10,6 +10,8 @@ using Dominio.Entidades.Produtos;
 using Dominio.Entidades.Localidades;
 using Sicle.Dados.Context.Config.Localidades;
 using Sicle.Dados.Context.Config.Produtos;
+using Sicle.Dados.Context.Config.Pricing;
+using Dominio.Entidades.Pricing;
 
 namespace Dados
 {
@@ -61,8 +63,16 @@ namespace Dados
             ConfigCGCRegister.Config(model);
 
             ConfigSaleContractQuota.Config(model);
-            ConfigSaleContractVolumePeriod.Config(model);      
+            ConfigSaleContractVolumePeriod.Config(model);
+            ConfigSaleContractPricingRule.Config(model);
+            ConfigSaleContractPricingPeriod.Config(model);
+            ConfigMapPricingRule_VolumePeriod.Config(model);
 
+            ConfigEsalqDescription.Config(model);
+            ConfigOpenBookCost.Config(model);
+            ConfigPrecoPBDescription.Config(model);
+            ConfigPrecoPBModal.Config(model);
+            ConfigPrecoPBProduct.Config(model);
         }
 
         public DbSet<Product> Produtos { get; set; }
@@ -85,8 +95,7 @@ namespace Dados
         public DbSet<ProductComponent> ProductComponents { get; set; }
         public DbSet<SpecialUnit> SpecialUnits { get; set; }
 
-        public DbSet<ProductInPlant> ProductInPlants { get; set; }
-        
+        public DbSet<ProductInPlant> ProductInPlants { get; set; }        
         
         public DbSet<Regiao> Regioes { get; set; }
         public DbSet<Plant> Plants { get; set; }
@@ -101,6 +110,13 @@ namespace Dados
 
         public DbSet<SaleContractQuota> SaleContractQuotas { get; set; }
         public DbSet<SaleContractVolumePeriod> SaleContractVolumePeriods { get; set; }
+        public DbSet<SaleContractPricingRule> SaleContractPricingRules { get; set; }
+        public DbSet<SaleContractPricingPeriod> SaleContractPricingPeriods { get; set; }
 
+        public DbSet<OpenBookCost> OpenBookCosts { get; set; }
+        public DbSet<EsalqDescription> EsalDescriptions { get; set; }
+        public DbSet<PrecoPBDescription> PrecoPBDescriptions { get; set; }
+        public DbSet<PrecoPBModal> PrecoPBModals { get; set; }
+        public DbSet<PrecoPBProduct> PrecoPBProducts { get; set; }
     }
 }

@@ -109,5 +109,10 @@ alter table TB_LOCALIDADES modify( ST_ARMAZENAGEM default(0) not null);
 update TB_LOCALIDADES set ST_PERFIL_SCA=0 where ST_PERFIL_SCA is null;
 alter table TB_LOCALIDADES modify( ST_PERFIL_SCA default(0) not null);
 
+-- TB_PRICINGRULE 
+
+update TB_CONT_VENDA_REGRA_PRECO set ST_REBATE_DENTRO_IMPOSTO=0 where ST_REBATE_DENTRO_IMPOSTO is null;
+alter table TB_CONT_VENDA_REGRA_PRECO modify( ST_REBATE_DENTRO_IMPOSTO default(0) not null);
+
 
 commit;

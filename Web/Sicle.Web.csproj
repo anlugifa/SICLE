@@ -22,8 +22,8 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
     <AssemblyName>Sicle.Web</AssemblyName>
+    <LangVersion>8.0</LangVersion>
   </PropertyGroup>
-
 
 
 </Project>

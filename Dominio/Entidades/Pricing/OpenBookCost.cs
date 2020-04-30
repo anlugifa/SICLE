@@ -22,7 +22,7 @@ namespace Dominio.Entidades.Contrato
         public double AfrmmBl { get; set; }
         public double Demurrage { get; set; }
         public double TotalCost { get; set; }
-        
+
         public double Dap { get; set; }
         public double DapBl { get; set; }
         public double Tup { get; set; }
@@ -63,10 +63,13 @@ namespace Dominio.Entidades.Contrato
         public double IcmsPropBl { get; set; }
 
         public double IcmsST { get; set; }
-        public double icmsSTBl { get; set; }
+        public double IcmsSTBl { get; set; }
 
         public double TaxIcms { get; set; }
         public double TaxIcmsBl { get; set; }
+
+        public double TaxST { get; set; }
+        public double TaxSTBl { get; set; }
 
         public double Despachante { get; set; }
         public double DespachanteBl { get; set; }
@@ -96,8 +99,12 @@ namespace Dominio.Entidades.Contrato
         public DateTime ChangeDate { get; set; }
 
         public String FilePath { get; set; }
-        public String FileName { get; set; } 
+        public String FileName { get; set; }
 
+        public long UserId { get; set; }
         public Usuario User { get; set; }
+
+        public long PricingRuleId { get; set; }
+        public SaleContractPricingRule PricingRule { get; set; }
     }
 }

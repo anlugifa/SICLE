@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Dados;
@@ -13,8 +15,10 @@ using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 using Util;
+using Util.Language;
 using IHostingEnvironment = Microsoft.AspNetCore.Hosting.IHostingEnvironment;
 
 namespace Web
@@ -57,6 +61,8 @@ namespace Web
                 }
             });
 
+            services.AddDirectoryBrowser();
+
             //services.AddControllersWithViews().AddRazorRuntimeCompilation();           
         }
 
@@ -79,8 +85,16 @@ namespace Web
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
-            //app.UseRouting();            
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                FileProvider = new PhysicalFileProvider(
+                    Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\res")),
+                RequestPath = "/res"
+            });
 
+            LanguageManager.Instance().AddLanguage(new CultureInfo("pt-BR"), "wwwroot/res/pt-BR.res");
+
+            //app.UseRouting();
             //app.UseAuthorization();
 
             app.UseMvc(routes =>

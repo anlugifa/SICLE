@@ -1,0 +1,96 @@
+@model ContratoVenda
+@using Dominio.Entidades.Contrato
+@using Web.Util
+@using Util
+
+<div class="row">
+    <h3>Regras pe Previficação:</h3>
+    <div class="col-md-12">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Tipo</a></th>           
+                    <th>Prêmio/Desconto Líquido</th>
+                    <th>Prêmio/Desconto Líquido(%)</th>                                   
+                    <th>Prêmio/Desconto Bruto</th>                    
+                    <th>Prêmio/Desconto Bruto(%)</th>                
+                    <th>Diflog</th>
+                    <th>Frete</th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.PricingRules)
+                {   
+                    <tr>
+                        <td>@item.Name</td>
+                        <td>@item.PricingType.GetEnumDescription()</td>
+                        <td>@item.NetDiscount.ToStr()</td>
+                        <td>@item.NetDiscountPercent.ToStr()</td> 
+                        <td>@item.GrossDiscount.ToStr()</td>
+                        <td>@item.GrossDiscountPercent.ToStr()</td>      
+                        <td>@item.DiflogIncidenceType.GetEnumDescription()</td>
+                        <td>@item.FreightIncidenceType.GetEnumDescription()</td> 
+
+                        <td>
+                            @Html.ActionLink("Simular", "Simular", new {id=@item.Id})
+                        </td>      
+                        <td>
+                            @Html.ActionLink("Detalhar", "Detail", new {id=@item.Id})
+                        </td>      
+                        <td>
+                            @Html.ActionLink("OpenBook", "Openbook", new {id=@item.Id})
+                        </td>    
+                         <td>
+                            @Html.ActionLink("Remover", "Remover", new {id=@item.Id})
+                        </td> 
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+<div class="row">
+    <h3>Regras por Período:</h3>
+    <div class="col-md-12">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Período</th>
+                    <th>Regras de Precificação</a></th>           
+                    <th>Flexibilidade</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.PricingPeriods)
+                {   
+                    <tr>
+                        <td>@item.PricingPeriodString()</td>
+                        <td>@item.PricingRulesString()</td>        
+                        <td>@item.Flexibility.ToStr()</td>
+                        <td>
+                            @Html.ActionLink("Replicar", "Replicar", new {id=@item.Id})
+                        </td>                      
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="form-group">
+            <input type="button" class="btn btn-success" value="Adicionar Regra">
+             <input type="button" class="btn btn-success" value="Remover Regra">
+        </div>
+    </div>    
+</div>

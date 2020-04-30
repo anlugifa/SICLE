@@ -14,20 +14,22 @@ namespace Sicle.Dados.Context.Config.Contratos
 
                 t.Property(p => p.Id).HasColumnName("CD_REGRA_PRECO").UseOracleIdentityColumn();
                 t.Property(p => p.ParentRuleId).HasColumnName("CD_SEQ_REGRA_PAI");
-                t.Property(p => p.Name).HasColumnName("NM_NOME");                
+                t.Property(p => p.Name).HasColumnName("NM_NOME"); 
+                              
                 t.Property(p => p.FlatPrice).HasColumnName("VL_PRECO_FIXO");                
-                t.Property(p => p.EsalqDescription).HasColumnName("CD_DESCRICAO_ESALQ");
-                t.Property(p => p.IsEsalqCurrent).HasColumnName("ST_ESALQ_CORRENTE");
                 t.Property(p => p.NetDiscount).HasColumnName("VL_DESCONTO_LIQUIDO");
                 t.Property(p => p.NetDiscountPercent).HasColumnName("VL_DESCONTO_LIQ_PERCENTUAL");
-                t.Property(p => p.IsCumulativeNetDiscount).HasColumnName("ST_DESCONTO_LIQ_CUMULATIVO");
                 t.Property(p => p.GrossDiscount).HasColumnName("VL_DESCONTO_BRUTO");
-                t.Property(p => p.GrossDiscount).HasColumnName("VL_DESCONTO_BRUTO_PERCENTUAL");
-                t.Property(p => p.IsCumulativeGrossDiscount).HasColumnName("ST_DESCONTO_BRUTO_CUMULATIVO");
+                t.Property(p => p.GrossDiscountPercent).HasColumnName("VL_DESCONTO_BRUTO_PERCENTUAL");
                 t.Property(p => p.Rebate).HasColumnName("VL_REBATE");
+                
+                t.Property(p => p.IsEsalqCurrent).HasColumnName("ST_ESALQ_CORRENTE");
+                t.Property(p => p.IsCumulativeNetDiscount).HasColumnName("ST_DESCONTO_LIQ_CUMULATIVO");
+                t.Property(p => p.IsCumulativeGrossDiscount).HasColumnName("ST_DESCONTO_BRUTO_CUMULATIVO");
                 t.Property(p => p.IsRebateWithinTaxes).HasColumnName("ST_REBATE_DENTRO_IMPOSTO");
-                t.Property(p => p.Details).HasColumnName("DS_DETALHES");
-                t.Property(p => p.IsWeeklyAverage).HasColumnName("ST_MEDIA_SEMANAL");               
+                t.Property(p => p.IsWeeklyAverage).HasColumnName("ST_MEDIA_SEMANAL");
+
+                t.Property(p => p.Details).HasColumnName("DS_DETALHES");                         
 
                 t.Property(p => p.EsalqType).HasColumnName("VL_TIPO_ESALQ")
                                     .HasConversion(ColumnConverter.EsalqTypeConverter());
@@ -44,6 +46,11 @@ namespace Sicle.Dados.Context.Config.Contratos
                 t.Property(p => p.FreightIncidenceType).HasColumnName("VL_INCIDENCIA_FRETE")
                                     .HasConversion(ColumnConverter.PricingIncidenceTypeConverter());
            
+                t.Property(p => p.EsalqDescriptionId).HasColumnName("CD_DESCRICAO_ESALQ");
+                t.HasOne(b => b.EsalqDescription)
+                    .WithMany()
+                    .HasForeignKey(b => b.EsalqDescriptionId);
+
                 t.Property(p => p.PrecoPBModalId).HasColumnName("CD_PRECO_PB_MODAL");
                 t.HasOne(b => b.PrecoPBModal)
                     .WithMany()
@@ -58,6 +65,11 @@ namespace Sicle.Dados.Context.Config.Contratos
                 t.HasOne(b => b.PrecoPBProduct)
                     .WithMany()
                     .HasForeignKey(b => b.PrecoPBProductId);
+
+                t.Property(p => p.ContratoVendaId).HasColumnName("CD_SEQ_CONTRATO_VENDA");
+                t.HasOne(b => b.ContratoVenda)
+                    .WithMany(b => b.PricingRules)
+                    .HasForeignKey(b => b.ContratoVendaId);               
                 
             });
 
