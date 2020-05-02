@@ -11,10 +11,10 @@ namespace Dominio.Entidades.Acesso
 
         [Required]
         [MaxLength(16)]
-        public string Code { get; set; }
+        public string Code { get; set; } = null!;
 
         [MaxLength(20)]
-        public string Nome { get; set; }
+        public string Nome { get; set; } = null!;
 
         public Decimal? VlVolume { get; set; }
 
@@ -49,7 +49,7 @@ namespace Dominio.Entidades.Acesso
 
         public ProfileLevel? ProfileLevel { get; set; }
 
-        public ICollection<AssociacaoUsuarioPerfilVenda> Usuarios { get; set; }
+        public ICollection<AssociacaoUsuarioPerfilVenda> Usuarios { get; set; } = null!;
 
         public override String ToString()
         {

@@ -9,10 +9,10 @@ namespace Dominio.Entidades.Localidades
         public int Id { get; set; }
 
         [Required]
-        public String Name { get; set; }
+        public String Name { get; set; } = null!;
         
         [Required]
-        public String Code { get; set; }
+        public String Code { get; set; } = null!;
 
         [Required]
         public TipoLocalidade Tipo { get; set; }

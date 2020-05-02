@@ -25,11 +25,11 @@ namespace Sicle.Web.Areas.Contratos.Models
         {
         }
 
-        public static new async Task<IndexContratoVendaMestreVM> CreateAsync(IQueryable<ContratoVendaMestre> source, int pageIndex, int pageSize)
+        public static new async Task<IndexContratoVendaMestreVM> CreateAsync(IQueryable<ContratoVendaMestre> source, int pageIndex)
         {
             var count = await source.CountAsync();
-            var items = await source.Skip((pageIndex - 1) * pageSize).Take(pageSize).ToListAsync();
-            return new IndexContratoVendaMestreVM(items, count, pageIndex, pageSize);
+            var items = await source.Skip((pageIndex - 1) * _pageSize).Take(_pageSize).ToListAsync();
+            return new IndexContratoVendaMestreVM(items, count, pageIndex, _pageSize);
         }
 
         public ContratoVendaMestreModel ConvertoToViewModel(ContratoVendaMestre model)

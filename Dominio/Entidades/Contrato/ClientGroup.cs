@@ -7,15 +7,15 @@ namespace Dominio.Entidades.Contrato
     public class ClientGroup
     {
         public long Id { get; set; }
-        public String Code { get; set; }
+        public String Code { get; set; } = null!;
         public ClientGroupType Type { get; set; }
 
         [MaxLength(40)]
-        public String Description { get; set; }
+        public String Description { get; set; } = null!;
 
         [EmailAddress]
-        public String Email { get; set; }
+        public String Email { get; set; } = null!;
 
-        public ICollection<Client> Clientes { get; set; }
+        public ICollection<Client> Clientes { get; set; } = null!;
     }
 }

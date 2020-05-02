@@ -1,183 +1,73 @@
-@model Sicle.Web.Areas.Contratos.Models.EditContratoVendaMestreVM
-
-@using Dominio.Entidades.Contrato
-@using Util
-
+@model Dominio.Entidades.Contrato.ContratoVendaMestre
 @{
     ViewData["Title"] = "SICLE";
 }
 
-@section Styles
-{
-    <style>
-
-        table th {
-            font-size: 12px;
-            text-align:center;
-        }        
-
-        table td {
-            font-size: 10px;
-            text-align:center;
-        }      
-
-        .col-id {
-            width: 70px;
-        }  
-
-    </style>
-}
-
 <div class="row">
-    <div class="col-md-12">
-        <h2>Contrato Mestre</h2>
+    <div class="col-md-6">
+        <h2>Contrato de Venda Mestre</h2>
     </div>
 </div>
-
-<p></p>
 <div class="row">
-    <div class="col-md-12">
-        <form asp-action="Salvar" method="post">
-            <div class="form-group">
+    <div class="col-md-12 float-right">
+        <form asp-action="Edit" method="post">
 
-                <input type="hidden" class="form-control" name="Id" value="@Model.ContratoMestreId"/>
+            @Html.HiddenFor(m => m.Id)
 
-                <div class="row">
-                    <div class="col">                        
-                        <label for="ex1" class="col-form-label">Apelido:</label> 
-                        <input type="text" class="form-control" name="Nickname" 
-                            value="@Model.ContratoMeste.Nickname"/>
-                    </div>
-                    <div class="col">                       
-                        <label for="ex1" class="col-form-label">Volume Total:</label>   
-                        <input type="text" class="form-control"  value="10.200" disabled/> 
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col">                        
-                        <label for="ex1" class="col-form-label">Observação:</label>  
-                        <input type="text" class="form-control" name="Observation" 
-                                value="@Model.ContratoMeste.Observation"/>
-                    </div>
-                </div>
-               
-                <div class="row">
-                     <div class="col float-right">
-                        <input type="submit" name="btnSearch" value="Salvar" class="btn btn-light" />                   
-                    </div>    
+            <div class="form-group row">  
+                <div class="col-sm-1">
+                    <label asp-for="Nickname" class="col-form-label"></label>     
+                </div>           
+                <div class="col-sm-6">
+                    <input asp-for="Nickname" class="form-control">
+                    <span asp-validation-for="Nickname" class="text-danger"></span>
                 </div>
             </div>
+
+            <div class="form-group row"> 
+                <div class="col-sm-1">
+                    <label asp-for="Observation" class="col-form-label"></label>          
+                </div>      
+                <div class="col-sm-6">
+                    <input asp-for="Observation" class="form-control">
+                    <span asp-validation-for="Observation" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group row"> 
+                <div class="col-sm-1">
+                    <label asp-for="CreationDate" class="col-form-label"></label>          
+                </div>      
+                <div class="col-sm-6">
+                    <input type="text" class="form-control datepicker" asp-for="CreationDate" disabled>             
+                </div>
+            </div>
+
+            <div class="form-group row"> 
+                <div class="col-sm-1">
+                    <label asp-for="CreationUser.Nome" class="col-form-label"></label>          
+                </div>      
+                <div class="col-sm-6">
+                    <input asp-for="CreationUser.Nome" class="form-control" disabled>                    
+                </div>
+            </div>
+
+
+
+            <div class="form-group row">                 
+                <div class="custom-control custom-checkbox custom-control-inline col-sm-3">
+                    <input class="custom-control-input position-static" type="checkbox" asp-for="IsActive" id="chkBroker">
+                    <label class="custom-control-label" for="chkBroker">Ativo?</label>
+                </div>
+            </div>          
+
+
+            <div class="form-group row">
+                <div class="col-sm-4">
+                    <input type="submit" name="btnSearch" value="Salvar" class="btn btn-success btn-sm" />     
+                </div>
+            </div>
+            
         </form>
     </div>
 </div>
-<div class="row">
-    <div class="col"><h4>Contratos</h4></div>
-</div>
-
-<div class="row">
-    <div class="col-md-12">
-        <table class="table table-hover">
-            <thead>
-                <tr>
-                    <th>Farol</th>
-                    <th>
-                        <a asp-action="Edit"
-                           asp-route-sortOrder="@ViewData["IdSortParm"]"
-                           asp-route-currentFilter="@ViewData["CurrentFilter"]">Id</a>
-                    </th>
-                    <th>Farol Endosso</th>
-                    <th>Endosso</th>
-                    <th>
-                        <a asp-action="Editar"
-                           asp-route-sortOrder="@ViewData["NomeSortParm"]"
-                           asp-route-currentFilter="@ViewData["CurrentFilter"]">Nome</a>
-                    </th>
-                    @* <th>Apelido</th> *@
-                    <th>Grupo Produto</th>
-                    <th>Cliente</th>
-                    <th>Início</th>
-                    <th>Fim</th>
-                    @* <th>Flexibilidade</th> *@
-                    <th>Status</th>
-                    <th>Vol. Total</th>
-                    <th>Periodicidade</th>
-                    @* <th>Grp. Econ.</th> *@
-                    @* <th>Cond. Pag.</th> *@
-                    <th>Disp. Broker</th>
-                    <th>Ativo</th>
-                    <th>Com Limite</th>
-                    <th>Limite</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model)
-                {
-                    var vm = Model.ConvertoToViewModel(item);
-
-                    <tr>
-                        <td><img src="@vm.Farol"/></td>
-                        <td>@vm.Id</td>
-                        <td><img src="@vm.FarolEndosso"/></td>
-                        <td>@vm.StatusEndosso</td>
-                        <td>@vm.Nome</td>
-                        @* <td>@vm.Apelido</td> *@
-                        <td>@vm.GrupoProduto</td>
-                        <td>@vm.GrupoCliente</td>
-                        <td>@vm.Inicio</td>
-                        <td>@vm.Fim</td>
-                        @* <td>@vm.Flexibilidade</td> *@
-                        <td>@vm.Status</td>
-                        <td>@vm.TotalVolume</td>
-                        <td>@vm.Periodicidade</td>
-                        @* <td>@vm.GrupoEconomico</td> *@
-                        @* <td>@vm.PrazoPagamento</td> *@
-                        
-                        <td>@Html.CheckBoxFor(modelItem => vm.IsDisponivelBroker, new { disabled = "disabled" })</td>
-                        <td>@Html.CheckBoxFor(modelItem => vm.IsAtivo, new { disabled = "disabled" })</td>
-                        <td>@Html.CheckBoxFor(modelItem => vm.IsPrevisao, new { disabled = "disabled" })</td>
-                        
-                        <td>@vm.PrevisaoMax</td>
-
-                        <td>
-                            @Html.ActionLink("Editar", "Editar", "ContratoVenda", new {id=@item.Id})
-                        </td>
-                       
-                    </tr>
-                }
-            </tbody>
-        </table>
-    </div>
-</div>
-@{
-    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
-    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
-}
-
-<nav aria-label="Page navigation example">
-    <ul class="pagination">
-        <li class="page-item">
-            <a asp-action="Index"
-               asp-route-sortOrder='@ViewData["CurrentSort"]'
-               asp-route-pageNumber='@(Model.PageIndex - 1)'
-               asp-route-currentFilter='@ViewData["CurrentFilter"]'
-               class="btn btn-default @prevDisabled">
-                Anterior
-            </a>
-        </li>
-
-        <li class="page-item">
-            <a asp-action="Index"
-               asp-route-sortOrder='@ViewData["CurrentSort"]'
-               asp-route-pageNumber='@(Model.PageIndex + 1)'
-               asp-route-currentFilter='@ViewData["CurrentFilter"]'
-               class="btn btn-default @nextDisabled">
-                Próximo
-            </a>
-        </li>
-    </ul>
-</nav>
-
-
-<script>
-  
-</script>

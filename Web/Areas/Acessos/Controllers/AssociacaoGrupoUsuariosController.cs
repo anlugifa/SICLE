@@ -81,7 +81,7 @@ namespace Sicle.Web.Areas.Acessos.Controllers
                     break;
             }
             var list = query.ToList();
-            var model = new AssociacaoGrupoUsuarioModel(list, list.Count(), pageNumber ?? 1, _pageSize);
+            var model = new AssociacaoGrupoUsuarioModel(list, list.Count(), pageNumber ?? 1);
 
             // aguardamos a thread finalizar para não gerar concorrência de Thread no dbContext em _usrRepo.GetAllAsync()
             model.Grupos = await _grpUsrRepo.AsQueryable().OrderBy(g => g.Nome).ToListAsync();

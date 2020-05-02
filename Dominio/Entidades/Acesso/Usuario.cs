@@ -11,19 +11,19 @@ namespace Dominio.Entidades.Acesso
 
         [Required(ErrorMessage = "Matrícula obrigatória")]
         [MaxLength(8)]
-        public string Matricula { get; set; }
+        public string Matricula { get; set; } = null!;
 
         [Required(ErrorMessage = "Nome obrigatória")]
         [MaxLength(50)]
-        public string Nome { get; set; }
+        public string Nome { get; set; } = null!;
         
         [MaxLength(50)]
         [Display(Name = "Nome SGP")]
-        public string NomeSGP { get; set; }
+        public string NomeSGP { get; set; } = null!;
 
         [Required(ErrorMessage = "E-mail obrigatória")]
         [EmailAddress]
-        public string Email { get; set; }
+        public string Email { get; set; } = null!;
 
         public bool IsScaPerfil { get; set; }
 
@@ -33,13 +33,13 @@ namespace Dominio.Entidades.Acesso
 
         public bool IsTraderEAB { get; set; }
 
-        public ICollection<AssociacaoUsuarioPerfil> Perfis { get; set; }
+        public ICollection<AssociacaoUsuarioPerfil> Perfis { get; set; } = null!;
 
-        public ICollection<AssociacaoGrupoUsuario> Grupos { get; set; }
+        public ICollection<AssociacaoGrupoUsuario> Grupos { get; set; } = null!;
 
-        public ICollection<AssociacaoUsuarioPerfilVenda> PerfilVendas { get; set; }
+        public ICollection<AssociacaoUsuarioPerfilVenda> PerfilVendas { get; set; } = null!;
 
-        public ICollection<ContratoVendaMestre> ContratosMestres { get; set; }
+        public ICollection<ContratoVendaMestre> ContratosMestres { get; set; } = null!;
 
         // public ICollection<ContratoVenda> ContratosVendas { get; set; }
 

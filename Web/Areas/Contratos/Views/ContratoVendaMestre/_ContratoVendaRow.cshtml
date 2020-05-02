@@ -1,0 +1,33 @@
+@model ContratoVendaModel
+@using Sicle.Web.Areas.Contratos.Models
+
+
+<tr>
+    <td><img src="@Model.Farol"/></td>
+    <td>@Model.Id</td>
+    <td><img src="@Model.FarolEndosso"/></td>
+    <td>@Model.StatusEndosso</td>
+    <td>@Model.Nome</td>
+    @* <td>@vm.Apelido</td> *@
+    <td>@Model.GrupoProduto</td>
+    <td>@Model.GrupoCliente</td>
+    <td>@Model.Inicio</td>
+    <td>@Model.Fim</td>
+    @* <td>@vm.Flexibilidade</td> *@
+    <td>@Model.Status</td>
+    <td>@Model.TotalVolume</td>
+    <td>@Model.Periodicidade</td>
+    @* <td>@vm.GrupoEconomico</td> *@
+    @* <td>@vm.PrazoPagamento</td> *@
+    
+    <td>@Html.CheckBoxFor(modelItem => Model.IsDisponivelBroker, new { disabled = "disabled" })</td>
+    <td>@Html.CheckBoxFor(modelItem => Model.IsAtivo, new { disabled = "disabled" })</td>
+    <td>@Html.CheckBoxFor(modelItem => Model.IsPrevisao, new { disabled = "disabled" })</td>
+    
+    <td>@Model.PrevisaoMax</td>
+
+    <td>
+        @Html.ActionLink("Editar", "Editar", "ContratoVenda", new {id=@Model.Id})
+    </td>
+    
+</tr>

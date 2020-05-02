@@ -62,7 +62,7 @@ namespace Web.Controllers
             }
 
             return View(await PaginatedList<Usuario>
-                        .CreateAsync(query.AsNoTracking(), pageNumber ?? 1, _pageSize));
+                        .CreateAsync(query.AsNoTracking(), pageNumber ?? 1));
         }
 
         [HttpGet]
@@ -95,7 +95,7 @@ namespace Web.Controllers
                 await _repo.SaveOrUpdate(modelo);
             }
 
-            ViewBag.SuccessMsg = "Usuário salvo com sucesso!"; 
+            ViewBag.SuccessMsg = "Usuï¿½rio salvo com sucesso!"; 
             return View(modelo);
         }
     }

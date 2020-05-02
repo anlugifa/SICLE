@@ -1,4 +1,5 @@
-﻿using System;
+﻿#nullable disable
+using System;
 using Microsoft.EntityFrameworkCore;
 using Dominio.Entidades;
 using Dominio.Entidades.Acesso;

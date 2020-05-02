@@ -15,10 +15,10 @@ namespace Dominio.Entidades.Contrato
         public long? ContratoVendaAnteriorId { get; set; }
 
         [Display(Name = "Nome")]
-        public String Name { get; set; }
+        public String Name { get; set; } = null!;
 
         [Display(Name = "Apelido")]
-        public String Nickname { get; set; }
+        public String Nickname { get; set; } = null!;
 
         [Display(Name = "Início")]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
@@ -47,7 +47,7 @@ namespace Dominio.Entidades.Contrato
         public bool IsActive { get; set; }
 
 
-        public String Safra { get; set; }
+        public String Safra { get; set; } = null!;
         public String Reason { get; set; } = null!;
 
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
@@ -76,32 +76,32 @@ namespace Dominio.Entidades.Contrato
         public virtual EndorsementStatus EndorsementStatus { get; set; }
 
         public long? CreationUserId { get; set; }
-        public virtual Usuario CreationUser { get; set; }
+        public virtual Usuario CreationUser { get; set; } = null!;
 
         public long? EditorId { get; set; }
-        public virtual Usuario Editor { get; set; }
+        public virtual Usuario Editor { get; set; } = null!;
 
         public long? TraderId { get; set; }
-        public virtual Usuario Trader { get; set; }
+        public virtual Usuario Trader { get; set; } = null!;
 
         public String BrokerId { get; set; } = null!;
-        public virtual Broker Broker { get; set; }
+        public virtual Broker Broker { get; set; } = null!;
 
         public int? ProductGroupId { get; set; }
-        public virtual ProductGroup ProductGroup { get; set; }
+        public virtual ProductGroup ProductGroup { get; set; } = null!;
 
         public long? ClientGroupId { get; set; }
-        public virtual ClientGroup ClientGroup { get; set; }
+        public virtual ClientGroup ClientGroup { get; set; } = null!;
 
         public long? PaymentTermId { get; set; }
-        public virtual PaymentTerm PaymentTerm { get; set; }
+        public virtual PaymentTerm PaymentTerm { get; set; } = null!;
 
         public long? ContratoMestreId { get; set; }
-        public virtual ContratoVendaMestre ContratoMestre { get; set; }
+        public virtual ContratoVendaMestre ContratoMestre { get; set; } = null!;
 
-        public virtual ICollection<SaleContractQuota> Quotas { get; set; }
-        public virtual ICollection<SaleContractPricingRule> PricingRules { get; set; }
-        public virtual ICollection<SaleContractPricingPeriod> PricingPeriods { get; set; }
+        public virtual ICollection<SaleContractQuota> Quotas { get; set; } = null!;
+        public virtual ICollection<SaleContractPricingRule> PricingRules { get; set; } = null!;
+        public virtual ICollection<SaleContractPricingPeriod> PricingPeriods { get; set; } = null!;
 
         public ContratoVenda()
         {

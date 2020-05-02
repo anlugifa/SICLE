@@ -20,19 +20,19 @@ namespace Dominio.Entidades.Contrato
         public SaleType Type { get; set; }
 
         public long? ContratoId { get; set; }
-        public ContratoVenda Contrato { get; set; }
+        public ContratoVenda Contrato { get; set; } = null!;
         
         public int? OrigemId { get; set; }       
-        public Regiao Origem { get; set; }
+        public Regiao Origem { get; set; }  = null!;
 
         public int? DestinoId { get; set; }
-        public Client Destino { get; set; }
+        public Client Destino { get; set; }  = null!;
 
-        public ICollection<SaleContractVolumePeriod> VolumePeriods { get; set; }
+        public ICollection<SaleContractVolumePeriod> VolumePeriods { get; set; }  = null!;
 
         public SaleContractQuota()
         {
-            Origem = null;
+            
         }
 
         public String GetNameQuota()

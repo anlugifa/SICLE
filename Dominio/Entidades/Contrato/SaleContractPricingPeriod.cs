@@ -15,9 +15,9 @@ namespace Dominio.Entidades.Contrato
         public Double Flexibility { get; set; }
 
         public long ContratoVendaId { get; set; }
-        public ContratoVenda Contrato { get; set; }
+        public ContratoVenda Contrato { get; set; }  = null!;
 
-        public ICollection<MapPricingRule_PricingPeriod> MapPricingRules { get; set; }
+        public ICollection<MapPricingRule_PricingPeriod> MapPricingRules { get; set; } = null!;
 
     }
 }

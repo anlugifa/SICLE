@@ -1,3 +1,4 @@
+#nullable disable
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -52,7 +53,7 @@ namespace Dados.Repository
 
             if (associacao != null)
                 throw new ArgumentException(
-                    String.Format("Usu�rio {0} J� associado ao grupo {1}", usuarioId, grupoId));
+                    String.Format("Usuário {0} já associado ao grupo {1}", usuarioId, grupoId));
 
             associacao = new AssociacaoGrupoUsuario()
             {
@@ -73,7 +74,7 @@ namespace Dados.Repository
             if (associacao == null)
                 if (associacao != null)
                     throw new ArgumentException(
-                        String.Format("Usu�rio {0} N�O associado ao grupo {1}", usuarioId, grupoId));
+                        String.Format("Usuário {0} não associado ao grupo {1}", usuarioId, grupoId));
 
             _context.AssociacaoGruposUsuarios.Remove(associacao);
             _context.SaveChanges();
@@ -87,7 +88,7 @@ namespace Dados.Repository
 
             if (associacao != null)
                 throw new ArgumentException(
-                    String.Format("Usu�rio {0} J� associado ao perfil {1}", usuarioId, perfilId));
+                    String.Format("Usuário {0} já associado ao perfil {1}", usuarioId, perfilId));
 
             associacao = new AssociacaoUsuarioPerfil()
             {
@@ -108,7 +109,7 @@ namespace Dados.Repository
             if (associacao == null)
                 if (associacao != null)
                     throw new ArgumentException(
-                        String.Format("Usu�rio {0} N�O associado ao perfil {1}", usuarioId, perfilId));
+                        String.Format("Usuário {0} não associado ao perfil {1}", usuarioId, perfilId));
 
             _context.AssociacaoUsuarioPerfis.Remove(associacao);
             _context.SaveChanges();
@@ -123,7 +124,7 @@ namespace Dados.Repository
 
             if (associacao != null)
                 throw new ArgumentException(
-                    String.Format("Usu�rio {0} J� associado ao perfil {1}", usuarioId, perfilVendaId));
+                    String.Format("Usu�rio {0} já associado ao perfil {1}", usuarioId, perfilVendaId));
 
             associacao = new AssociacaoUsuarioPerfilVenda()
             {
@@ -144,7 +145,7 @@ namespace Dados.Repository
             if (associacao == null)
                 if (associacao != null)
                     throw new ArgumentException(
-                        String.Format("Usu�rio {0} N�O associado ao PerfilVenda {1}", usuarioId, perfilVendaId));
+                        String.Format("Usu�rio {0} nãO associado ao PerfilVenda {1}", usuarioId, perfilVendaId));
 
             _context.AssociacaoUsuarioPerfilVendas.Remove(associacao);
             _context.SaveChanges();

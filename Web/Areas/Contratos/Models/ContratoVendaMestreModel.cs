@@ -7,28 +7,31 @@ namespace Sicle.Web.Areas.Contratos.Models
 {
     public class ContratoVendaMestreModel
     {
-
-        public ContratoVendaMestre ContratoMestre {get; set;}
+        public ContratoVendaMestre ContratoMestre { get; set; }
 
         public String Id { get; set; }
         public String Farol { get; set; }
+        public String Nickname { get; set; }
         public String EndorsementIcon { get; set; }
         public String StatusMestre { get; set; }
         public String EndossoMestre { get; set; }
         public String MinDate { get; set; }
         public String MaxDate { get; set; }
         public String TotalVolume { get; set; }
-        public String MaxVolume { get; set; }  
+        public String MaxVolume { get; set; }
+        public Boolean IsActive { get; set; }
 
         public ContratoVendaMestreModel(ContratoVendaMestre mestre)
         {
             this.ContratoMestre = mestre;
+            this.Nickname = mestre.Nickname;
+            this.IsActive = mestre.IsActive;
 
             FillFields();
         }
 
         private void FillFields()
-        {            
+        {
             ContractStatus? mestreStatus = null;
             EndorsementStatus? mestreEndorsementStatus = null;
             Double totalVolume = 0;
@@ -83,7 +86,7 @@ namespace Sicle.Web.Areas.Contratos.Models
             StatusMestre = status.HasValue ? status.GetEnumDescription() : "";
             EndossoMestre = endorsementStatus.HasValue ? endorsementStatus.GetEnumDescription() : "";
             MinDate = minDate.HasValue ? minDate.Value.ToString("dd/mm/yyyy") : String.Empty;
-            MaxDate = maxDate.HasValue ? maxDate.Value.ToString("dd/mm/yyyy") : String.Empty;;
+            MaxDate = maxDate.HasValue ? maxDate.Value.ToString("dd/mm/yyyy") : String.Empty; ;
             TotalVolume = String.Format("{0:N0}", totalVolume);
             MaxVolume = String.Format("{0:N0}", maxVolume);
         }
@@ -92,17 +95,17 @@ namespace Sicle.Web.Areas.Contratos.Models
         {
             if (status == null)
                 return ResourceMap.DASH;
-            
-            return ResourceMap.GetContractIcon(status.Value);            
+
+            return ResourceMap.GetContractIcon(status.Value);
         }
 
         private String GetEndorsementIcon(EndorsementStatus? status)
         {
             if (status == null)
                 return ResourceMap.DASH;
-            
-            return ResourceMap.GetEndorsementIcon(status.Value);	
-        }        
+
+            return ResourceMap.GetEndorsementIcon(status.Value);
+        }
 
         protected ContractStatus? GetContractStatus(ContractStatus? statusMestre, ContratoVenda contract)
         {
@@ -146,8 +149,8 @@ namespace Sicle.Web.Areas.Contratos.Models
 
             return null;
         }
-		
-		protected EndorsementStatus? GetEndosementStatus(EndorsementStatus? status, ContratoVenda contract)
+
+        protected EndorsementStatus? GetEndosementStatus(EndorsementStatus? status, ContratoVenda contract)
         {
             switch (contract.EndorsementStatus)
             {

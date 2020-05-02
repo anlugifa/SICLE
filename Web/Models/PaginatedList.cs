@@ -11,6 +11,8 @@ namespace Web.Models
         public int PageIndex { get; private set; }
         public int TotalPages { get; private set; }
 
+        protected const int _pageSize = 20;
+
         public PaginatedList(List<T> items, int count, int pageIndex, int pageSize)
         {
             PageIndex = pageIndex;
@@ -35,11 +37,21 @@ namespace Web.Models
             }
         }
 
+        public static PaginatedList<T> CreateAsync(IEnumerable<T> source, int pageIndex)
+        {
+            return CreateAsync(source, pageIndex, _pageSize);
+        }
+
         public static PaginatedList<T> CreateAsync(IEnumerable<T> source, int pageIndex, int pageSize)
         {
             var count = source.Count();
             var items = source.Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
             return new PaginatedList<T>(items, count, pageIndex, pageSize);
+        }
+
+        public static Task<PaginatedList<T>> CreateAsync(IQueryable<T> source, int pageIndex)
+        {
+            return CreateAsync(source, pageIndex, _pageSize);
         }
 
         public static async Task<PaginatedList<T>> CreateAsync(IQueryable<T> source, int pageIndex, int pageSize)

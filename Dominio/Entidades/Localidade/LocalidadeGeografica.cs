@@ -4,10 +4,10 @@ namespace Dominio.Entidades.Localidades
 {
     public abstract class LocalidadeGeografica : Localidade
     {
-        public String Latitude {get; set;}
-        public String Longitude {get; set;}
-        public String City {get; set;}
-        public String State {get; set;}        
+        public String Latitude {get; set;} = null!;
+        public String Longitude {get; set;} = null!;
+        public String City {get; set;} = null!;
+        public String State {get; set;} = null!;     
         
         public Boolean IsAgro {get; set;}
 
@@ -15,6 +15,6 @@ namespace Dominio.Entidades.Localidades
         public StatusLocalidade? Status {get; set;}
 
         public int?  RegionId {get; set;}
-        public Regiao Region {get; set;}
+        public Regiao Region {get; set;} = null!;
     }
 }

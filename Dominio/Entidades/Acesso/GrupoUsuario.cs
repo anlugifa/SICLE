@@ -10,11 +10,11 @@ namespace Dominio.Entidades.Acesso
 
         [Required]
         [MaxLength(25)]
-        public String Code { get; set; }
+        public String Code { get; set; } = null!;
             
         [MaxLength(50)]
-        public String Nome { get; set; }
+        public String Nome { get; set; } = null!;
 
-        public ICollection<AssociacaoGrupoUsuario> Usuarios { get; set; }
+        public ICollection<AssociacaoGrupoUsuario> Usuarios { get; set; } = null!;
     }
 }

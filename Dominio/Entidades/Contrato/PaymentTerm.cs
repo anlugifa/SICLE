@@ -19,14 +19,14 @@ namespace Dominio.Entidades.Contrato
     public class PaymentTerm
     {
         public long Id { get; set; }
-        public String Code { get; set; }
+        public String Code { get; set; } = null!;
         public PaymentTermType PaymentTermType { get; set; }
 
         public SAPEnvType Env { get; set; }        
         public double Days{ get; set; }
 
         [MaxLength(100)]
-        public String Description { get; set; }
+        public String Description { get; set; } = null!;
         public bool IsFixDate { get; set; }
         public bool IsActive { get; set; }
 

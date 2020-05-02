@@ -8,8 +8,8 @@ namespace Dominio.Entidades.Acesso
 
         public int GrupoUsuarioId { get; set; }
 
-        public virtual Usuario Usuario { get; set; }
+        public virtual Usuario Usuario { get; set; } = null!;
 
-        public virtual GrupoUsuario Grupo { get; set; }
+        public virtual GrupoUsuario Grupo { get; set; } = null!;
     }
 }

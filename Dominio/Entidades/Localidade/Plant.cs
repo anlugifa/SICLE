@@ -8,16 +8,16 @@ namespace Dominio.Entidades.Localidades
 {
     public abstract class Plant : LocalidadeGeografica
     {
-        public String IE {get; set;}
-        public String CNPJ { get; set; }
-        public String Operation { get; set; }
+        public String IE {get; set;} = null!;
+        public String CNPJ { get; set; } = null!;
+        public String Operation { get; set; } = null!;
         
         public Double FixedCost { get; set; }
         public Double FixedCostZero { get; set; }
-        public String NickName { get; set; }
-        public String ShortName { get; set; }
-        public String Initials { get; set; }
-        public String DefaultObservation { get; set; }
+        public String NickName { get; set; } = null!;
+        public String ShortName { get; set; } = null!;
+        public String Initials { get; set; } = null!;
+        public String DefaultObservation { get; set; } = null!;
 
         public Double HSun { get; set; }
         public Double HMon { get; set; }
@@ -29,15 +29,15 @@ namespace Dominio.Entidades.Localidades
 
         public Double LogistcPrize { get; set; }
         public Boolean IsCosan { get; set; }
-        public String Ovmi { get; set; }
-        public String Ovme { get; set; }
+        public String Ovmi { get; set; } = null!;
+        public String Ovme { get; set; } = null!;
 
-        public String Enterprise { get; set; }
+        public String Enterprise { get; set; } = null!;
 
         public Boolean IsLiter { get; set; }
 
         [EmailAddress]
-        public String Email { get; set; }
+        public String Email { get; set; } = null!;
 
         public Double Diflog { get; set; }
 
@@ -45,12 +45,12 @@ namespace Dominio.Entidades.Localidades
         public Boolean IsPisCofinsNotApplied { get; set; }
 
         public int ImportCompanyId { get; set; }
-    	public Company ImportCompany { get; set; }
+    	public Company ImportCompany { get; set; } = null!;
 
         public long OperatorId { get; set; }
-        public ClientGroup Operator { get; set; }
+        public ClientGroup Operator { get; set; } = null!;
 
-        public ICollection<RestricaoCargaDescarga> LoadUnloadRestriction { get; set; }        
-	    public ICollection<ProductInPlant> ProductInLocation { get; set; }
+        public ICollection<RestricaoCargaDescarga> LoadUnloadRestriction { get; set; }  = null!;
+	    public ICollection<ProductInPlant> ProductInLocation { get; set; } = null!;
     }
 }

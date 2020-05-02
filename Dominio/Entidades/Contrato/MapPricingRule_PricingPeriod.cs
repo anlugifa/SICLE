@@ -9,9 +9,9 @@ namespace Dominio.Entidades.Contrato
     public class MapPricingRule_PricingPeriod
     {
         public long PricingRuleId { get; set; }
-        public SaleContractPricingRule SaleContractPricingRule { get; set; }
+        public SaleContractPricingRule SaleContractPricingRule { get; set; } = null!;
 
         public long PricingPeriodId { get; set; }
-        public SaleContractPricingPeriod SaleContractPricingPeriod { get; set; }
+        public SaleContractPricingPeriod SaleContractPricingPeriod { get; set; } = null!;
     }
 }

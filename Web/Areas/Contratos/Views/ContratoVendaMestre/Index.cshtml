@@ -55,7 +55,7 @@
 
                     <select class="form-control" data-val="false" id="ddlStatus" name="status"                            
                             @* asp-items='Html.GetEnumSelectList<ContractStatus>()'> *@
-                            asp-items='@(new SelectList(Model.ListStatus, "Value", "Text"))'>
+                            asp-items='@(new SelectList(Model.ListStatus, "Value", "Text", ViewData["CurrentStatus"]))'>
                             <option value="">Selecione</option>
                     </select>
 
@@ -63,7 +63,7 @@
                 <div class="col-sm-4">
                     <input type="submit" name="btnSearch" value="Pesquisar" class="btn btn-light" /> |
                     <a asp-action="Index" class="btn btn-light">Limpar</a> |
-                    <a href="@Url.Action("Salvar", "ContratoVendaMestre")" class="btn btn-light">Novo</a>
+                    <a href="@Url.Action("Edit", "ContratoVendaMestre")" class="btn btn-primary btn-sm"><b>Novo</b></a>
                 </div>
             </div>
         </form>
@@ -98,32 +98,7 @@
                 {
                     var vm = Model.ConvertoToViewModel(item);
                     
-                <tr>
-                    <td><img src="@vm.Farol"/></td>
-                    <td>@vm.Id</td>
-                    <td>@vm.StatusMestre</td>     
-
-                    <td><img src="@vm.EndorsementIcon"/></td> 
-                    <td>@vm.EndossoMestre</td>       
-
-                    <td>@Html.DisplayFor(modelItem => item.Nickname)</td>
-
-                    <td>@Html.Display("MinDate", vm.MinDate)</td>
-                    <td>@Html.Display("MaxDate", vm.MaxDate)</td>
-                    
-                    <td>@Html.Display("TotalVolume", vm.TotalVolume)</td>
-                    <td>@Html.Display("MaxVolume", vm.MaxVolume)</td>
-
-                    <td>@Html.CheckBoxFor(modelItem => item.IsActive, new { disabled = "disabled" })</td>                   
-                    
-                    <td>
-                        @Html.ActionLink("Editar", "Editar", new {id=@item.Id})
-                    </td>       
-
-                    <td>
-                        @Html.ActionLink("Remover", "Remover", new {id=@item.Id})
-                    </td>              
-                </tr>
+                    <partial name="_ContratoMestreRow.cshtml" model="@vm"></partial>  
                 }
             </tbody>
         </table>

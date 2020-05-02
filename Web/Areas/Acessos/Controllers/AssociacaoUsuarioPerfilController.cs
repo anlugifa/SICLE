@@ -79,7 +79,7 @@ namespace Sicle.Web.Areas.Acessos.Controllers
                     break;
             }
             var list = query.ToList();
-            var model = new AssociacaoUsuarioPerfilModel(list, list.Count(), pageNumber ?? 1, _pageSize);
+            var model = new AssociacaoUsuarioPerfilModel(list, list.Count(), pageNumber ?? 1);
 
             // aguardamos a thread finalizar para não gerar concorrência de Thread no dbContext em _usrRepo.GetAllAsync()
             model.Perfis = await _perfilRepo.AsQueryable().OrderBy(g => g.Nome).ToListAsync();

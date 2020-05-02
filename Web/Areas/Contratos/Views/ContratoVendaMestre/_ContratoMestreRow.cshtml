@@ -1,0 +1,29 @@
+@model ContratoVendaMestreModel
+@using Sicle.Web.Areas.Contratos.Models
+
+<tr>
+    <td><img src="@Model.Farol"/></td>
+    <td>@Model.Id</td>
+    <td>@Model.StatusMestre</td>     
+
+    <td><img src="@Model.EndorsementIcon"/></td> 
+    <td>@Model.EndossoMestre</td>       
+
+    <td>@Html.Display("Nickname", Model.Nickname)</td>
+
+    <td>@Html.Display("MinDate", Model.MinDate)</td>
+    <td>@Html.Display("MaxDate", Model.MaxDate)</td>
+    
+    <td>@Html.Display("TotalVolume", Model.TotalVolume)</td>
+    <td>@Html.Display("MaxVolume", Model.MaxVolume)</td>
+
+    <td>@Html.CheckBoxFor(modelItem => Model.IsActive, new { disabled = "disabled" })</td>                   
+    
+    <td>
+        @Html.ActionLink("Visualizar", "Details", new {id=@Model.Id})
+    </td>       
+
+    <td>
+        @Html.ActionLink("Remover", "Remover", new {id=@Model.Id})
+    </td>              
+</tr>

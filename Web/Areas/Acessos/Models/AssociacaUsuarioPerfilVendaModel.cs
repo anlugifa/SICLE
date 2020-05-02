@@ -18,7 +18,7 @@ namespace Sicle.Web.Areas.Acessos.Models
         public int UsuarioId { get; set; }
 
         public AssociacaoUsuarioPerfilVendaModel(List<AssociacaoUsuarioPerfilVenda> items, 
-            int count, int pageIndex, int pageSize) : base(items, count, pageIndex, pageSize)
+            int count, int pageIndex) : base(items, count, pageIndex, _pageSize)
         {
         }
     }

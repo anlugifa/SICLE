@@ -7,10 +7,10 @@ namespace Dominio.Entidades.Contrato
     {
         [Required]
         [MaxLength(30)]
-        public String Code { get; set; }
+        public String Code { get; set; } = null!;
 
         [MaxLength(255)]
         [EmailAddress]
-        public String Email { get; set; }
+        public String Email { get; set; } = null!;
     }
 }

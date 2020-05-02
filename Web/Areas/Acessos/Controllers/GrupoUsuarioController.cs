@@ -64,7 +64,7 @@ namespace Web.Controllers
             }
 
             return View(await PaginatedList<GrupoUsuario>
-                        .CreateAsync(query.AsNoTracking(), pageNumber ?? 1, _pageSize));
+                        .CreateAsync(query.AsNoTracking(), pageNumber ?? 1));
         }
 
         [HttpGet]

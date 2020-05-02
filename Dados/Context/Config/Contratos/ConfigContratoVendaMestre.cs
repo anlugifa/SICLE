@@ -17,6 +17,7 @@ namespace Sicle.Dados.Context.Config.Contratos
                 t.HasKey(p => p.Id);
 
                 t.Property(p => p.Id).HasColumnName("CD_SEQ_CONTRATO_MESTRE");
+                t.Property(p => p.Discriminator).HasColumnName("INSTANCE_TYPE");
                 t.Property(p => p.IsActive).HasColumnName("DS_ATIVO");    
                 t.Property(p => p.Observation).HasColumnName("DS_OBSERVACAO");
                 t.Property(p => p.CreationDate).HasColumnName("DT_CRIACAO");

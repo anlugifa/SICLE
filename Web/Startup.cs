@@ -17,9 +17,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
+using Microsoft.AspNetCore.Session;
 using Util;
 using Util.Language;
 using IHostingEnvironment = Microsoft.AspNetCore.Hosting.IHostingEnvironment;
+using Web.Util;
 
 namespace Web
 {
@@ -64,12 +66,24 @@ namespace Web
             services.AddDirectoryBrowser();
 
             //services.AddControllersWithViews().AddRazorRuntimeCompilation();           
+            services.AddDistributedMemoryCache();
+
+            services.AddSession(options =>
+            {
+                options.Cookie.Name = "Sicle.Session";
+                //options.IdleTimeout = TimeSpan.FromSeconds(10);
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
+            });       
+
+            services.AddHttpContextAccessor();      
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            Startup.CurrentEnvironment = env;
+            Startup.CurrentEnvironment = env;           
 
             if (env.IsDevelopment())
             {
@@ -96,7 +110,18 @@ namespace Web
 
             //app.UseRouting();
             //app.UseAuthorization();
+            ConfigureSession(app);
+            ConfigureRoutes(app);
+        }
 
+        private void ConfigureSession(IApplicationBuilder app)
+        {
+            app.UseSession();
+            SessionVariables.Configure(app.ApplicationServices.GetRequiredService<IHttpContextAccessor>());
+        }
+
+        private void ConfigureRoutes(IApplicationBuilder app)
+        {
             app.UseMvc(routes =>
             {
                 routes.MapAreaRoute(

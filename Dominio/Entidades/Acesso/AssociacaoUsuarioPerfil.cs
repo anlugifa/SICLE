@@ -8,8 +8,8 @@ namespace Dominio.Entidades.Acesso
 
         public int PerfilId { get; set; }
 
-        public virtual Usuario Usuario { get; set; }
+        public virtual Usuario Usuario { get; set; } = null!;
 
-        public virtual Perfil Perfil { get; set; }
+        public virtual Perfil Perfil { get; set; } = null!;
     }
 }

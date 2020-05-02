@@ -11,10 +11,10 @@ namespace Dominio.Entidades.Acesso
 
         [Required]
         [MaxLength(16)]
-        public string Code { get; set; }
+        public string Code { get; set; } = null!;
 
         [MaxLength(40)]
-        public string Nome { get; set; }
+        public string Nome { get; set; } = null!;
 
         public int? Volume { get; set; }
 
@@ -40,6 +40,6 @@ namespace Dominio.Entidades.Acesso
         public Decimal? MaxCreditLimit { get; set; }
         public PurchaseRating? Rating { get; set; }
         public ProfileLevel? ProfileLevel { get; set; }
-        public ICollection<AssociacaoUsuarioPerfil> Usuarios { get; set; }
+        public ICollection<AssociacaoUsuarioPerfil> Usuarios { get; set; } = null!;
     }
 }

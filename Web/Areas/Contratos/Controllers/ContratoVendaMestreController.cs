@@ -73,10 +73,10 @@ namespace Web.Controllers
                                        || s.Observation.Contains(searchString));
             }
 
-            // if (status != null)
-            // {
-            //     query = query.Where(s => s.Contratos.Any(x => x.Status == status));
-            // }
+            if (status != null)
+            {
+                query = query.Where(s => s.Contratos.Any(x => x.Status == status));
+            }
             #endregion
 
             switch (sortOrder)
@@ -99,11 +99,11 @@ namespace Web.Controllers
             }
 
             return View(await IndexContratoVendaMestreVM
-                        .CreateAsync(query.AsNoTracking(), pageNumber ?? 1, _pageSize));
+                        .CreateAsync(query.AsNoTracking(), pageNumber ?? 1));
         }
 
         [HttpGet]
-        public async Task<IActionResult> Editar(long id, string sortOrder, int? pageNumber)
+        public async Task<IActionResult> Details(long id, string sortOrder, int? pageNumber)
         {
             var contrato = _repo.Get(id);
 
@@ -117,10 +117,10 @@ namespace Web.Controllers
                                 .Where(x => x.ContratoMestreId == id)
                                 .OrderByDescending(x => x.Id);          
 
-            var model = EditContratoVendaMestreVM.CreateAsync(contrato, 
-                                query.AsNoTracking(), pageNumber ?? 1, _pageSize);
+            var model = ContratoVendaMestreVM.CreateAsync(contrato, 
+                                query.AsNoTracking(), pageNumber ?? 1);
 
-            return View("Edit", await model);
+            return View("Details", await model);
         }
 
         [HttpGet]
@@ -131,14 +131,20 @@ namespace Web.Controllers
         }
 
         [HttpGet]
-        public IActionResult Salvar()
+        public IActionResult Edit()
         {
-            return View(new ContratoVendaMestre());
+            return View(new ContratoVendaMestre()
+                {
+                    IsActive = true,
+                    CreationDate = DateTime.Today,
+                    CreationUserId = CurrentUser.Id,
+                    CreationUser = CurrentUser 
+                });
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Salvar(ContratoVendaMestre modelo)
+        public async Task<IActionResult> Edit(ContratoVendaMestre modelo)
         {
             if (ValidateModel())
             {
