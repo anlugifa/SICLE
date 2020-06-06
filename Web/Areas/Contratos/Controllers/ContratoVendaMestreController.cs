@@ -3,15 +3,16 @@ using System.Threading.Tasks;
 using Dados;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
-using Web.Models;
+using Sicle.Web.Models;
 using Dominio.Entidades.Acesso;
 using Microsoft.EntityFrameworkCore;
 using System.Text;
 using Dados.Repository;
 using Dominio.Entidades.Contrato;
 using Sicle.Web.Areas.Contratos.Models;
+using Sicle.Web.Util;
 
-namespace Web.Controllers
+namespace Sicle.Web.Controllers
 {
     [Area("Contratos")]
     public class ContratoVendaMestreController : SicleController
@@ -111,9 +112,9 @@ namespace Web.Controllers
                 throw new ArgumentException("Id {0} de ContratoVendaMestre não encontrado.");
 
             var query = _repoContract.AsQueryable()
-                                .Include("ProductGroup")
-                                .Include("ClientGroup")
-                                .Include("PaymentTerm")
+                                .Include(p => p.ProductGroup)
+                                .Include(p => p.ClientGroup)
+                                .Include(p => p.PaymentTerm)
                                 .Where(x => x.ContratoMestreId == id)
                                 .OrderByDescending(x => x.Id);          
 
@@ -131,28 +132,61 @@ namespace Web.Controllers
         }
 
         [HttpGet]
-        public IActionResult Edit()
+        public IActionResult Edit(long id)
         {
-            return View(new ContratoVendaMestre()
+            ContratoVendaMestreModel model = null;
+
+            if (id > 0)
+            {                
+                var mestre = LoadMestre(id);
+                if (mestre != null)
+                {
+                    model = new ContratoVendaMestreModel(mestre);
+                }
+                else
+                {
+                    AddError("Contrato {0} não encontrado", id);
+                }
+            }
+            
+            if (model == null)
+            {
+                model = new ContratoVendaMestreModel()
                 {
                     IsActive = true,
                     CreationDate = DateTime.Today,
                     CreationUserId = CurrentUser.Id,
                     CreationUser = CurrentUser 
-                });
+                };
+            }
+
+            return View(model);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(ContratoVendaMestre modelo)
+        public async Task<IActionResult> Edit(ContratoVendaMestreModel model)
         {
             if (ValidateModel())
             {
-                await _repo.SaveOrUpdate(modelo);
-            }
+                var contrato = (ContratoVendaMestre)model;
+                await _repo.SaveOrUpdate(contrato);
 
-            ViewBag.SuccessMsg = "Contrato salvo com sucesso!";
-            return View(modelo);
+                if (contrato.Id > 0) {
+
+                    // restore from db by new Id
+                    model = new ContratoVendaMestreModel(LoadMestre(contrato.Id));
+
+                    AddSuccess("Contrato salvo com sucesso!");
+                }
+            }
+            
+            return View(model);
+        }
+
+        internal ContratoVendaMestre LoadMestre(long id)
+        {
+            return _repo.AsQueryable().Include(p => p.CreationUser).FirstOrDefault(p => p.Id == id);
         }
     }
 }

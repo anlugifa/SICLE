@@ -9,7 +9,7 @@ using System.Linq;
 using Newtonsoft.Json;
 using Microsoft.EntityFrameworkCore;
 
-namespace Web.Controllers
+namespace Sicle.Web.Controllers
 {
     [Area("Contratos")]
     public class ContratoVendaController : SicleController

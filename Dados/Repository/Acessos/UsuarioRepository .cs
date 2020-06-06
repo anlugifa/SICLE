@@ -32,7 +32,7 @@ namespace Dados.Repository
                                     .AsQueryable<AssociacaoGrupoUsuario>();
         }
 
-        public override Task Delete(long e)
+        public override Task<int> Delete(long e)
         {
             var u = Get(e);
             u.IsAtivo = false;
@@ -40,7 +40,7 @@ namespace Dados.Repository
             return Update(u);
         }
 
-        public override Task Delete(Usuario e)
+        public override Task<int> Delete(Usuario e)
         {
             return Delete(e.Id);
         }

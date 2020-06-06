@@ -3,7 +3,7 @@ using System.Text;
 using Dominio.Entidades.Contrato;
 using Util.Language;
 
-namespace Web.Util
+namespace Sicle.Web.Util
 {
     public static class ConvertString
     {

@@ -5,15 +5,15 @@ namespace Dados.Repository.Base
 {
     public interface IBaseRepository<TEntity, IdType>
     {
-        Task SaveOrUpdate(TEntity e);
+        Task<int> SaveOrUpdate(TEntity e);
 
-        Task Save(TEntity e);
+        Task<int> Save(TEntity e);
 
-        Task Update(TEntity e);
+        Task<int> Update(TEntity e);
 
-        Task Delete(TEntity e);
+        Task<int> Delete(TEntity e);
 
-        Task Delete(IdType e);
+        Task<int> Delete(IdType e);
 
         TEntity MergeFromDB(TEntity localCopy);
 

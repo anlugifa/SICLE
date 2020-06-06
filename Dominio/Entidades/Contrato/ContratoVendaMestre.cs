@@ -7,25 +7,16 @@ namespace Dominio.Entidades.Contrato
 {
     public class ContratoVendaMestre
     {
-        [Required]
-        [MaxLength(30)]
         public long Id {get; set;}
 
-        [Obsolete("Utilizado em heranças pelo Sicle antigo.")]
+        //Utilizado em heranças pelo Sicle antigo.
         public String Discriminator {get; set;} = "MasterSaleContract";
-
-        [MaxLength(255)]
-        [Required(ErrorMessage="Apelido é obrigatório.")]
-        [Display(Name="Apelido")]
-        public String Nickname {get; set;} = null!;
-
-        [Display(Name="Observação")]
+        
+        public String Nickname {get; set;} = null!;        
         public String Observation {get; set;} = null!;
 
         public Boolean IsActive {get; set;}
-
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
-        [DataType(DataType.Date)]
+        
         public DateTime CreationDate {get; set;}
 
         public long CreationUserId {get; set;}

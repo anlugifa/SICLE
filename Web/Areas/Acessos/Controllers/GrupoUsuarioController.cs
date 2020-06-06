@@ -3,13 +3,13 @@ using System.Threading.Tasks;
 using Dados;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
-using Web.Models;
+using Sicle.Web.Models;
 using Dominio.Entidades.Acesso;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Dados.Repository;
 
-namespace Web.Controllers
+namespace Sicle.Web.Controllers
 {
     [Area("Acessos")]
     public class GrupoUsuarioController : SicleController

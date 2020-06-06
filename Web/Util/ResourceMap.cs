@@ -1,7 +1,7 @@
 using System;
 using Dominio.Entidades.Contrato;
 
-namespace Web.Util
+namespace Sicle.Web.Util
 {
     public class ResourceMap
     {

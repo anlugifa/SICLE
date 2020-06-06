@@ -1,6 +1,6 @@
 using System;
 using Dominio.Entidades.Contrato;
-using Web.Util;
+using Sicle.Web.Util;
 using Util;
 
 namespace Sicle.Web.Areas.Contratos.Models

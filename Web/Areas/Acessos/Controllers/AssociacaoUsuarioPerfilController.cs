@@ -9,8 +9,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Sicle.Web.Areas.Acessos.Models;
-using Web.Controllers;
-using Web.Models;
+using Sicle.Web.Controllers;
+using Sicle.Web.Models;
 
 namespace Sicle.Web.Areas.Acessos.Controllers
 {

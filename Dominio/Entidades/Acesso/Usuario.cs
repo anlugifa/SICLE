@@ -13,8 +13,9 @@ namespace Dominio.Entidades.Acesso
         [MaxLength(8)]
         public string Matricula { get; set; } = null!;
 
-        [Required(ErrorMessage = "Nome obrigatória")]
         [MaxLength(50)]
+        [Required(ErrorMessage = "Nome obrigatória")]
+        [Display(Name="Nome:")]
         public string Nome { get; set; } = null!;
         
         [MaxLength(50)]

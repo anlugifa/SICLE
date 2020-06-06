@@ -7,11 +7,11 @@ using log4net;
 using System.Text;
 using System;
 using Microsoft.AspNetCore.Http;
-using Web.Util;
+using Sicle.Web.Util;
 using Dominio.Entidades.Acesso;
 using Dados.Repository;
 
-namespace Web.Controllers
+namespace Sicle.Web.Controllers
 {
     public abstract class SicleController : Controller
     {
@@ -27,6 +27,16 @@ namespace Web.Controllers
 
             SessionVariables.UserId = 259051;
             CurrentUser = new UsuarioRepository(context).Get(259051);
+        }
+
+        public void AddError(string error, params object[] args)
+        {
+            ViewBag.ErrorMsg += String.Format(error, args);
+        }
+
+        public void AddSuccess(string msg, params object[] args)
+        {
+            ViewBag.SuccessMsg += String.Format(msg, args);        
         }
 
         public bool ValidateModel()
@@ -48,7 +58,7 @@ namespace Web.Controllers
                 var str = sb.ToString();
                 _log.Info(str);
 
-                ViewBag.Msg = str;
+                ViewBag.ErrorMsg = str;
 
                 return false;
             }

@@ -52,11 +52,11 @@ namespace Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Salvar(Configuracao modelo)
+        public async Task<IActionResult> Salvar(Configuracao modelo)
         {
             if (ModelState.IsValid)
             {
-                 _repo.SaveOrUpdate(modelo);
+                await _repo.SaveOrUpdate(modelo);
             }
 
             return RedirectToAction("Index");

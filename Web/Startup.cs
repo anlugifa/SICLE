@@ -21,7 +21,7 @@ using Microsoft.AspNetCore.Session;
 using Util;
 using Util.Language;
 using IHostingEnvironment = Microsoft.AspNetCore.Hosting.IHostingEnvironment;
-using Web.Util;
+using Sicle.Web.Util;
 
 namespace Web
 {
@@ -48,8 +48,17 @@ namespace Web
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+            services.Configure<RequestLocalizationOptions>(options =>
+            {
+                options.DefaultRequestCulture = new Microsoft.AspNetCore.Localization.RequestCulture("pt-BR");
+                options.SupportedCultures = new List<CultureInfo> { new CultureInfo("en-US"), new CultureInfo("pt-BR") };
+            });
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddMvc(options =>
+                {
+                    //options.ModelBinderProviders.Insert(0, new DateTimeModelBinderProvider());
+                }
+            ).SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             services.AddDbContext<ApplicationDBContext>(options =>
             {

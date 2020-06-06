@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Session;
 
-namespace Web.Util
+namespace Sicle.Web.Util
 {
     public static class SessionVariables
     {

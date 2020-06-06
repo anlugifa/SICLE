@@ -10,13 +10,16 @@ namespace Sicle.Dados.Context.Config.Contratos
     public class ConfigContratoVendaMestre
     {
         internal static void Config(ModelBuilder model)
-        {
+        {            
             model.Entity<ContratoVendaMestre>(t =>
             {
                 t.ToTable("TB_CONTRATOS_MESTRES_VENDA");
                 t.HasKey(p => p.Id);
 
-                t.Property(p => p.Id).HasColumnName("CD_SEQ_CONTRATO_MESTRE");
+                t.Property(p => p.Id).HasColumnName("CD_SEQ_CONTRATO_MESTRE")
+                                        .ValueGeneratedOnAdd()
+                                        .ForOracleUseSequenceHiLo("SEQ_CONTRATOS_MESTRES_VENDAS");
+                                        
                 t.Property(p => p.Discriminator).HasColumnName("INSTANCE_TYPE");
                 t.Property(p => p.IsActive).HasColumnName("DS_ATIVO");    
                 t.Property(p => p.Observation).HasColumnName("DS_OBSERVACAO");
@@ -28,12 +31,13 @@ namespace Sicle.Dados.Context.Config.Contratos
             model.Entity<ContratoVendaMestre>()
                         .HasOne(b => b.CreationUser)
                         .WithMany(b => b.ContratosMestres)
-                        .HasForeignKey(b => b.CreationUserId);
+                        .HasForeignKey(b => b.CreationUserId).OnDelete(DeleteBehavior.ClientSetNull);
 
             model.Entity<ContratoVendaMestre>()
                         .HasMany(b => b.Contratos)
                         .WithOne(b => b.ContratoMestre)
-                        .HasForeignKey(b => b.ContratoMestreId);
+                        .HasForeignKey(b => b.ContratoMestreId)
+                        .HasForeignKey(b => b.CreationUserId).OnDelete(DeleteBehavior.ClientSetNull);
         }
     }
 }

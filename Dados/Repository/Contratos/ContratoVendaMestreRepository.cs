@@ -36,5 +36,22 @@ namespace Dados.Repository
 
             return await q;
         }
+
+        public override ContratoVendaMestre MergeFromDB(ContratoVendaMestre localCopy)
+        {
+            var pkValue = GetPkValue(localCopy);
+            var objFromDB = Get(pkValue);
+
+            if (objFromDB == null)
+                throw new ArgumentException("ERRO: ID " + pkValue +
+                    " NOT FOUND FOR ENTITY: CONFIGURACAO");
+
+            objFromDB.Nickname = localCopy.Nickname;
+            objFromDB.Discriminator = localCopy.Discriminator;
+            objFromDB.Observation = localCopy.Observation;
+            objFromDB.IsActive = localCopy.IsActive;
+
+            return objFromDB;
+        }
     }
 }
