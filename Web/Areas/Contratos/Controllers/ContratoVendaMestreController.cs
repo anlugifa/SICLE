@@ -106,12 +106,12 @@ namespace Sicle.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> Details(long id, string sortOrder, int? pageNumber)
         {
-            var contrato = _repo.Get(id);
+            var contrato = _repo.AsQueryable().Include(p => p.Contratos).FirstOrDefault(p => p.Id == id);
 
             if (contrato == null)
                 throw new ArgumentException("Id {0} de ContratoVendaMestre não encontrado.");
 
-            var query = _repoContract.AsQueryable()
+            var contratos = _repoContract.AsQueryable()
                                 .Include(p => p.ProductGroup)
                                 .Include(p => p.ClientGroup)
                                 .Include(p => p.PaymentTerm)
@@ -119,7 +119,7 @@ namespace Sicle.Web.Controllers
                                 .OrderByDescending(x => x.Id);          
 
             var model = ContratoVendaMestreVM.CreateAsync(contrato, 
-                                query.AsNoTracking(), pageNumber ?? 1);
+                                contratos.AsNoTracking(), pageNumber ?? 1);
 
             return View("Details", await model);
         }

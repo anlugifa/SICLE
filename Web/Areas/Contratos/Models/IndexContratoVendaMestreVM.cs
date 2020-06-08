@@ -32,55 +32,21 @@ namespace Sicle.Web.Areas.Contratos.Models
             return new IndexContratoVendaMestreVM(items, count, pageIndex, _pageSize);
         }
 
-        public ContratoVendaMestreModel ConvertoToViewModel(ContratoVendaMestre model)
+        public ContratoVendaMestreModel ConvertModel(ContratoVendaMestre model)
         {
             var viewmodel = new ContratoVendaMestreModel(model);
 
-            ConvertModelToView(model, viewmodel);
+            ConvertModel(model, viewmodel);
 
             return viewmodel;
         }  
 
-        public void ConvertModelToView(ContratoVendaMestre mestre, ContratoVendaMestreModel model)
+        public void ConvertModel(ContratoVendaMestre mestre, ContratoVendaMestreModel model)
         {
-            ContractStatus? mestreStatus = null;
-            EndorsementStatus? mestreEndorsementStatus = null;
-            Double totalVolume = 0;
-            Double maxVolume = 0;
-            DateTime? minDate = null;
-            DateTime? maxDate = null;
+            var buss = new Sicle.Business.Contratos.ContratoMestreVendaBusiness();
+            var status = buss.GetMestreStatus(mestre);
 
-            if (mestre.Contratos != null && mestre.Contratos.Count > 0)
-            {
-                mestreStatus = ContractStatus.REJECTED;
-                mestreEndorsementStatus = EndorsementStatus.NONE;
-            }
-
-            foreach (ContratoVenda contract in mestre.Contratos)
-            {
-                mestreStatus = GetContractStatus(mestreStatus, contract);
-                mestreEndorsementStatus = GetEndosementStatus(mestreEndorsementStatus, contract);
-
-                Double? realVolume = contract.HasForecast ? contract.MaxForecast.Value : contract.TotalVolume;
-                if (realVolume.HasValue && realVolume.Value > maxVolume)
-                {
-                    maxVolume = realVolume.Value;
-                }
-
-                totalVolume += (realVolume.HasValue ? realVolume.Value : 0);
-
-                if (minDate == null || DateTime.Compare(contract.Begin, minDate.Value) < 0)
-                {
-                    minDate = contract.Begin;
-                }
-
-                if (maxDate == null || DateTime.Compare(contract.End, maxDate.Value) > 0)
-                {
-                    maxDate = contract.End;
-                }
-            }
-
-            FinalRowResult(model, mestreStatus, mestreEndorsementStatus, minDate, maxDate, totalVolume, maxVolume);
+            FinalRowResult(model, status.Status, status.EndorsementStatus, status.MinDate, status.MaxDate, status.TotalVolume, status.MaxVolume);
         }
 
         private void FinalRowResult(ContratoVendaMestreModel model,
@@ -119,87 +85,6 @@ namespace Sicle.Web.Areas.Contratos.Models
             return ResourceMap.GetEndorsementIcon(status.Value);
         }
 
-        protected ContractStatus? GetContractStatus(ContractStatus? statusMestre, ContratoVenda contract)
-        {
-            switch (contract.Status)
-            {
-                case ContractStatus.APPROVED:
-                    if (statusMestre != ContractStatus.MODIFIED_IN_APPROVAL &&
-                        statusMestre != ContractStatus.CREATED_IN_APPROVAL)
-                    {
-                        return ContractStatus.APPROVED;
-                    }
-                    break;
-                case ContractStatus.REJECTED:
-                    if (statusMestre != ContractStatus.MODIFIED_IN_APPROVAL &&
-                        statusMestre != ContractStatus.APPROVED &&
-                        statusMestre != ContractStatus.CREATED_IN_APPROVAL)
-                    {
-                        return ContractStatus.REJECTED;
-                    }
-                    break;
-                case ContractStatus.CREATED_IN_APPROVAL:
-                    return ContractStatus.CREATED_IN_APPROVAL;
-
-                case ContractStatus.MODIFIED_IN_APPROVAL:
-                    if (statusMestre != ContractStatus.CREATED_IN_APPROVAL)
-                    {
-                        return ContractStatus.MODIFIED_IN_APPROVAL;
-                    }
-                    break;
-                case ContractStatus.REMOVED:
-                    if (statusMestre != ContractStatus.MODIFIED_IN_APPROVAL &&
-                        statusMestre != ContractStatus.APPROVED &&
-                        statusMestre != ContractStatus.CREATED_IN_APPROVAL)
-                    {
-                        return ContractStatus.REMOVED;
-                    }
-                    break;
-                default:
-                    break;
-            }
-
-            return null;
-        }
-
-        protected EndorsementStatus? GetEndosementStatus(EndorsementStatus? status, ContratoVenda contract)
-        {
-            switch (contract.EndorsementStatus)
-            {
-                case EndorsementStatus.ENDORSED:
-                    if (status != EndorsementStatus.IN_ENDORSEMENT)
-                    {
-                        return EndorsementStatus.ENDORSED;
-                    }
-                    break;
-                case EndorsementStatus.IN_ENDORSEMENT:
-                    return EndorsementStatus.IN_ENDORSEMENT;
-
-                case EndorsementStatus.NOT_NECESSARY:
-                    if (status != EndorsementStatus.IN_ENDORSEMENT &&
-                       status != EndorsementStatus.ENDORSED)
-                    {
-                        return EndorsementStatus.NOT_NECESSARY;
-                    }
-                    break;
-                case EndorsementStatus.UNVALUED:
-                    if (status != EndorsementStatus.IN_ENDORSEMENT)
-                    {
-                        return EndorsementStatus.UNVALUED;
-                    }
-                    break;
-                case EndorsementStatus.NONE:
-                    if (status != EndorsementStatus.IN_ENDORSEMENT &&
-                        status != EndorsementStatus.NOT_NECESSARY &&
-                        status != EndorsementStatus.ENDORSED &&
-                        status != EndorsementStatus.UNVALUED)
-                    {
-                        return EndorsementStatus.NONE;
-                    }
-                    break;
-            }
-
-            return null;
-        }
+        
     }
 }

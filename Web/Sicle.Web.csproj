@@ -1,6 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <ItemGroup>
+    <ProjectReference Include="..\Business\Sicle.Business.csproj" />
     <ProjectReference Include="..\Dados\Sicle.Dados.csproj" />
     <ProjectReference Include="..\Dominio\Sicle.Dominio.csproj" />
     <ProjectReference Include="..\Util\Sicle.Util.csproj" />

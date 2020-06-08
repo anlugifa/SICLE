@@ -53,10 +53,9 @@
                 </div>
                 <div class="col-sm-3">
 
-                    <select class="form-control" data-val="false" id="ddlStatus" name="status"                            
-                            @* asp-items='Html.GetEnumSelectList<ContractStatus>()'> *@
+                    <select class="form-control" data-val="false" id="ddlStatus" name="status"  
                             asp-items='@(new SelectList(Model.ListStatus, "Value", "Text", ViewData["CurrentStatus"]))'>
-                            <option value="">Selecione</option>
+                        <option value="">Selecione</option>
                     </select>
 
                 </div>
@@ -96,7 +95,7 @@
             <tbody>
                 @foreach (var item in Model)
                 {
-                    var vm = Model.ConvertoToViewModel(item);
+                    var vm = Model.ConvertModel(item);
                     
                     <partial name="_ContratoMestreRow.cshtml" model="@vm"></partial>  
                 }

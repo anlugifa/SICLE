@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using Sicle.Web.Models;
 using Sicle.Web.Util;
 using Util;
+using Sicle.Business.Contratos;
 
 namespace Sicle.Web.Areas.Contratos.Models
 {
@@ -23,7 +24,7 @@ namespace Sicle.Web.Areas.Contratos.Models
             {
                 return EnumHelper.GetSelectList<ContractStatus>();
             }
-        }
+        }        
 
         public ContratoVendaMestreVM(ContratoVendaMestre contrato, List<ContratoVenda> items,
             int count, int pageIndex, int pageSize) : base(items, count, pageIndex, pageSize)
@@ -44,5 +45,10 @@ namespace Sicle.Web.Areas.Contratos.Models
         {
             return new ContratoVendaModel(model);
         }        
+
+        public double GetTotalVolume()
+        {
+            return new ContratoMestreVendaBusiness().GetTotalVolume(ContratoMeste);
+        }
     }
 }
