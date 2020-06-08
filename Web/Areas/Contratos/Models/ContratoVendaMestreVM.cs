@@ -46,9 +46,9 @@ namespace Sicle.Web.Areas.Contratos.Models
             return new ContratoVendaModel(model);
         }        
 
-        public double GetTotalVolume()
+        public String GetTotalVolume()
         {
-            return new ContratoMestreVendaBusiness().GetTotalVolume(ContratoMeste);
+            return new ContratoMestreVendaBusiness().GetTotalVolume(ContratoMeste).ToStr();
         }
     }
 }
