@@ -181,7 +181,7 @@ namespace Sicle.Web.Controllers
                 }
             }
             
-            return View(model);
+            return RedirectToAction("Edit", model.Id);
         }
 
         internal ContratoVendaMestre LoadMestre(long id)

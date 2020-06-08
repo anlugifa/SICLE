@@ -65,7 +65,7 @@ namespace Sicle.Web.Areas.Contratos.Models
             this.CreationUser = mestre.CreationUser;    
         }
 
-        static public implicit operator ContratoVendaMestre(ContratoVendaMestreModel c)
+        public static implicit operator ContratoVendaMestre(ContratoVendaMestreModel c)
         {
             return new ContratoVendaMestre()
             {

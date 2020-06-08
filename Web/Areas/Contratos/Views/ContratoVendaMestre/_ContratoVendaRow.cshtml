@@ -4,7 +4,7 @@
 
 <tr>
     <td><img src="@Model.Farol"/></td>
-    <td>@Model.Id</td>
+    <td>@Model.MaskId</td>
     <td><img src="@Model.FarolEndosso"/></td>
     <td>@Model.StatusEndosso</td>
     <td>@Model.Nome</td>
@@ -27,7 +27,7 @@
     <td>@Model.PrevisaoMax</td>
 
     <td>
-        @Html.ActionLink("Editar", "Editar", "ContratoVenda", new {id=@Model.Id})
+        @Html.ActionLink("Editar", "Editar", "ContratoVenda", new {id=@Model.Contrato.Id})
     </td>
     
 </tr>

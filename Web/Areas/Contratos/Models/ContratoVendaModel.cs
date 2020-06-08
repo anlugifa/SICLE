@@ -10,7 +10,7 @@ namespace Sicle.Web.Areas.Contratos.Models
         public ContratoVenda Contrato { get; set; }
 
         public string Farol { get; set; }
-        public string Id { get; set; }
+        public string MaskId { get; set; }
         public string Nome { get; set; }
         public string FarolEndosso { get; set; }
         public string StatusEndosso { get; set; }
@@ -45,7 +45,7 @@ namespace Sicle.Web.Areas.Contratos.Models
         {
             
             Farol = getFarolIcon(Contrato.Status);
-            Id =  Contrato.ToString();
+            MaskId =  Contrato.ToString();
             Nome = Contrato.Name;
             FarolEndosso = ResourceMap.GetEndorsementIcon(Contrato.EndorsementStatus);
             StatusEndosso = Contrato.EndorsementStatus.GetEnumDescription();
