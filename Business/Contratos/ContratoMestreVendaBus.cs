@@ -4,7 +4,7 @@ using Dominio.Entidades.Contrato;
 
 namespace Sicle.Business.Contratos
 {
-    public class ContratoMestreVendaBusiness
+    public class ContratoMestreVendaBus : SicleBusiness<ContratoVendaMestre>
     {
         public struct MestreStatus
         {
@@ -16,7 +16,7 @@ namespace Sicle.Business.Contratos
             public DateTime? MaxDate {get; set;}
         }
 
-        public ContratoMestreVendaBusiness()
+        public ContratoMestreVendaBus()
         {
 
         }
