@@ -7,20 +7,17 @@ using Sicle.Web.Models;
 using Dominio.Entidades.Acesso;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using Dados.Repository;
+using Sicle.Business.Admin;
 
 namespace Sicle.Web.Controllers
 {
     [Area("Acessos")]
     public class GrupoUsuarioController : SicleController
-    {
-        private readonly GrupoUsuarioRepository _repo;
+    {      
 
-        public GrupoUsuarioController(ApplicationDBContext context) : base(context)
+        public GrupoUsuarioController() : base()
         {
-            _log.Info("Controller: GrupoUsuarioController");
-
-            _repo = new GrupoUsuarioRepository(context);
+            _log.Info("Controller: GrupoUsuarioController");            
         }  
 
         public async Task<IActionResult> Index(string sortOrder,
@@ -43,7 +40,7 @@ namespace Sicle.Web.Controllers
 
             ViewData["CurrentFilter"] = searchString;
 
-            var query = _repo.AsQueryable();
+            var query = new GrupoUsuarioBus().AsQueryable();
 
             if (!String.IsNullOrEmpty(searchString))
             {
@@ -70,15 +67,15 @@ namespace Sicle.Web.Controllers
         [HttpGet]
         public IActionResult Editar(int id)
         {
-            var item = _repo.Get(id);
+            var item = new GrupoUsuarioBus().Get(id);
 
             return View("Salvar", item);
         }
 
         [HttpGet]
-        public IActionResult Remover(int id)
+        public async Task<IActionResult> Remover(int id)
         {
-            _repo.Delete(id);
+            await new GrupoUsuarioBus().Delete(id);
             return RedirectToAction("Index");
         }
 
@@ -94,7 +91,7 @@ namespace Sicle.Web.Controllers
         {
             if (ValidateModel())
             {
-                await _repo.SaveOrUpdate(modelo);
+                await new GrupoUsuarioBus().SaveOrUpdate(modelo);
             }
 
             ViewBag.SuccessMsg = "Perfil salvo com sucesso!";

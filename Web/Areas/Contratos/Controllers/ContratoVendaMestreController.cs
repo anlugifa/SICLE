@@ -7,23 +7,23 @@ using Sicle.Web.Models;
 using Dominio.Entidades.Acesso;
 using Microsoft.EntityFrameworkCore;
 using System.Text;
-using Dados.Repository;
 using Dominio.Entidades.Contrato;
 using Sicle.Web.Areas.Contratos.Models;
 using Sicle.Web.Util;
+using Sicle.Business.Contratos;
 
 namespace Sicle.Web.Controllers
 {
     [Area("Contratos")]
     public class ContratoVendaMestreController : SicleController
     {
-        private readonly ContratoVendaMestreRepository _repo;
-        private readonly ContratoVendaRepository _repoContract;
+        private readonly ContratoVendaMestreBus _repo;
+        private readonly ContratoVendaBus _repoContract;
 
-        public ContratoVendaMestreController(ApplicationDBContext context) : base(context)
+        public ContratoVendaMestreController() : base()
         {
-            _repo = new ContratoVendaMestreRepository(context);
-            _repoContract = new ContratoVendaRepository(context);
+            _repo = new ContratoVendaMestreBus();
+            _repoContract = new ContratoVendaBus();
         }
 
         public async Task<IActionResult> Index(string sortOrder,
@@ -125,9 +125,9 @@ namespace Sicle.Web.Controllers
         }
 
         [HttpGet]
-        public IActionResult Remover(int id)
+        public async Task<IActionResult> Remover(int id)
         {
-            _repo.Delete(id);
+            await _repo.Delete(id);
             return RedirectToAction("Index");
         }
 

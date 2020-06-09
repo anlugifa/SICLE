@@ -43,7 +43,7 @@ namespace Sicle.Web.Areas.Contratos.Models
 
         public void ConvertModel(ContratoVendaMestre mestre, ContratoVendaMestreModel model)
         {
-            var buss = new Sicle.Business.Contratos.ContratoMestreVendaBusiness();
+            var buss = new Sicle.Business.Contratos.ContratoMestreVendaBus();
             var status = buss.GetMestreStatus(mestre);
 
             FinalRowResult(model, status.Status, status.EndorsementStatus, status.MinDate, status.MaxDate, status.TotalVolume, status.MaxVolume);

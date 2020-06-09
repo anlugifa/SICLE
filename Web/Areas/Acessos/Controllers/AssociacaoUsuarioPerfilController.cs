@@ -11,6 +11,7 @@ using Microsoft.EntityFrameworkCore;
 using Sicle.Web.Areas.Acessos.Models;
 using Sicle.Web.Controllers;
 using Sicle.Web.Models;
+using Sicle.Business.Admin;
 
 namespace Sicle.Web.Areas.Acessos.Controllers
 {
@@ -23,13 +24,13 @@ namespace Sicle.Web.Areas.Acessos.Controllers
     [Area("Acessos")]
     public class AssociacaoUsuarioPerfilController : SicleController
     {
-        private readonly PerfilRepository _perfilRepo;
-        private readonly UsuarioRepository _usrRepo;
+        private readonly PerfilBus _perfilRepo;
+        private readonly UsuarioBus _usrRepo;
 
-        public AssociacaoUsuarioPerfilController(ApplicationDBContext context) : base(context)
+        public AssociacaoUsuarioPerfilController() : base()
         {
-            _usrRepo = new UsuarioRepository(_context);
-            _perfilRepo = new PerfilRepository(_context);
+            _usrRepo = new UsuarioBus();
+            _perfilRepo = new PerfilBus();
         }
 
         public async Task<IActionResult> Index(int? perfilId,

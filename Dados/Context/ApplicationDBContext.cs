@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Dominio.Entidades;
 using Dominio.Entidades.Acesso;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Console;
 using Sicle.Dados.Context.Config.Acessos;
 using Sicle.Dados.Context.Config.Contratos;
 using Dominio.Entidades.Contrato;
@@ -13,18 +14,42 @@ using Sicle.Dados.Context.Config.Localidades;
 using Sicle.Dados.Context.Config.Produtos;
 using Sicle.Dados.Context.Config.Pricing;
 using Dominio.Entidades.Pricing;
+using Microsoft.Extensions.Configuration;
+
+using System.IO;
 
 namespace Dados
 {
     public class ApplicationDBContext : DbContext
     {
-        public ApplicationDBContext(DbContextOptions<ApplicationDBContext> options) : base(options)
-        {
-        }
+        private IConfiguration Configuration;
+
+        public ApplicationDBContext() : base()
+        {           
+           var builder = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json");
+
+            this.Configuration = builder.Build();
+        }        
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            //optionsBuilder.UseLazyLoadingProxies();           
+            //optionsBuilder.UseLazyLoadingProxies();     
+
+            var connString = Configuration.GetConnectionString("Sicle");     
+            
+            optionsBuilder.UseOracle(connString, b =>
+                    b.UseOracleSQLCompatibility("11")
+            );
+
+            if (Configuration.GetValue("Environment", "DEV").Equals("DEV"))
+            {                  
+                ILoggerFactory factory = new LoggerFactory(new[] { 
+                            new Microsoft.Extensions.Logging.Debug.DebugLoggerProvider()  });
+
+                optionsBuilder.UseLoggerFactory(factory).EnableSensitiveDataLogging();                
+            }
         }
 
         protected override void OnModelCreating(ModelBuilder model)

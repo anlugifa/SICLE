@@ -29,7 +29,7 @@ namespace Dominio.Entidades.Acesso
         public Decimal? VlPrecoEnergia { get; set; }
         public Decimal? VlPrazoEnergia { get; set; }
         public Decimal? VlVolumeComplementoEnergia { get; set; }
-        public Decimal? VlVolumeMaxPurchaseDetivatives { get; set; }
+        public Decimal? VlVolumeMaxPurchaseDerivatives { get; set; }
         public Decimal? VlVolumeMaxOrderDerivatives { get; set; }
         public Decimal? VlVolumeMaxOrderSubproduct { get; set; }
         public Decimal? VlVolumeMaxPurchaseSubproduct { get; set; }

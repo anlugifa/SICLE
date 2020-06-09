@@ -5,18 +5,19 @@ using Dados;
 using Dados.Repository;
 using Dominio.Entidades;
 using Microsoft.AspNetCore.Mvc;
+using Sicle.Business.Admin;
 
 namespace Web.Controllers
 {
     public class ConfiguracaoController : Controller
     {
 
-        private readonly ConfiguracaoRepository _repo;
+        private readonly ConfiguracaoBus _repo;
 
 
-        public ConfiguracaoController(ApplicationDBContext context)
+        public ConfiguracaoController()
         {
-            _repo = new ConfiguracaoRepository(context);
+            _repo = new ConfiguracaoBus();
         }
 
 

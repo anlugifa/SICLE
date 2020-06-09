@@ -8,6 +8,7 @@ using Dominio.Entidades.Acesso;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Sicle.Business.Admin;
 using Sicle.Web.Areas.Acessos.Models;
 using Sicle.Web.Controllers;
 using Sicle.Web.Models;
@@ -23,15 +24,15 @@ namespace Sicle.Web.Areas.Acessos.Controllers
     [Area("Acessos")]
     public class AssociacaoGrupoUsuariosController : SicleController
     {
-        private readonly GrupoUsuarioRepository _grpUsrRepo;
-        private readonly UsuarioRepository _usrRepo;
+        private readonly GrupoUsuarioBus _grpUsrRepo;
+        private readonly UsuarioBus _usrRepo;
 
         public GrupoUsuario _grupoUsuarioselected;
 
-        public AssociacaoGrupoUsuariosController(ApplicationDBContext context) : base(context)
+        public AssociacaoGrupoUsuariosController( ) : base()
         {
-            _usrRepo = new UsuarioRepository(_context);
-            _grpUsrRepo = new GrupoUsuarioRepository(_context);
+            _usrRepo = new UsuarioBus();
+            _grpUsrRepo = new GrupoUsuarioBus();
         }
 
         public async Task<IActionResult> Index(int? grupoId,

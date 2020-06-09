@@ -9,7 +9,7 @@ using System;
 using Microsoft.AspNetCore.Http;
 using Sicle.Web.Util;
 using Dominio.Entidades.Acesso;
-using Dados.Repository;
+using Sicle.Business.Admin;
 
 namespace Sicle.Web.Controllers
 {
@@ -17,16 +17,12 @@ namespace Sicle.Web.Controllers
     {
         protected static readonly log4net.ILog _log = log4net.LogManager.GetLogger(typeof(SicleController));
 
-        protected readonly ApplicationDBContext _context;
-
         public Usuario CurrentUser { get; set; }
 
-        public SicleController(ApplicationDBContext context)
+        public SicleController()
         {
-            _context = context;
-
             SessionVariables.UserId = 259051;
-            CurrentUser = new UsuarioRepository(context).Get(259051);
+            CurrentUser = new UsuarioBus().Get(259051);
         }
 
         public void AddError(string error, params object[] args)

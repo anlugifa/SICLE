@@ -2,29 +2,28 @@ using System;
 using System.Threading.Tasks;
 using Dados;
 using Microsoft.AspNetCore.Mvc;
-using Dados.Repository;
 using Dominio.Entidades.Contrato;
 using Sicle.Web.Areas.Contratos.Models;
 using System.Linq;
 using Newtonsoft.Json;
 using Microsoft.EntityFrameworkCore;
+using Sicle.Business.Contratos;
+using Sicle.Business.Admin;
 
 namespace Sicle.Web.Controllers
 {
     [Area("Contratos")]
     public class ContratoVendaController : SicleController
-    {
-        private readonly ContratoVendaRepository _repo;
+    {       
 
-        public ContratoVendaController(ApplicationDBContext context) : base(context)
+        public ContratoVendaController() : base()
         {
-            _repo = new ContratoVendaRepository(context);
         }
 
         [HttpGet]
         public async Task<IActionResult> Editar(long id, string sortOrder, int? pageNumber)
         {
-            var contrato = _context.ContratosVendas
+            var contrato = new ContratoVendaBus().AsQueryable()
                             .Include(p => p.PaymentTerm)
                             .Include(p => p.ClientGroup)
                             .Include(p => p.ProductGroup)
@@ -43,7 +42,7 @@ namespace Sicle.Web.Controllers
                 throw new ArgumentException("Id {0} de ContratoVenda não encontrado.");
             
             var vm = new EditContratoVendaVM(contrato);
-            vm.ProductGroups = await new ProductGroupRepository(_context).GetAllAsync();
+            vm.ProductGroups = await new ProductGroupBus().GetAllAsync();
             vm.Quotas = contrato.Quotas;
 
             // var quotas = from q in _context.SaleContractQuotas
@@ -76,9 +75,9 @@ namespace Sicle.Web.Controllers
         }
 
         [HttpGet]
-        public IActionResult Remover(int id)
+        public async Task<IActionResult> Remover(int id)
         {
-            _repo.Delete(id);
+            await new ContratoVendaBus().Delete(id);
             return RedirectToAction("Index");
         }
 
@@ -94,7 +93,7 @@ namespace Sicle.Web.Controllers
         {
             if (ValidateModel())
             {
-                await _repo.SaveOrUpdate(modelo);
+                await new ContratoVendaBus().SaveOrUpdate(modelo);
             }
 
             ViewBag.SuccessMsg = "Contrato salvo com sucesso!";
@@ -103,7 +102,7 @@ namespace Sicle.Web.Controllers
 
         public JsonResult GetClientGroupList(string name)
         {
-            var repo = new ClientGroupRepository(_context);
+            var repo = new ClientGroupBus();
             var list = repo.AsQueryable().Where(x => x.Code.StartsWith(name))
                                 .OrderBy(x => x.Code).Take(10).ToList();
 
@@ -112,7 +111,7 @@ namespace Sicle.Web.Controllers
 
         public JsonResult GetPaymentTermList(string name)
         {
-            var repo = new PaymentTermRepository(_context);
+            var repo = new PaymentTermBus();
             var list = repo.AsQueryable().Where(x => x.Code.StartsWith(name) && x.IsActive)
                                 .OrderBy(x => x.Code).Take(10).ToList();
 
@@ -121,7 +120,7 @@ namespace Sicle.Web.Controllers
 
         public JsonResult GetBrokerList(string name)
         {
-            var repo = new BrokerRepository(_context);
+            var repo = new BrokerBus();
             var list = repo.AsQueryable().Where(x => x.Code.StartsWith(name))
                                 .OrderBy(x => x.Code).Take(10).ToList();
 
@@ -130,7 +129,7 @@ namespace Sicle.Web.Controllers
 
         public JsonResult GetTraderList(string name)
         {
-            var repo = new UsuarioRepository(_context);
+            var repo = new UsuarioBus();
             var list = repo.AsQueryable()
                             .Where(x => x.Nome.StartsWith(name))
                                 .OrderBy(x => x.Nome)

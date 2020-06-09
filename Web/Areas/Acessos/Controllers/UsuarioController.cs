@@ -7,18 +7,15 @@ using Sicle.Web.Models;
 using Dominio.Entidades.Acesso;
 using Microsoft.EntityFrameworkCore;
 using System.Text;
-using Dados.Repository;
+using Sicle.Business.Admin;
 
 namespace Sicle.Web.Controllers
 {
     [Area("Acessos")]
     public class UsuarioController : SicleController
     {
-        private readonly UsuarioRepository _repo;
-
-        public UsuarioController(ApplicationDBContext context) : base(context)
+        public UsuarioController() : base()
         {
-            _repo = new UsuarioRepository(context);
         }  
 
         public async Task<IActionResult> Index(string sortOrder,
@@ -41,7 +38,7 @@ namespace Sicle.Web.Controllers
 
             ViewData["CurrentFilter"] = searchString;
 
-            var query = _repo.AsQueryable();
+            var query = new UsuarioBus().AsQueryable();
 
             if (!String.IsNullOrEmpty(searchString))
             {
@@ -68,15 +65,15 @@ namespace Sicle.Web.Controllers
         [HttpGet]
         public IActionResult Editar(int id)
         {
-            var usuario = _repo.Get(id);
+            var usuario = new UsuarioBus().Get(id);
 
             return View("Salvar", usuario);
         }
 
         [HttpGet]
-        public IActionResult Remover(int id)
+        public  async Task<IActionResult> Remover(int id)
         {
-            _repo.Delete(id);
+            await new UsuarioBus().Delete(id);
             return RedirectToAction("Index");
         }
 
@@ -92,7 +89,7 @@ namespace Sicle.Web.Controllers
         {
             if (ValidateModel())
             {              
-                await _repo.SaveOrUpdate(modelo);
+                await new UsuarioBus().SaveOrUpdate(modelo);
             }
 
             ViewBag.SuccessMsg = "Usu�rio salvo com sucesso!"; 

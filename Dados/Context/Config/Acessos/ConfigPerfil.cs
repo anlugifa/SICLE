@@ -30,7 +30,7 @@ namespace Sicle.Dados.Context.Config.Acessos
                 t.Property(p => p.VlPrecoEnergia).HasColumnName("VL_PRECO_ENERGIA");
                 t.Property(p => p.VlPrazoEnergia).HasColumnName("VL_PRAZO_ENERGIA").HasColumnType("decimal(10,0)");
                 t.Property(p => p.VlVolumeComplementoEnergia).HasColumnName("VL_VOLUME_COMPLEMENTO_ENERGIA");
-                t.Property(p => p.VlVolumeMaxPurchaseDetivatives).HasColumnName("VL_VOLUME_DERIVATIVOS");
+                t.Property(p => p.VlVolumeMaxPurchaseDerivatives).HasColumnName("VL_VOLUME_DERIVATIVOS");
                 t.Property(p => p.VlVolumeMaxOrderDerivatives).HasColumnName("VL_VOLUME_COMPRAS_DERIVATIVOS");
                 t.Property(p => p.VlVolumeMaxOrderSubproduct).HasColumnName("VL_VOLUME_SUBPRODUTOS");
                 t.Property(p => p.VlVolumeMaxPurchaseSubproduct).HasColumnName("VL_VOLUME_COMPRA_SUBPRODUTOS");

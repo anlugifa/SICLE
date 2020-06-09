@@ -60,19 +60,20 @@ namespace Web
                 }
             ).SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
-            services.AddDbContext<ApplicationDBContext>(options =>
-            {
-                options.UseOracle(Configuration.GetConnectionString("Sicle"), b =>
-                    b.UseOracleSQLCompatibility("11")
-                );
-                //comentar para executar migrations
-                if (Startup.CurrentEnvironment.IsDevelopment())
-                {
-                   options.UseLoggerFactory(AppLogger.Factory).EnableSensitiveDataLogging();
-                }
-            });
+            // services.AddDbContext<ApplicationDBContext>(options =>
+            // {
+            //     options.UseOracle(Configuration.GetConnectionString("Sicle"), b =>
+            //         b.UseOracleSQLCompatibility("11")
+            //     );
+            //     //comentar para executar migrations
+            //     if (Startup.CurrentEnvironment.IsDevelopment())
+            //     {
+            //        options.UseLoggerFactory(AppLogger.Factory).EnableSensitiveDataLogging();
+            //     }
+            // });
 
             services.AddDirectoryBrowser();
+            services.AddSingleton<IConfiguration>(Configuration);
 
             //services.AddControllersWithViews().AddRazorRuntimeCompilation();           
             services.AddDistributedMemoryCache();

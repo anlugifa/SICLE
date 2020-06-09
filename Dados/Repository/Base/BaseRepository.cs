@@ -6,64 +6,17 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Dados.Repository.Base
 {
-    public abstract class BaseRepository<TEntity, IdType> : 
-            IBaseRepository<TEntity, IdType> where TEntity : class
+    public class BaseRepository<TEntity> : IDisposable,
+            IBaseRepository<TEntity> where TEntity : class
     {
-        protected readonly ApplicationDBContext _context;
+        protected ApplicationDBContext _context;
 
-        public BaseRepository(ApplicationDBContext context)
+        public BaseRepository()
         {
-            if (context == null)
-                throw new ArgumentException("Context can not be null!");
+            this._context = new ApplicationDBContext();
+        }                
 
-            this._context = context;
-        }
-
-        public abstract TEntity Get(IdType id);
-        public abstract IdType GetPkValue(TEntity e);
-
-        public virtual TEntity MergeFromDB(TEntity localCopy)
-        {
-            var pkValue = GetPkValue(localCopy);
-            var objFromDB = Get(pkValue);
-
-            if (objFromDB == null)
-                throw new ArgumentException("ERRO: ID " + pkValue +
-                    " NOT FOUND FOR ENTITY: CONFIGURACAO");
-
-            foreach (var pinfo in typeof(TEntity).GetProperties())
-            {
-                // Não pode alterar PK!!
-                pinfo.SetValue(objFromDB, pinfo.GetValue(localCopy));
-            }
-
-            return objFromDB;
-        }
-
-        public virtual Task<List<TEntity>> RestorePageAsync(int pageIndex, int pageSize)
-        {
-            var q = _context.Set<TEntity>()
-                         .Skip((pageIndex - 1) * pageSize)
-                         .Take(pageSize)
-                         .ToListAsync();
-
-            return q;
-        }
-
-        public virtual async Task<int> SaveOrUpdate(TEntity e)
-        {
-            if (!Exists(e))
-            {
-                return await Save(e);
-            }
-            else
-            {
-                var fromDB = MergeFromDB(e);
-                return await Update(fromDB);
-            }
-        }
-
-        public virtual Task<int> Save(TEntity e)
+        public virtual Task<int> Add(TEntity e)
         {
             _context.Set<TEntity>().Add(e);
             return _context.SaveChangesAsync();
@@ -75,11 +28,15 @@ namespace Dados.Repository.Base
             return _context.SaveChangesAsync();
         }
 
-
-        public virtual Task<int> Delete(IdType e)
+        public virtual TEntity Get(long Id)
         {
-            var item = Get(e);
-            return Delete(e);
+            return _context.Set<TEntity>().Find(Id);
+        }
+
+        public virtual Task<int> Delete(long id)
+        {
+            var item = Get(id);
+            return Delete(item);
         }
 
         public virtual Task<int> Delete(TEntity e)
@@ -108,6 +65,12 @@ namespace Dados.Repository.Base
         public bool Exists(params object[] keys)
         {
             return _context.Set<TEntity>().Find(keys) != null;
+        }
+
+        public void Dispose()
+        {
+            if (_context != null)
+                _context.Dispose();
         }
     }
 }

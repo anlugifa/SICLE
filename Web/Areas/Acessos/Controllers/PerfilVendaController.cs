@@ -9,17 +9,15 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Sicle.Web.Controllers;
 using Sicle.Web.Models;
+using Sicle.Business.Admin;
 
 namespace Sicle.Web.Controllers.Acesso
 {
     [Area("Acessos")]
     public class PerfilVendaController : SicleController
     {
-        private readonly PerfilVendaRepository _repo;
-
-        public PerfilVendaController(ApplicationDBContext context) : base(context)
+        public PerfilVendaController() : base()
         {
-            _repo = new PerfilVendaRepository(context);
         }
         
         public async Task<IActionResult> Index(string sortOrder,
@@ -42,7 +40,7 @@ namespace Sicle.Web.Controllers.Acesso
 
             ViewData["CurrentFilter"] = searchString;
 
-            var perfis = _repo.AsQueryable();
+            var perfis = new PerfilVendaBus().AsQueryable();
 
             if (!String.IsNullOrEmpty(searchString))
             {
@@ -70,15 +68,15 @@ namespace Sicle.Web.Controllers.Acesso
         [HttpGet]
         public IActionResult Editar(int id)
         {
-            var item = _repo.Get(id);
+            var item = new PerfilVendaBus().Get(id);
 
             return View("Salvar", item);
         }
 
         [HttpGet]
-        public IActionResult Remover(int id)
+        public async Task<IActionResult> Remover(int id)
         {
-            _repo.Delete(id);
+            await new PerfilVendaBus().Delete(id);
             return RedirectToAction("Index");
         }
 
@@ -94,7 +92,7 @@ namespace Sicle.Web.Controllers.Acesso
         {
             if (ValidateModel())
             {
-                await _repo.SaveOrUpdate(modelo);
+                await new PerfilVendaBus().SaveOrUpdate(modelo);
             }
 
             ViewBag.SuccessMsg = "Perfil salvo com sucesso!";
