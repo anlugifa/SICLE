@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-using Raizen.Framework.Log.Bases;
-using Raizen.Framework.Utils.Extensions;
 using Sicle.Logs.Bases;
 
 namespace Sicle.Logs.Client

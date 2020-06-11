@@ -7,6 +7,7 @@ using System.Text;
 
 
 using Sicle.Logs.Model.Base;
+using Sicle.Logs.Utils.CustomAnnotation;
 
 namespace Sicle.Logs.Model
 {
@@ -17,15 +18,15 @@ namespace Sicle.Logs.Model
     public class LogErro : LogBase
     {
         [DataMember]
-        [MaxLength(400)]
+        [StringLengthRaizen(400)]
         public String InnerException { get; set; }
 
         [DataMember]
-        [MaxLength(2000)]
+        [StringLengthRaizen(2000)]
         public String StackTrace { get; set; }
 
         [DataMember]
-        [MaxLength(100)]
+        [StringLengthRaizen(100)]
         public String Message { get; set; }
 
         public ErrorType ErrorType {get; set; }

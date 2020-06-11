@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Raizen.Framework.Utils.Extensions
+namespace Sicle.Logs.Extensions
 {
     /// <summary>
     /// Métodos de extensão para tipos DateTime? (nulável) e DateTime (não nulável)

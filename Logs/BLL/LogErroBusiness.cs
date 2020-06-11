@@ -8,6 +8,8 @@ using Sicle.Logs.Model;
 using System.ComponentModel.DataAnnotations;
 using Sicle.Logs.Bases;
 using System.Threading.Tasks;
+using Sicle.Logs.Extensions;
+using Sicle.Logs.Utils.CustomAnnotation;
 
 namespace Sicle.Logs.BLL
 {
@@ -26,10 +28,18 @@ namespace Sicle.Logs.BLL
         /// <param name="logErro">Instância do log de erro a ser verificado</param>
         private void VerificarCampoMensagem(LogErro logErro)
         {
-            if (logErro != null && !String.IsNullOrEmpty(logErro.Message))
+            if (logErro != null && !logErro.Message.IsNullOrWhiteSpace())
             {
                 // Valor default do tamanho do campo Message
-                var maxStringLength = 500;               
+                var maxStringLength = 500;
+
+                // Obtemos o atributo StringLengthRaizen da propriedade Message
+                var maxStringLengthAttribute = logErro.GetCustomAttribute<LogErro, StringLengthRaizen, string>(i => i.Message);
+                if (maxStringLengthAttribute != null)
+                {
+                    // O atributo existe. Usamos o valor definido para ele
+                    maxStringLength = maxStringLengthAttribute.MaximumLength;
+                }
 
                 // O tamanho da mensagem excede o máximo permitido?
                 if (logErro.Message.Length > maxStringLength)
@@ -39,7 +49,7 @@ namespace Sicle.Logs.BLL
                     var sb = new StringBuilder();
 
                     // Evita linhas em branco
-                    if (String.IsNullOrEmpty(logErro.InnerException))
+                    if (logErro.InnerException.IsNullOrWhiteSpace())
                     {
                         sb.Append(logErro.Message);
                     }

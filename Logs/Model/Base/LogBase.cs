@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Runtime.Serialization;
 using System.ComponentModel.DataAnnotations;
-using Raizen.Framework.Utils.Extensions;
+using Sicle.Logs.Extensions;
+using Sicle.Logs.Utils.CustomAnnotation;
 
 namespace Sicle.Logs.Model.Base
 {
@@ -15,6 +16,7 @@ namespace Sicle.Logs.Model.Base
         public virtual long Id { get; set; }
       
         [DataMember]
+        [StringLengthRaizen(8)]
         public virtual String Username { get; set; }
 
         // O valor inicial para data de ocorrência é a data/hora atual
