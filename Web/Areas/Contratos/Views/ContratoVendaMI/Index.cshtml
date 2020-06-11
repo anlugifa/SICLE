@@ -1,0 +1,132 @@
+@model Sicle.Web.Areas.Contratos.Models.IndexContratoVendaMIVM
+
+@using Dominio.Entidades.Contrato
+@using Util
+
+@{
+    ViewData["Title"] = "SICLE";
+}
+
+@section Styles
+{
+    <style>
+
+        table th {
+            font-size: 12px;
+            text-align:center;
+        }        
+
+        table td {
+            font-size: 10px;
+            text-align:center;
+        }      
+
+        .col-id {
+            width: 70px;
+        }  
+
+    </style>
+}
+
+<div class="row">
+    <div class="col-md-6">
+        <h2>Contratos de Venda MI</h2>
+    </div>
+</div>
+
+<p></p>
+<div class="row">
+    <div class="col-md-12 float-right">
+        <form asp-action="Index" method="get">
+            <div class="form-group row">
+                <div class="col-sm-1">
+                    <label for="Nome" class="col-form-label">Nome:</label>
+                </div>
+                <div class="col-sm-3">
+                    <input type="text" name="SearchName" class="form-control" value='@ViewData["currentFilter"]' />
+                </div>
+                                
+                <div class="col-sm-1">
+                    <label for="ex1" class="col-form-label">Apelido:</label>
+                </div>
+                <div class="col-sm-3">
+                    <input type="text" name="SearchNickname" class="form-control" value='@ViewData["currentFilter"]' />
+                </div>
+
+
+                <div class="col-sm-1">
+                    <label for="Grupo" class="col-form-label">Status:</label>
+                </div>
+                <div class="col-sm-3">
+
+                    <select class="form-control" data-val="false" id="ddlStatus" name="status"  
+                            asp-items='@(new SelectList(Model.ListStatus, "Value", "Text", ViewData["CurrentStatus"]))'>
+                        <option value="">Selecione</option>
+                    </select>
+
+                </div>
+            </div>
+            
+            <div class="form-group row">
+                
+            </div>
+
+            <div class="form-group row">
+                <div class="col-sm-4">
+                    <input type="submit" name="btnSearch" value="Pesquisar" class="btn btn-light" /> |
+                    <a asp-action="Index" class="btn btn-light">Limpar</a> |
+                    <a href="@Url.Action("Edit", "ContratoVendaMI")" class="btn btn-primary btn-sm"><b>Novo</b></a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<partial name="_ContratoVendaList.cshtml" model="@Model"></partial>  
+
+@{
+    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+}
+
+<nav aria-label="Page navigation example">
+    <ul class="pagination">
+        <li class="page-item">
+            <a asp-action="Index"                
+                asp-route-sortOrder='@ViewData["CurrentSort"]'
+                asp-route-pageNumber='@(Model.PageIndex - 1)'
+                asp-route-currentFilter='@ViewData["CurrentFilter"]'
+                class="btn btn-default @prevDisabled">
+                Anterior
+            </a>
+        </li>
+
+        <li class="page-item">
+            <a asp-action="Index"                
+                asp-route-sortOrder='@ViewData["CurrentSort"]'
+                asp-route-pageNumber='@(Model.PageIndex + 1)'
+                asp-route-currentFilter='@ViewData["CurrentFilter"]'
+                class="btn btn-default @nextDisabled">
+                Próximo
+            </a>
+        </li>
+    </ul>
+</nav>
+
+
+<script>
+    var input = document.getElementById("SearchString");
+
+    if (input != null) {
+        // Execute a function when the user releases a key on the keyboard
+        input.addEventListener("keyup", function (event) {
+            // Number 13 is the "Enter" key on the keyboard
+            if (event.keyCode === 13) {
+                // Cancel the default action, if needed
+                event.preventDefault();
+                // Trigger the button element with a click
+                document.getElementById("btnSearch").click();
+            }
+        });
+    }
+</script>
