@@ -4,6 +4,7 @@
     <ProjectReference Include="..\Business\Sicle.Business.csproj" />
     <ProjectReference Include="..\Dominio\Sicle.Dominio.csproj" />
     <ProjectReference Include="..\Util\Sicle.Util.csproj" />
+    <ProjectReference Include="..\Logs\Sicle.Logs.csproj" />
   </ItemGroup>
 
   <ItemGroup>

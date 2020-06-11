@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Sicle.Web.Models;
 
-namespace Web.Controllers
+namespace Sicle.Web.Controllers
 {
     public class HomeController : Controller
     {

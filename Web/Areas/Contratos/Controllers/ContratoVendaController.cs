@@ -24,6 +24,7 @@ namespace Sicle.Web.Controllers
         public async Task<IActionResult> Editar(long id, string sortOrder, int? pageNumber)
         {
             var contrato = new ContratoVendaBus().AsQueryable()
+                            .Include(p => p.ContratoMestre)
                             .Include(p => p.PaymentTerm)
                             .Include(p => p.ClientGroup)
                             .Include(p => p.ProductGroup)

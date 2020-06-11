@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Http;
 using Sicle.Web.Util;
 using Dominio.Entidades.Acesso;
 using Sicle.Business.Admin;
+using Sicle.Logs.Util;
 
 namespace Sicle.Web.Controllers
 {
@@ -20,8 +21,10 @@ namespace Sicle.Web.Controllers
         public Usuario CurrentUser { get; set; }
 
         public SicleController()
-        {
+        {   
             SessionVariables.UserId = 259051;
+            SessionVariables.UserCode = "CS259051";
+
             CurrentUser = new UsuarioBus().Get(259051);
         }
 

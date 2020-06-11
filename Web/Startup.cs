@@ -2,10 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using Dados;
-using Microsoft.AspNetCore;
+
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -127,7 +124,7 @@ namespace Web
         private void ConfigureSession(IApplicationBuilder app)
         {
             app.UseSession();
-            SessionVariables.Configure(app.ApplicationServices.GetRequiredService<IHttpContextAccessor>());
+            Sicle.Logs.Util.SessionVariables.Configure(app.ApplicationServices.GetRequiredService<IHttpContextAccessor>());
         }
 
         private void ConfigureRoutes(IApplicationBuilder app)

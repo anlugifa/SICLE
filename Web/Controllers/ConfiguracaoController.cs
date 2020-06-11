@@ -4,12 +4,14 @@ using System.Threading.Tasks;
 using Dados;
 using Dados.Repository;
 using Dominio.Entidades;
+using Dominio.Entidades.Infra;
 using Microsoft.AspNetCore.Mvc;
 using Sicle.Business.Admin;
+using Sicle.Web.Controllers;
 
-namespace Web.Controllers
+namespace Sicle.Web.Controllers
 {
-    public class ConfiguracaoController : Controller
+    public class ConfiguracaoController : SicleController
     {
 
         private readonly ConfiguracaoBus _repo;
