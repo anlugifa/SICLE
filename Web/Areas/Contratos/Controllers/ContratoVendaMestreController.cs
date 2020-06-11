@@ -118,7 +118,7 @@ namespace Sicle.Web.Controllers
                                 .Where(x => x.ContratoMestreId == id)
                                 .OrderByDescending(x => x.Id);          
 
-            var model = ContratoVendaMestreVM.CreateAsync(contrato, 
+            var model = DetailsContratoVendaMestreVM.CreateAsync(contrato, 
                                 contratos.AsNoTracking(), pageNumber ?? 1);
 
             return View("Details", await model);

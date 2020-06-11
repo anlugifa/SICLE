@@ -14,13 +14,6 @@ namespace Sicle.Business.Admin
 
         }       
 
-        public IQueryable<AssociacaoUsuarioPerfilVenda> GetAssociacaoUsuario(int perfilId)
-        {
-            using (var repo = new BaseRepository<AssociacaoUsuarioPerfilVenda>())
-            {
-                return repo.AsQueryable().Where(g => g.PerfilVendaId == perfilId);
-            }
-        }
 
         public override PerfilVenda MergeFromDB(PerfilVenda localCopy)
         {

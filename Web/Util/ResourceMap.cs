@@ -21,8 +21,7 @@ namespace Sicle.Web.Util
                     return CIRCLE_GREEN;
                 case ContractStatus.REJECTED:
                     return CIRCLE_RED;
-                case ContractStatus.CREATED_IN_APPROVAL:
-                    return CIRCLE_YELLOW;
+                case ContractStatus.CREATED_IN_APPROVAL: 
                 case ContractStatus.MODIFIED_IN_APPROVAL:
                     return CIRCLE_YELLOW;
                 case ContractStatus.REMOVED:
@@ -40,8 +39,7 @@ namespace Sicle.Web.Util
                     return CIRCLE_GREEN;
                 case EndorsementStatus.IN_ENDORSEMENT:
                     return CIRCLE_RED;
-                case EndorsementStatus.NOT_NECESSARY:
-                    return CIRCLE_YELLOW;
+                case EndorsementStatus.NOT_NECESSARY:                    
                 case EndorsementStatus.UNVALUED:
                     return CIRCLE_YELLOW;
                 case EndorsementStatus.NONE:

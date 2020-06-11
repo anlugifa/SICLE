@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Threading.Tasks;
 using log4net.Appender;
 using Sicle.Logs.Bases;
 using Sicle.Logs.Model;

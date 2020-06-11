@@ -14,14 +14,6 @@ namespace Sicle.Business.Admin
 
         }        
 
-        public IQueryable<AssociacaoGrupoUsuario> GetAssociacaoGrupoUsuarios(int grupoId)
-        {
-            using (var repo = new BaseRepository<AssociacaoGrupoUsuario>())
-            {
-                return repo.AsQueryable().Where(g => g.GrupoUsuarioId == grupoId);
-            }             
-        }
-
         public override GrupoUsuario MergeFromDB(GrupoUsuario localCopy)
         {
             var objFromDB = Get(localCopy.Id);

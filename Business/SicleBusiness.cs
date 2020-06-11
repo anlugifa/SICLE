@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Dados;
 using Dados.Repository.Base;
@@ -160,6 +161,16 @@ namespace Sicle.Business
 
                 return await q;
             }
+        }
+
+        public virtual TEntity Get(Expression<Func<TEntity, bool>> where)
+        {
+            return AsQueryable().FirstOrDefault(where);
+        }
+
+        public virtual List<TEntity> List(Expression<Func<TEntity, bool>> where)
+        {
+            return AsQueryable().Where(where).ToList<TEntity>();
         }
 
         public virtual IQueryable<TEntity> AsQueryable()

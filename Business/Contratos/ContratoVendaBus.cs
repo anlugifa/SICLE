@@ -3,6 +3,7 @@ using Dados;
 using Dados.Repository.Base;
 using Dominio.Entidades.Contrato;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace Sicle.Business.Contratos
 {
@@ -66,5 +67,13 @@ namespace Sicle.Business.Contratos
 
             return objFromDB;
         } 
+
+        public IQueryable<ContratoVenda> Query()
+        {
+            return AsQueryable()
+                    .Include(p => p.PaymentTerm)
+                    .Include(p => p.ClientGroup)
+                    .Include(p => p.ProductGroup);
+        }
     }
 }

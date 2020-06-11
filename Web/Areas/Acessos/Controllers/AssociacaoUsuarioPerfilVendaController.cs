@@ -33,6 +33,33 @@ namespace Sicle.Web.Areas.Acessos.Controllers
             _perfilRepo = new PerfilVendaBus();
         }
 
+        internal void HandleSearchVariable(
+                                    string sortOrder,
+                                    string currentFilter,
+                                    string searchString)
+        {
+            ViewData["CurrentSort"] = sortOrder;
+            ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewData["MatriculaSortParm"] = sortOrder == "matricula_desc" ? "name_desc" : "matricula_desc";
+            ViewData["CurrentFilter"] = searchString;
+        }
+
+        internal IQueryable<AssociacaoUsuarioPerfilVenda> Sort(IQueryable<AssociacaoUsuarioPerfilVenda> query, string sortOrder)
+        {
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    return query.OrderByDescending(s => s.Usuario.Nome);
+                    
+                case "matricula_desc":
+                    return query.OrderBy(s => s.Usuario.Matricula);
+                   
+                default:
+                    return query.OrderBy(s => s.Usuario.Nome);
+                   
+            }
+        }
+
         public async Task<IActionResult> Index(int? perfilVendaId,
                                     string sortOrder,
                                     string currentFilter,
@@ -40,51 +67,37 @@ namespace Sicle.Web.Areas.Acessos.Controllers
                                     int? pageNumber)
         {  
             
-            ViewData["CurrentSort"] = sortOrder;
-            ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
-            ViewData["MatriculaSortParm"] = sortOrder == "matricula_desc" ? "name_desc" : "matricula_desc";
-
-            if (!String.IsNullOrEmpty(searchString))
-            {
-                pageNumber = 1;
-            }
-            else
+            HandleSearchVariable(sortOrder, currentFilter, searchString);
+            if (String.IsNullOrEmpty(searchString))
             {
                 searchString = currentFilter;
             }
-
-            perfilVendaId = (perfilVendaId ?? 1); // se grupo id não informado, pegar o primeiro
-
-            ViewData["PerfilVendaId"] = perfilVendaId.Value;
-            ViewData["CurrentFilter"] = searchString;
             
-            IQueryable<AssociacaoUsuarioPerfilVenda> query = _perfilRepo.GetAssociacaoUsuario(perfilVendaId.Value);
+            // aguardamos a thread finalizar para não gerar concorrência de Thread no dbContext em _usrRepo.GetAllAsync()
+            var perfList = await _perfilRepo.AsQueryable().OrderBy(g => g.Nome).ToListAsync();
+            var userList = await _usrRepo.AsQueryable().OrderBy(g => g.Nome).ToListAsync();
+
+            perfilVendaId = (perfilVendaId ?? perfList.FirstOrDefault().Id); // se grupo id não informado, pegar o primeiro
+
+            ViewData["PerfilVendaId"] = perfilVendaId.Value;            
+
+            var query = new AssociacaoUsuarioPerfilVendaBus().AsQueryable()
+                                .Include("Usuario")
+                                .Where(g => g.PerfilVendaId == perfilVendaId.Value);
             
             if (!String.IsNullOrEmpty(searchString))
             {
-                query = query.Include("Usuario")
-                            .Where(s => s.Usuario.Nome.Contains(searchString)
+                query = query.Where(s => s.Usuario.Nome.Contains(searchString)
                                         || s.Usuario.Matricula.Contains(searchString));
-            }
+            }            
 
-            switch (sortOrder)
-            {
-                case "name_desc":
-                    query = query.OrderByDescending(s => s.Usuario.Nome);
-                    break;
-                case "matricula_desc":
-                    query = query.OrderBy(s => s.Usuario.Matricula);
-                    break;
-                default:
-                    query = query.OrderBy(s => s.Usuario.Nome);
-                    break;
-            }
+            query = Sort(query, sortOrder);
+            
             var list = query.ToList();
             var model = new AssociacaoUsuarioPerfilVendaModel(list, list.Count(), pageNumber ?? 1);
-
-            // aguardamos a thread finalizar para não gerar concorrência de Thread no dbContext em _usrRepo.GetAllAsync()
-            model.Perfis = await _perfilRepo.AsQueryable().OrderBy(g => g.Nome).ToListAsync();
-            model.Usuarios = await _usrRepo.AsQueryable().OrderBy(g => g.Nome).ToListAsync();
+            
+            model.Perfis = perfList;
+            model.Usuarios = userList;
             model.PerfilVendaId = perfilVendaId.Value;
 
             return View(model);            

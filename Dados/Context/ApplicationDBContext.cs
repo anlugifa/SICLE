@@ -45,7 +45,7 @@ namespace Dados
                     b.UseOracleSQLCompatibility("11")
             );
 
-            if (Configuration.GetValue("Environment", "DEV").Equals("DEV"))
+            if (Configuration.GetValue("TraceSQL", "False").Equals("True"))
             {                  
                 ILoggerFactory factory = new LoggerFactory(new[] { 
                             new Microsoft.Extensions.Logging.Debug.DebugLoggerProvider()  });

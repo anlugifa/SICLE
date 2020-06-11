@@ -11,8 +11,7 @@ namespace Sicle.Business.Admin
     public class ConfiguracaoBus : SicleBusiness<Configuracao>
     {
         public ConfiguracaoBus()
-        {
-            var task = Sicle.Logs.Client.Logger.LogError("Teste de Mensagem", SessionVariables.UserCode);
+        {            
         }
         
         public Configuracao Get(String code)
