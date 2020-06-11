@@ -3,6 +3,8 @@ using Dados;
 using Dados.Repository.Base;
 using Dominio.Entidades;
 using System.Linq;
+using Dominio.Entidades.Infra;
+using Sicle.Logs.Util;
 
 namespace Sicle.Business.Admin
 {
@@ -10,6 +12,7 @@ namespace Sicle.Business.Admin
     {
         public ConfiguracaoBus()
         {
+            var task = Sicle.Logs.Client.Logger.LogError("Teste de Mensagem", SessionVariables.UserCode);
         }
         
         public Configuracao Get(String code)

@@ -1,7 +1,7 @@
 #nullable disable
 using System;
 
-namespace Dominio.Entidades
+namespace Dominio.Entidades.Infra
 {
     public class Configuracao : Dominio.Base.BaseEntity
     {

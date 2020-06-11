@@ -13,6 +13,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sicle.Util", "Util\Sicle.Ut
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sicle.Business", "Business\Sicle.Business.csproj", "{93EC76E6-177A-4C50-B2DF-7EBF40ED528E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sicle.Logs", "Logs\Sicle.Logs.csproj", "{7B2CCD11-30B2-400E-BC3E-DD8266D4BB4D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -83,6 +85,18 @@ Global
 		{93EC76E6-177A-4C50-B2DF-7EBF40ED528E}.Release|x64.Build.0 = Release|Any CPU
 		{93EC76E6-177A-4C50-B2DF-7EBF40ED528E}.Release|x86.ActiveCfg = Release|Any CPU
 		{93EC76E6-177A-4C50-B2DF-7EBF40ED528E}.Release|x86.Build.0 = Release|Any CPU
+		{7B2CCD11-30B2-400E-BC3E-DD8266D4BB4D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7B2CCD11-30B2-400E-BC3E-DD8266D4BB4D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7B2CCD11-30B2-400E-BC3E-DD8266D4BB4D}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{7B2CCD11-30B2-400E-BC3E-DD8266D4BB4D}.Debug|x64.Build.0 = Debug|Any CPU
+		{7B2CCD11-30B2-400E-BC3E-DD8266D4BB4D}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{7B2CCD11-30B2-400E-BC3E-DD8266D4BB4D}.Debug|x86.Build.0 = Debug|Any CPU
+		{7B2CCD11-30B2-400E-BC3E-DD8266D4BB4D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7B2CCD11-30B2-400E-BC3E-DD8266D4BB4D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7B2CCD11-30B2-400E-BC3E-DD8266D4BB4D}.Release|x64.ActiveCfg = Release|Any CPU
+		{7B2CCD11-30B2-400E-BC3E-DD8266D4BB4D}.Release|x64.Build.0 = Release|Any CPU
+		{7B2CCD11-30B2-400E-BC3E-DD8266D4BB4D}.Release|x86.ActiveCfg = Release|Any CPU
+		{7B2CCD11-30B2-400E-BC3E-DD8266D4BB4D}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

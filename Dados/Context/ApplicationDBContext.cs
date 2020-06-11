@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Dominio.Entidades;
 using Dominio.Entidades.Acesso;
+using Dominio.Entidades.Infra;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Console;
 using Sicle.Dados.Context.Config.Acessos;
@@ -15,8 +16,9 @@ using Sicle.Dados.Context.Config.Produtos;
 using Sicle.Dados.Context.Config.Pricing;
 using Dominio.Entidades.Pricing;
 using Microsoft.Extensions.Configuration;
-
+using Sicle.Dados.Context.Config.Infra;
 using System.IO;
+
 
 namespace Dados
 {
@@ -54,8 +56,11 @@ namespace Dados
 
         protected override void OnModelCreating(ModelBuilder model)
         {
-            //acessos
+            //infra
             ConfigConfiguracao.Config(model);
+            //ConfigError.Config(model);
+            
+            //acessos            
             ConfigUsuario.Config(model);
             ConfigPerfil.Config(model);
             ConfigAssociacaoUsuarioPerfil.Config(model);

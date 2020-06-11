@@ -1,10 +1,11 @@
 ﻿using Dominio.Entidades;
+using Dominio.Entidades.Infra;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Sicle.Dados.Context.Config.Acessos
+namespace Sicle.Dados.Context.Config.Infra
 {
     internal class ConfigConfiguracao
     {

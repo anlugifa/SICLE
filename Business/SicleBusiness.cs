@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Dados;
 using Dados.Repository.Base;
 using Microsoft.EntityFrameworkCore;
+using Sicle.Logs.Bases;
 
 namespace Sicle.Business
 {
@@ -64,7 +65,7 @@ namespace Sicle.Business
             }
             catch (Exception ex)
             {
-                // new SicleException(ex.Message, ex).LogarErro();
+                new SicleException(ex.Message, ex).LogarErro();
             }
 
             return false;
@@ -82,7 +83,7 @@ namespace Sicle.Business
             }
             catch (Exception ex)
             {
-                // new SicleException(ex.Message, ex).LogarErro();
+                new SicleException(ex.Message, ex).LogarErro();
             }
 
             return false;
@@ -100,7 +101,7 @@ namespace Sicle.Business
             }
             catch (Exception ex)
             {
-                // new SicleException(ex.Message, ex).LogarErro();
+                new SicleException(ex.Message, ex).LogarErro();
             }
 
             return false;
@@ -122,7 +123,7 @@ namespace Sicle.Business
             }
             catch (Exception ex)
             {
-                // new SicleException(ex.Message, ex).LogarErro();
+                new SicleException(ex.Message, ex).LogarErro();
             }
             return false;
         }
@@ -142,7 +143,7 @@ namespace Sicle.Business
             }
             catch (Exception ex)
             {
-                // new SicleException(ex.Message, ex).LogarErro();
+                new SicleException(ex.Message, ex).LogarErro();
             }
             return false;
         }
