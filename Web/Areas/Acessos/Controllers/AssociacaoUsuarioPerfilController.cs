@@ -40,8 +40,7 @@ namespace Sicle.Web.Areas.Acessos.Controllers
         {
             ViewData["CurrentSort"] = sortOrder;
             ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
-            ViewData["MatriculaSortParm"] = sortOrder == "matricula_desc" ? "name_desc" : "matricula_desc";      
-            
+            ViewData["MatriculaSortParm"] = sortOrder == "matricula_desc" ? "name_desc" : "matricula_desc";            
 
             ViewData["CurrentFilter"] = searchString;
         }
@@ -69,17 +68,18 @@ namespace Sicle.Web.Areas.Acessos.Controllers
                                     int? pageNumber)
         {  
             
-            HandleSearchVariable(sortOrder, currentFilter, searchString);
             if (String.IsNullOrEmpty(searchString))
             {
                 searchString = currentFilter;
             }
+            HandleSearchVariable(sortOrder, currentFilter, searchString);
             
             // aguardamos a thread finalizar para não gerar concorrência de Thread no dbContext em _usrRepo.GetAllAsync()
             var perfList = await _perfilRepo.AsQueryable().OrderBy(g => g.Nome).ToListAsync();
             var userList = await _usrRepo.AsQueryable().OrderBy(g => g.Nome).ToListAsync();
 
             perfilId = (perfilId ?? perfList.FirstOrDefault().Id); // se grupo id não informado, pegar o primeiro            
+            ViewData["PerfilId"] = perfilId.Value;   
             
             var query = new AssociacaoPerfilUsuarioBus().AsQueryable().Include("Usuario").Where(p => p.PerfilId == perfilId.Value);
             

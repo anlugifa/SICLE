@@ -58,7 +58,7 @@ namespace Sicle.Web.Areas.Contratos.Models
             Status = Contrato.Status.GetEnumDescription();
             Observacao = Contrato.Observation;
             TotalVolume = Contrato.TotalVolume.ToStr();
-            Periodicidade = Contrato.Period.GetEnumDescription();
+            Periodicidade = Contrato.Period.HasValue? Contrato.Period.GetEnumDescription() : "";
             GrupoEconomico = Contrato.EconomicGroup;
             PrazoPagamento = Contrato.PaymentTerm != null ? Contrato.PaymentTerm.Code : "";
             PrevisaoMax = Contrato.MaxForecast.ToStr();

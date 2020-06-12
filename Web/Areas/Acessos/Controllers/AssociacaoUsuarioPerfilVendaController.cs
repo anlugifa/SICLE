@@ -78,7 +78,6 @@ namespace Sicle.Web.Areas.Acessos.Controllers
             var userList = await _usrRepo.AsQueryable().OrderBy(g => g.Nome).ToListAsync();
 
             perfilVendaId = (perfilVendaId ?? perfList.FirstOrDefault().Id); // se grupo id não informado, pegar o primeiro
-
             ViewData["PerfilVendaId"] = perfilVendaId.Value;            
 
             var query = new AssociacaoUsuarioPerfilVendaBus().AsQueryable()

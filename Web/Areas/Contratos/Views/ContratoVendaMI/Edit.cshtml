@@ -121,7 +121,7 @@
             $("#clientGroup").typeahead({
                 minLength: 2,
                 source: function (request, response) {
-                   callAjax(request, response, "/Contratos/ContratoVenda/GetClientGroupList")
+                   callAjax(request, response, "/Contratos/ContratoVendaMI/GetClientGroupList")
                 },            
                 updater: function(item) {
                     $("#clientGroupId").val(map[item].id);
@@ -132,7 +132,7 @@
             $("#paymentTerm").typeahead({
                 minLength: 2,
                 source: function (request, response) {
-                    callAjax(request, response, "/Contratos/ContratoVenda/GetPaymentTermList")                   
+                    callAjax(request, response, "/Contratos/ContratoVendaMI/GetPaymentTermList")                   
                 },            
                 updater: function(item) {
                     $("#paymentTermId").val(map[item].id);
@@ -143,7 +143,7 @@
             $("#broker").typeahead({
                 minLength: 2,
                 source: function (request, response) {
-                    callAjax(request, response, "/Contratos/ContratoVenda/GetBrokerList")                   
+                    callAjax(request, response, "/Contratos/ContratoVendaMI/GetBrokerList")                   
                 },            
                 updater: function(item) {
                     $("#brokerId").val(map[item].id);

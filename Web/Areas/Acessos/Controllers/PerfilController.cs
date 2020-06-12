@@ -19,26 +19,46 @@ namespace Sicle.Web.Controllers.Acesso
         public PerfilController()  : base()
         {            
         }
-        
-        public async Task<IActionResult> Index(string sortOrder,
-                                                string currentFilter,
-                                                string searchString,
-                                                int? pageNumber)
+
+        internal void HandleSearchVariable(
+                                    string sortOrder,
+                                    string currentFilter,
+                                    string searchString)
         {
             ViewData["CurrentSort"] = sortOrder;
             ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
-            ViewData["CodeSortParm"] = sortOrder == "code_desc" ? "code_desc" : "name_desc";
+            ViewData["CodeSortParm"] = sortOrder == "code_desc" ? "code_desc" : "name_desc";            
 
-            if (searchString != null)
+            ViewData["CurrentFilter"] = searchString;
+        }
+
+        internal IQueryable<Perfil> Sort(IQueryable<Perfil> query, string sortOrder)
+        {
+            switch (sortOrder)
             {
-                pageNumber = 1;
+                case "code_desc":
+                    return query.OrderByDescending(s => s.Code);
+                    
+                case "name_desc":
+                    return query.OrderByDescending(s => s.Nome);
+                   
+                default:
+                    return query.OrderBy(s => s.Nome);
+                   
             }
-            else
+        }
+        
+        public async Task<IActionResult> Index( string sortOrder,
+                                                string currentFilter,
+                                                string searchString,
+                                                int? pageNumber)
+        {            
+
+            if (pageNumber > 1 && String.IsNullOrEmpty(searchString))
             {
                 searchString = currentFilter;
             }
-
-            ViewData["CurrentFilter"] = searchString;
+            HandleSearchVariable(sortOrder, currentFilter, searchString);
 
             var perfis =  new PerfilBus().AsQueryable();
 
@@ -47,18 +67,8 @@ namespace Sicle.Web.Controllers.Acesso
                 perfis = perfis.Where(s => s.Nome.Contains(searchString)
                                        || s.Code.Contains(searchString));
             }
-            switch (sortOrder)
-            {
-                case "code_desc":
-                    perfis = perfis.OrderByDescending(s => s.Code);
-                    break;
-                case "name_desc":
-                    perfis = perfis.OrderByDescending(s => s.Nome);
-                    break;
-                default:
-                    perfis = perfis.OrderBy(s => s.Nome);
-                    break;
-            }
+
+            perfis = Sort(perfis, sortOrder);
 
             int pageSize = 20;
             return View(await PaginatedList<Perfil>

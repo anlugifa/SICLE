@@ -40,42 +40,77 @@
         <form asp-action="Index" method="get">
             <div class="form-group row">
                 <div class="col-sm-1">
-                    <label for="Nome" class="col-form-label">Nome:</label>
+                    <label for="Name" class="col-form-label">Nome:</label>
                 </div>
                 <div class="col-sm-3">
-                    <input type="text" name="SearchName" class="form-control" value='@ViewData["currentFilter"]' />
+                    <input type="text" name="Name" class="form-control" value='@Model.Filter.Name' />
                 </div>
                                 
                 <div class="col-sm-1">
-                    <label for="ex1" class="col-form-label">Apelido:</label>
+                    <label for="Nickname" class="col-form-label">Apelido:</label>
                 </div>
                 <div class="col-sm-3">
-                    <input type="text" name="SearchNickname" class="form-control" value='@ViewData["currentFilter"]' />
+                    <input type="text" name="Nickname" class="form-control" value='@Model.Filter.Nickname' />
                 </div>
 
 
                 <div class="col-sm-1">
-                    <label for="Grupo" class="col-form-label">Status:</label>
+                    <label for="Status" class="col-form-label">Status:</label>
                 </div>
                 <div class="col-sm-3">
 
-                    <select class="form-control" data-val="false" id="ddlStatus" name="status"  
-                            asp-items='@(new SelectList(Model.ListStatus, "Value", "Text", ViewData["CurrentStatus"]))'>
+                    <select class="form-control" data-val="false" id="ddlStatus" name="Status"  
+                            asp-items='@(new SelectList(Model.ListStatus, "Value", "Text", Model.Filter.Status))'>
                         <option value="">Selecione</option>
                     </select>
 
                 </div>
             </div>
+            <div class="form-group row">
+                <div class="col-sm-1">
+                    <label class="col-form-label" for="ProductGroup">Produto:</label>
+                </div>
+                <div class="col-sm-3">
+                    <select class="form-control" data-val="false" id="ddlProducts" name="ProductGroupId"  
+                            asp-items='@(new SelectList(@Model.ProductGroups, "Id", "Code", Model.Filter.ProductGroupId))'>
+                        <option value="0">Selecione</option>
+                    </select>        
+                </div>
+               
+
+                <div class="col-sm-1">
+                    <label class="col-form-label" for="Client">Cliente:</label>
+                </div>
+                <div class="col-sm-3">
+                    <input type="hidden" id="clientGroupId" name="ClientGroupId" value="@Model.Filter.ClientGroupId">                
+                    <input type="text" id="clientGroup" class="form-control typeahead" data-provide="typeahead" 
+                            name="ClientGroupName" value="@ViewData["FilterClientName"]">            
+                </div>                
+            </div>
             
             <div class="form-group row">
-                
+                <div class="col-sm-1">
+                    <label for="Begin" class="col-form-label">De:</label>          
+                </div>      
+                <div class="col-sm-3">
+                    <input type="text" name="Begin" class="form-control datepicker" asp-format="{0:dd/MM/yyyy}" 
+                                value="@Model.Filter.Begin">             
+                </div>    
+
+                <div class="col-sm-1">
+                    <label for="End" class="col-form-label">Até:</label>       
+                </div>      
+                <div class="col-sm-3">
+                    <input type="text" name="End" class="form-control datepicker" asp-format="{0:dd/MM/yyyy}"
+                                value="@Model.Filter.End">             
+                </div>    
             </div>
 
             <div class="form-group row">
                 <div class="col-sm-4">
                     <input type="submit" name="btnSearch" value="Pesquisar" class="btn btn-light" /> |
                     <a asp-action="Index" class="btn btn-light">Limpar</a> |
-                    <a href="@Url.Action("Edit", "ContratoVendaMI")" class="btn btn-primary btn-sm"><b>Novo</b></a>
+                    <a href="@Url.Action("Edit", "ContratoVendaMI")" class="btn btn-primary btn-sm"><b style="color:#000">Novo</b></a>
                 </div>
             </div>
         </form>
@@ -93,9 +128,9 @@
     <ul class="pagination">
         <li class="page-item">
             <a asp-action="Index"                
-                asp-route-sortOrder='@ViewData["CurrentSort"]'
-                asp-route-pageNumber='@(Model.PageIndex - 1)'
-                asp-route-currentFilter='@ViewData["CurrentFilter"]'
+                asp-route-sortOrder='@Model.Filter.SortOrder'
+                asp-route-pageNumber='@(Model.Filter.PageNumber - 1)'
+                asp-route-currentFilter='@Model.Filter.CurrentFilter'
                 class="btn btn-default @prevDisabled">
                 Anterior
             </a>
@@ -103,9 +138,9 @@
 
         <li class="page-item">
             <a asp-action="Index"                
-                asp-route-sortOrder='@ViewData["CurrentSort"]'
+                asp-route-sortOrder='@Model.Filter.SortOrder'
                 asp-route-pageNumber='@(Model.PageIndex + 1)'
-                asp-route-currentFilter='@ViewData["CurrentFilter"]'
+                asp-route-currentFilter='@Model.Filter.CurrentFilter'
                 class="btn btn-default @nextDisabled">
                 Próximo
             </a>
@@ -113,20 +148,75 @@
     </ul>
 </nav>
 
-
+@section Scripts
+{
 <script>
-    var input = document.getElementById("SearchString");
+    
+    function fetchList(data, response) {
+            items = [];
+            map = {};
+            $.each(data, function (i, item) {
+                var id = item.id;
+                var name = item.code;
 
-    if (input != null) {
-        // Execute a function when the user releases a key on the keyboard
-        input.addEventListener("keyup", function (event) {
-            // Number 13 is the "Enter" key on the keyboard
-            if (event.keyCode === 13) {
-                // Cancel the default action, if needed
-                event.preventDefault();
-                // Trigger the button element with a click
-                document.getElementById("btnSearch").click();
+                map[name] = {
+                    id: id,
+                    name: name
+                };
+                items.push(name);
+            });
+
+            response(items);
+    }
+
+    function callAjax(request, response, url) {
+            $.ajax({
+            url: url,
+            type: "GET",
+            contentType: "json",
+            data: { "name": request },                        
+            success: function(data) {
+                fetchList(data, response);                            
+            },
+            error: function(response) {
+                alert("Erro:" + response.responseText);
+            },
+
+            failure: function(response) {
+                alert("Failure:" + response.responseText);
             }
         });
     }
+    
+
+    $(function () {
+
+        $("#clientGroup").typeahead({
+            minLength: 2,
+            source: function (request, response) {
+                callAjax(request, response, "/Contratos/ContratoVendaMI/GetClientGroupList")
+            },            
+            updater: function(item) {
+                $("#clientGroupId").val(map[item].id);
+                return item;
+            }
+        }); 
+
+        var input = document.getElementById("SearchString");
+
+        if (input != null) {
+            // Execute a function when the user releases a key on the keyboard
+            input.addEventListener("keyup", function (event) {
+                // Number 13 is the "Enter" key on the keyboard
+                if (event.keyCode === 13) {
+                    // Cancel the default action, if needed
+                    event.preventDefault();
+                    // Trigger the button element with a click
+                    document.getElementById("btnSearch").click();
+                }
+            });
+        }
+        
+     });
 </script>
+}

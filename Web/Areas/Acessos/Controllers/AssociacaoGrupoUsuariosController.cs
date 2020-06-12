@@ -71,18 +71,18 @@ namespace Sicle.Web.Areas.Acessos.Controllers
                                     int? pageNumber)
         {  
             
-            HandleSearchVariable(sortOrder, currentFilter, searchString);
             if (String.IsNullOrEmpty(searchString))
             {
                 searchString = currentFilter;
             }
+            HandleSearchVariable(sortOrder, currentFilter, searchString);
+            
 
             // aguardamos a thread finalizar para não gerar concorrência de Thread no dbContext em _usrRepo.GetAllAsync()
             var grpList  = await _grpUsrRepo.AsQueryable().Where(g => !String.IsNullOrEmpty(g.Nome)).OrderBy(g => g.Nome).ToListAsync();
             var userList = await _usrRepo.AsQueryable().OrderBy(g => g.Nome).ToListAsync();
 
             grupoId = (grupoId ?? grpList.FirstOrDefault().Id); // se grupo id não informado, pegar o primeiro
-
             ViewData["GrupoId"] = grupoId.Value;            
             
             var query = new AssociacaoGrupoUsuarioBus().AsQueryable()

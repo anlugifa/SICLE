@@ -8,14 +8,18 @@
                 <tr>
                     <th>Farol</th>
                     <th>
-                        <a asp-action="Edit"
+                        <a asp-action="Index"
+                           asp-area="Contratos"
+                           asp-controller="ContratoVendaMI"
                            asp-route-sortOrder="@ViewData["IdSortParm"]"
                            asp-route-currentFilter="@ViewData["CurrentFilter"]">Id</a>
                     </th>
                     <th>Farol Endosso</th>
                     <th>Endosso</th>
                     <th>
-                        <a asp-action="Editar"
+                        <a asp-action="Index"
+                           asp-area="Contratos"
+                           asp-controller="ContratoVendaMI"
                            asp-route-sortOrder="@ViewData["NomeSortParm"]"
                            asp-route-currentFilter="@ViewData["CurrentFilter"]">Nome</a>
                     </th>

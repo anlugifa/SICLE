@@ -9,13 +9,19 @@ using System.Threading.Tasks;
 using Sicle.Web.Models;
 using Sicle.Web.Util;
 using Util;
+using Dominio.Entidades.Produtos;
 
 namespace Sicle.Web.Areas.Contratos.Models
 {
     public class IndexContratoVendaMIVM : PaginatedList<ContratoVenda>
     {
-        public IEnumerable<SelectListItem> ListStatus {
-            get {
+        public IndexContratoVendaFilter Filter { get; set; }
+        public IEnumerable<ProductGroup> ProductGroups { get; set; }
+
+        public IEnumerable<SelectListItem> ListStatus
+        {
+            get
+            {
                 return EnumHelper.GetSelectList<ContractStatus>();
             }
         }
@@ -35,6 +41,6 @@ namespace Sicle.Web.Areas.Contratos.Models
         public ContratoVendaModel ConvertModel(ContratoVenda contrato)
         {
             return new ContratoVendaModel(contrato);
-        } 
+        }
     }
 }

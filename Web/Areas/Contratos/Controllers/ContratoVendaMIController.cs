@@ -18,84 +18,23 @@ namespace Sicle.Web.Controllers
 
         public ContratoVendaMIController() : base()
         {
-        }
+        }               
 
-        public async Task<IActionResult> Index(string sortOrder,
-                                                string currentFilter,
-                                                string currentStatus,
-                                                string searchString,
-                                                ContractStatus? status,
-                                                int? pageNumber)
-        {
-            ViewData["CurrentSort"] = sortOrder;
-
-            ViewData["ContratoIdSortParm"] = sortOrder == "id_asc" ? "id_desc" : "id_asc";
-            ViewData["ApelidoSortParm"] = sortOrder == "apelido_asc" ? "apelido_desc" : "apelido_asc";
-            
-            #region pagination
-
-            // salva status de filtros e ordenação para não perder valores na paginação
-            if (!String.IsNullOrEmpty(searchString))
-            {       
-                pageNumber = 1;
-            }
-            else
-            {
-                searchString = currentFilter;
-            }
-            ViewData["CurrentFilter"] = searchString;
-
-            if (status != null)
-            {       
-                pageNumber = 1;
-            }
-            else
-            {
-                ContractStatus s;
-                if (Enum.TryParse<ContractStatus>(currentStatus, true, out s))
-                    status = s;
-            }
-
-            ViewData["CurrentStatus"] = status.ToString();
-            
-            #endregion
-
+        public async Task<IActionResult> Index(IndexContratoVendaFilter filter)
+        {   
             #region filter
+            
+            filter.SetViewData(ViewData);
             var query = new ContratoVendaBus().Query();
 
-            if (!String.IsNullOrEmpty(searchString))
-            {
-                query = query.Where(s => s.Nickname.Contains(searchString)
-                                       || s.Observation.Contains(searchString));
-            }
+            query = filter.DoFilter(query);
+            #endregion          
 
-            if (status != null)
-            {
-                //query = query.Where(s => s.Contratos.Any(x => x.Status == status));
-            }
-            #endregion
+            var vm = await IndexContratoVendaMIVM.CreateAsync(query.AsNoTracking(), filter.PageNumber ?? 1);
+            vm.ProductGroups = await new ProductGroupBus().GetAllAsync();
+            vm.Filter = filter;
 
-            switch (sortOrder)
-            {
-                case "id_asc":
-                    query = query.OrderBy(s => s.Id);
-                    break;
-                case "id_desc":
-                    query = query.OrderByDescending(s => s.Id);
-                    break;
-                case "apelido_asc":
-                    query = query.OrderBy(s => s.Nickname);
-                    break;
-                case "apelido_desc":
-                    query = query.OrderByDescending(s => s.Nickname);
-                    break;
-                default: // inicio_desc
-                    query = query.OrderByDescending(s => s.Id);
-                    break;
-            }
-
-            return View(await IndexContratoVendaMIVM
-                        .CreateAsync(query.AsNoTracking(), pageNumber ?? 1));
+            return View(vm);
         }
 
         [HttpGet]
@@ -182,7 +121,7 @@ namespace Sicle.Web.Controllers
         public JsonResult GetClientGroupList(string name)
         {
             var repo = new ClientGroupBus();
-            var list = repo.AsQueryable().Where(x => x.Code.StartsWith(name))
+            var list = repo.AsQueryable().Where(x => x.Code.Contains(name))
                                 .OrderBy(x => x.Code).Take(10).ToList();
 
             return Json(list);
@@ -191,7 +130,7 @@ namespace Sicle.Web.Controllers
         public JsonResult GetPaymentTermList(string name)
         {
             var repo = new PaymentTermBus();
-            var list = repo.AsQueryable().Where(x => x.Code.StartsWith(name) && x.IsActive)
+            var list = repo.AsQueryable().Where(x => x.Code.Contains(name) && x.IsActive)
                                 .OrderBy(x => x.Code).Take(10).ToList();
 
             return Json(list);
@@ -200,7 +139,7 @@ namespace Sicle.Web.Controllers
         public JsonResult GetBrokerList(string name)
         {
             var repo = new BrokerBus();
-            var list = repo.AsQueryable().Where(x => x.Code.StartsWith(name))
+            var list = repo.AsQueryable().Where(x => x.Code.Contains(name))
                                 .OrderBy(x => x.Code).Take(10).ToList();
 
             return Json(list);
@@ -210,7 +149,7 @@ namespace Sicle.Web.Controllers
         {
             var repo = new UsuarioBus();
             var list = repo.AsQueryable()
-                            .Where(x => x.Nome.StartsWith(name))
+                            .Where(x => x.Nome.Contains(name))
                                 .OrderBy(x => x.Nome)
                                 .Take(10).ToList();
 

@@ -27,7 +27,7 @@ namespace Sicle.Web.Areas.Contratos.Models
         {
             this.Contrato = contrato;
             this.ContratoVendaId = contrato.Id;
-            this.ContratoMestreId = contrato.ContratoMestreId.Value;
+            this.ContratoMestreId = contrato.ContratoMestreId ?? 0;
         }
     }
 }

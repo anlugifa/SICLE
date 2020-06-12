@@ -14,7 +14,7 @@
     <div class="col-md-12 float-right">
         <form asp-action="Index" method="get">
             <div class="form-group row">
-                <input type="hidden" name="perfilId" class="form-control" value='@ViewData["PerfilId"]' />
+                
                 <div class="col-sm-2">
                     <label for="ex1" class="col-form-label">Nome:</label>
                 </div>
@@ -93,7 +93,6 @@
     <ul class="pagination">
         <li class="page-item">
             <a asp-action="Index"
-                asp-route-perfilId='@ViewData["PerfilId"]'
                 asp-route-sortOrder='@ViewData["CurrentSort"]'
                 asp-route-pageNumber='@(Model.PageIndex - 1)'
                 asp-route-currentFilter='@ViewData["CurrentFilter"]'
@@ -104,7 +103,6 @@
 
         <li class="page-item">
             <a asp-action="Index"
-                asp-route-perfilId='@ViewData["PerfilId"]'
                 asp-route-sortOrder='@ViewData["CurrentSort"]'
                 asp-route-pageNumber='@(Model.PageIndex + 1)'
                 asp-route-currentFilter='@ViewData["CurrentFilter"]'
