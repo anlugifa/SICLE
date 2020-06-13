@@ -38,27 +38,35 @@ namespace Sicle.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Editar(long id, string sortOrder, int? pageNumber)
+        public async Task<IActionResult> Edit(long id, string sortOrder, int? pageNumber)
         {
-            var contrato = new ContratoVendaBus().AsQueryable()
-                            .Include(p => p.ContratoMestre)
-                            .Include(p => p.PaymentTerm)
-                            .Include(p => p.ClientGroup)
-                            .Include(p => p.ProductGroup)
-                            .Include(p => p.Broker)
-                            .Include(p => p.Trader)
-                            .Include(p => p.Quotas)
-                                .ThenInclude(q => q.Origem)
-                            .Include(p => p.Quotas)
-                                .ThenInclude(q => q.Destino) 
-                            .Include(p => p.PricingPeriods)
-                                .ThenInclude(p => p.MapPricingRules)
-                            .Include(p => p.PricingRules)
-                            .FirstOrDefault(x => x.Id == id);
+            ContratoVenda contrato;
+            if (id == 0) // novo
+            {
+                contrato = new ContratoVenda();                
+            }
+            else 
+            {
+                contrato = new ContratoVendaBus().AsQueryable()
+                                .Include(p => p.ContratoMestre)
+                                .Include(p => p.PaymentTerm)
+                                .Include(p => p.ClientGroup)
+                                .Include(p => p.ProductGroup)
+                                .Include(p => p.Broker)
+                                .Include(p => p.Trader)
+                                .Include(p => p.Quotas)
+                                    .ThenInclude(q => q.Origem)
+                                .Include(p => p.Quotas)
+                                    .ThenInclude(q => q.Destino) 
+                                .Include(p => p.PricingPeriods)
+                                    .ThenInclude(p => p.MapPricingRules)
+                                .Include(p => p.PricingRules)
+                                .FirstOrDefault(x => x.Id == id);
 
-            if (contrato == null)
-                throw new ArgumentException("Id {0} de ContratoVenda não encontrado.");
-            
+                if (contrato == null)
+                    throw new ArgumentException("Id {0} de ContratoVenda não encontrado.");
+            }
+
             var vm = new EditContratoVendaVM(contrato);
             vm.ProductGroups = await new ProductGroupBus().GetAllAsync();
             vm.Quotas = contrato.Quotas;
@@ -93,21 +101,15 @@ namespace Sicle.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Remover(int id)
+        public async Task<IActionResult> Remove(int id)
         {
             await new ContratoVendaBus().Delete(id);
             return RedirectToAction("Index");
-        }
-
-        [HttpGet]
-        public IActionResult Salvar()
-        {
-            return View(new ContratoVenda());
-        }
+        }      
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Salvar(ContratoVenda modelo)
+        public async Task<IActionResult> Save(ContratoVenda modelo)
         {
             if (ValidateModel())
             {
@@ -115,7 +117,16 @@ namespace Sicle.Web.Controllers
             }
 
             ViewBag.SuccessMsg = "Contrato salvo com sucesso!";
-            return View(modelo);
+            return View("Edit", modelo);
+        }
+
+        public JsonResult GetMasterList(string name)
+        {
+            var repo = new ContratoMestreVendaBus();
+            var list = repo.AsQueryable().Where(x => x.Nickname.Contains(name))
+                                .OrderBy(x => x.Nickname).Take(10).ToList();
+
+            return Json(list);
         }
 
         public JsonResult GetClientGroupList(string name)

@@ -16,7 +16,10 @@ namespace Sicle.Dados.Context.Config.Contratos
                 t.ToTable("TB_CONTRATOS_VENDA");
                 t.HasKey(p => p.Id);
 
-                t.Property(p => p.Id).HasColumnName("CD_SEQ_CONTRATO").UseOracleIdentityColumn();
+                t.Property(p => p.Id).HasColumnName("CD_SEQ_CONTRATO")
+                                    .ValueGeneratedOnAdd()
+                                    .ForOracleUseSequenceHiLo("SEQ_CONTRATOS_VENDAS");
+
                 t.Property(p => p.ContratoVendaAnteriorId).HasColumnName("CD_CONTRATO_VENDA_ANTERIOR");
                 t.Property(p => p.Nickname).HasColumnName("DS_APELIDO");
                 t.Property(p => p.Name).HasColumnName("NM_CONTRATO");

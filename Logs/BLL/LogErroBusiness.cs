@@ -10,6 +10,7 @@ using Sicle.Logs.Bases;
 using System.Threading.Tasks;
 using Sicle.Logs.Extensions;
 using Sicle.Logs.Utils.CustomAnnotation;
+using Sicle.Logs.Utils;
 
 namespace Sicle.Logs.BLL
 {
@@ -75,6 +76,8 @@ namespace Sicle.Logs.BLL
                 throw new SicleException("Objeto de Log Erro Nulo");
 
             VerificarCampoMensagem(logErro);
+
+            logErro.Username = SessionVariables.UserCode;
             
             return base.Adicionar(logErro);
         }

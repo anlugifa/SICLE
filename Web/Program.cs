@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore;
 using Microsoft.Extensions.Logging;
+using Sicle.Logs.Client;
 
 namespace Web
 {

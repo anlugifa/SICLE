@@ -64,7 +64,7 @@ namespace Sicle.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Remover(int id)
+        public async Task<IActionResult> Remove(int id)
         {
             await _repo.Delete(id);
             return RedirectToAction("Index");

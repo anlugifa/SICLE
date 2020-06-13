@@ -19,6 +19,7 @@ using Util;
 using Util.Language;
 using IHostingEnvironment = Microsoft.AspNetCore.Hosting.IHostingEnvironment;
 using Sicle.Web.Util;
+using Microsoft.Extensions.Logging;
 
 namespace Web
 {
@@ -88,7 +89,7 @@ namespace Web
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
             Startup.CurrentEnvironment = env;           
 
@@ -119,6 +120,8 @@ namespace Web
             //app.UseAuthorization();
             ConfigureSession(app);
             ConfigureRoutes(app);
+
+            loggerFactory.AddLog4Net();
         }
 
         private void ConfigureSession(IApplicationBuilder app)

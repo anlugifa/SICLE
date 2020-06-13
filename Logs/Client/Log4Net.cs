@@ -3,6 +3,7 @@ using System;
 using System.IO;
 using System.Reflection;
 using System.Text;
+using System.Xml;
 using log4net;
 using log4net.Repository;
 using Sicle.Logs.Model;
@@ -12,23 +13,21 @@ namespace Sicle.Logs.Client
     /// <summary>
     /// Classe que configura e carrega os providers e adapters utilizados com o log4net
     /// </summary>
-    internal static class Log4Net
-    {
-        static ILoggerRepository _repo = LogManager.CreateRepository(Assembly.GetEntryAssembly(), typeof(log4net.Repository.Hierarchy.Hierarchy));
-        static ILog _logger = LogManager.GetLogger("LogRaizen4Net", "LogRaizen4Net");
-        static ILog _loggerRollingFile = LogManager.GetLogger("LogRaizen4Net", "LogRollingFile");
+    public static class Log4Net
+    {        
+        static ILog _logger = LogManager.GetLogger(Assembly.GetEntryAssembly(), "LogRaizen4Net");
+        static ILog _loggerRollingFile = LogManager.GetLogger(Assembly.GetEntryAssembly(), "LogRollingFile");
 
-        private const string CustomLog4NetFile = "Log4Net.config";
+        private static readonly ILog log = LogManager.GetLogger(typeof(Log4Net));
+
+        private const string LOG_CONFIG_FILE = "Log4Net.config";
        
-
         /// <summary>
         /// Realiza operação polimórfica no appender do Log4Net
         /// </summary>
         /// <param name="logErro">Contém o objeto de log</param>
         public static void Logger(LogErro logErro)
-        {
-            ConfigurarLog4Net();
-
+        {           
             if (_logger != null)
             {
                 _logger.Error(logErro);
@@ -48,8 +47,7 @@ namespace Sicle.Logs.Client
         /// <param name="mensagem">Mensagem de erro</param>
         public static void LoggerFile(LogErro logErro = null, string mensagem = "")
         {
-            string Erro = "";
-            ConfigurarLog4Net();
+            string Erro = "";            
 
             if (logErro != null)
             {
@@ -62,20 +60,7 @@ namespace Sicle.Logs.Client
             {
                 _loggerRollingFile.Error(Erro);
             }
-        }
-
-        /// <summary>
-        /// Configura os parâmetros do Log4Net, se o mesmo ainda não foi configurado
-        /// </summary>
-        private static void ConfigurarLog4Net()
-        {
-            if (!log4net.LogManager.GetRepository("LogRaizen4Net").Configured)
-            {
-                var path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory.ToString(), CustomLog4NetFile);
-                var fileInfoCustomLog4Net = new FileInfo(path);
-                log4net.Config.XmlConfigurator.Configure(_repo, fileInfoCustomLog4Net);
-            }
-        }
+        }       
 
         /// <summary>
         /// Formata as informações de log de erro para serem gravadas no arquivo txt 

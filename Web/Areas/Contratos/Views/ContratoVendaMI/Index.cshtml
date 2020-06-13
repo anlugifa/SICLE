@@ -109,8 +109,9 @@
             <div class="form-group row">
                 <div class="col-sm-4">
                     <input type="submit" name="btnSearch" value="Pesquisar" class="btn btn-light" /> |
-                    <a asp-action="Index" class="btn btn-light">Limpar</a> |
-                    <a href="@Url.Action("Edit", "ContratoVendaMI")" class="btn btn-primary btn-sm"><b style="color:#000">Novo</b></a>
+                    <a asp-action="Index" class="btn btn-light">Limpar</a> |     
+                   
+                    <a href="@Url.Action("Edit", "ContratoVendaMI", new {Area = "Contratos"})" class="btn btn-primary btn-sm"><b>Novo</b></a>
                 </div>
             </div>
         </form>

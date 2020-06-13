@@ -45,7 +45,7 @@
             <a href="#tab2" data-toggle="tab"  class="nav-link">Cotas</a>
         </li>
         <li class="nav-item">
-            <a href="#tab3" data-toggle="tab"  class="nav-link">Volume</a>
+            <a href="#tab3" data-toggle="tab"  class="nav-link">Volume (TODO)</a>
         </li>
         <li class="nav-item">
             <a href="#tab4" data-toggle="tab"  class="nav-link">Precificação</a>
@@ -63,7 +63,7 @@
             <partial name="_ContratoCotaList.cshtml" model="@Model.Quotas"></partial>           
         </div>
         <div class="tab-pane fade" id="tab3">
-            <h3>Volume</h3>
+            <h3>Volume (TODO)</h3>
         </div>
         <div class="tab-pane fade" id="tab4">
             <partial name="_ContratoPricingList.cshtml" model="@Model.Contrato"></partial>           
@@ -79,6 +79,41 @@
 {
 
     <script>
+
+
+        function fetchMasterContract(data, response) {
+            items = [];
+            map = {};
+            $.each(data, function (i, item) {
+                var id = item.id;
+                var name = item.nickname;
+
+                map[name] = {
+                    id: id,
+                    name: name
+                };
+                items.push(name);
+            });
+
+            response(items);
+        }
+
+        function fetchTrader(data, response) {
+            items = [];
+            map = {};
+            $.each(data, function (i, item) {
+                var id = item.id;
+                var name = item.nome;
+
+                map[name] = {
+                    id: id,
+                    name: name
+                };
+                items.push(name);
+            });
+
+            response(items);
+        }
 
         function fetchList(data, response) {
             items = [];
@@ -97,14 +132,18 @@
             response(items);
         }
 
-        function callAjax(request, response, url) {
+        function callAjax(request, response, url, fnSuccess) {
              $.ajax({
                 url: url,
                 type: "GET",
                 contentType: "json",
                 data: { "name": request },                        
                 success: function(data) {
-                    fetchList(data, response);                            
+                    if (fnSuccess !== undefined)
+                        fnSuccess(data, response)                        
+                    else
+                        fetchList(data, response);
+                                    
                 },
                 error: function(response) {
                     alert("Erro:" + response.responseText);
@@ -116,7 +155,20 @@
             });
         }
 
+        
+
         $(function (){
+
+            $("#contratoMestre").typeahead({
+                minLength: 2,
+                source: function (request, response) {
+                   callAjax(request, response, "/Contratos/ContratoVendaMI/GetMasterList", fetchMasterContract)
+                },            
+                updater: function(item) {
+                    $("#contratoMestreId").val(map[item].id);
+                    return item;
+                }
+            }); 
 
             $("#clientGroup").typeahead({
                 minLength: 2,
@@ -152,44 +204,15 @@
             });
 
             $("#trader").typeahead({
-                minLength: 2,
+                 minLength: 2,
                 source: function (request, response) {
-                    
-                    $.ajax({
-                        url: "/Contratos/ContratoVenda/GetTraderList",
-                        type: "GET",
-                        contentType: "json",
-                        data: { "name": request },                        
-                        success: function(data) {
-                            items = [];
-                            map = {};
-                            $.each(data, function (i, item) {
-                                var id = item.id;
-                                var name = item.nome;
-
-                                map[name] = {
-                                    id: id,
-                                    name: name
-                                };
-                                items.push(name);
-                            });   
-
-                            response(items);                      
-                        },
-                        error: function(response) {
-                            alert("Erro:" + response.responseText);
-                        },
-
-                        failure: function(response) {
-                            alert("Failure:" + response.responseText);
-                        }
-                    });          
+                    callAjax(request, response, "/Contratos/ContratoVendaMI/GetTraderList", fetchTrader)                   
                 },            
                 updater: function(item) {
                     $("#traderId").val(map[item].id);
                     return item;
                 }
-            });
+            });            
         });
     </script>
 }

@@ -77,7 +77,7 @@ namespace Dominio.Entidades.Contrato
         public virtual Nullable<MailStatus> MailStatus { get; set; }
 
         public long? CreationUserId { get; set; }
-        public virtual Usuario CreationUser { get; set; } = null!;
+        public virtual Usuario CreationUser{ get; set; } = null!;
 
         public long? EditorId { get; set; }
         public virtual Usuario Editor { get; set; } = null!;
@@ -107,6 +107,12 @@ namespace Dominio.Entidades.Contrato
         public ContratoVenda()
         {
             ContractVersion = 1;
+            Quotas = new List<SaleContractQuota>();
+            PricingRules = new List<SaleContractPricingRule>();
+            PricingPeriods = new List<SaleContractPricingPeriod>();
+
+            Begin = DateTime.Now;
+            End = DateTime.Now.AddDays(30);        
         }
 
         public override string ToString()
