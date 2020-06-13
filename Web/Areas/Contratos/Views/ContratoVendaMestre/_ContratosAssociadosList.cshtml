@@ -1,0 +1,47 @@
+@model Sicle.Web.Models.PaginatedList<Dominio.Entidades.Contrato.ContratoVenda>
+@using Sicle.Web.Areas.Contratos.Models
+
+<div class="row">
+    <div class="col-md-12">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Farol</th>
+                    <th>
+                        <a asp-action="Details"                           
+                           asp-route-sortOrder="@ViewData["IdSortParm"]">Id</a>
+                    </th>
+                    <th>Farol Endosso</th>
+                    <th>Endosso</th>
+                    <th>
+                        <a asp-action="Details"
+                           asp-route-sortOrder="@ViewData["NomeSortParm"]">Nome</a>
+                    </th>
+                    @* <th>Apelido</th> *@
+                    <th>Grupo Produto</th>
+                    <th>Cliente</th>
+                    <th>Início</th>
+                    <th>Fim</th>
+                    @* <th>Flexibilidade</th> *@
+                    <th>Status</th>
+                    <th>Vol. Total</th>
+                    <th>Periodicidade</th>
+                    @* <th>Grp. Econ.</th> *@
+                    @* <th>Cond. Pag.</th> *@
+                    <th>Disp. Broker</th>
+                    <th>Ativo</th>
+                    <th>Com Limite</th>
+                    <th>Limite</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    var vm = new ContratoVendaModel(item);
+
+                    <partial name="_ContratoAssociadoRow.cshtml" model="@vm"></partial>  
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

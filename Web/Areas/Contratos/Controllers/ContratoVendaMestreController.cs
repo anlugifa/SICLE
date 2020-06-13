@@ -41,24 +41,26 @@ namespace Sicle.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Details(long id, string sortOrder, int? pageNumber)
+        public async Task<IActionResult> Details(DetailsContratoVendaMestreFilter filter)//long id, string sortOrder, int? pageNumber)
         {
-            var contrato = _repo.AsQueryable().Include(p => p.Contratos).FirstOrDefault(p => p.Id == id);
+            var contrato = _repo.AsQueryable().Include(p => p.Contratos).FirstOrDefault(p => p.Id == filter.Id);
 
             if (contrato == null)
                 throw new ArgumentException("Id {0} de ContratoVendaMestre não encontrado.");
 
             var contratos = _repoContract.AsQueryable()
-                                .Include(p => p.ProductGroup)
+                                .Include(p => p.ProductGroup)  
                                 .Include(p => p.ClientGroup)
                                 .Include(p => p.PaymentTerm)
-                                .Where(x => x.ContratoMestreId == id)
-                                .OrderByDescending(x => x.Id);          
+                                .Where(x => x.ContratoMestreId == filter.Id);      
 
-            var model = DetailsContratoVendaMestreVM.CreateAsync(contrato, 
-                                contratos.AsNoTracking(), pageNumber ?? 1);
+            filter.SetViewData(ViewData);
+            contratos = filter.DoFilter(contratos);   
 
-            return View("Details", await model);
+            var model = await DetailsContratoVendaMestreVM.CreateAsync(contrato, 
+                                contratos.AsNoTracking(), filter.PageNumber ?? 1);
+
+            return View("Details", model);
         }
 
         [HttpGet]
