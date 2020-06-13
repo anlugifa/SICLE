@@ -55,6 +55,8 @@ namespace Sicle.Dados.Context.Config.Contratos
                             .HasConversion(ColumnConverter.PeriodTypeConverter());
                 t.Property(p => p.EndorsementStatus).HasColumnName("ST_STATUS_ENDOSSO")
                             .HasConversion(ColumnConverter.EndorsementStatusConverter());
+                t.Property(p => p.MailStatus).HasColumnName("DS_EMAIL_STATUS")
+                            .HasConversion(ColumnConverter.MailStatusConverter());
                 
                 t.Property(p => p.CreationUserId).HasColumnName("CD_USUARIO_CRIACAO");
                 t.Property(p => p.EditorId).HasColumnName("CD_USUARIO_EDICAO");

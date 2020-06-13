@@ -11,25 +11,28 @@ namespace Sicle.Web.Areas.Contratos.Models
 
         public string Farol { get; set; }
         public string MaskId { get; set; }
-        public string Nome { get; set; }
-        public string FarolEndosso { get; set; }
-        public string StatusEndosso { get; set; }
-        public string Apelido { get; set; }
-        public string GrupoProduto { get; set; }   
-        public string GrupoCliente { get; set; }
-        public string Inicio { get; set; }
-        public string Fim { get; set; }
-        public string Flexibilidade { get; set; }
+        public string Name { get; set; }
+        public string FarolEndorsement { get; set; }
+        public string StatusEndorsement { get; set; }
+        public string Nickname { get; set; }
+        public string ProductGroup { get; set; }   
+        public string ClientGroup { get; set; }
+        public string Begin { get; set; }
+        public string End { get; set; }
+        public string Flex { get; set; }
         public string Status { get; set; }
-        public string Observacao { get; set; }
+        public string Observation { get; set; }
         public string TotalVolume { get; set; }
-        public string Periodicidade { get; set; }
-        public string GrupoEconomico { get; set; }
-        public string PrazoPagamento { get; set; }
-        public bool IsDisponivelBroker { get; set; }
-        public bool IsAtivo { get; set; }
-        public bool IsPrevisao { get; set; }
-        public string PrevisaoMax { get; set; }
+        public string Period { get; set; }
+        public string EconomicGroup { get; set; }
+        public string PaymentTerm { get; set; }
+        public bool IsAvailableForBroker { get; set; }
+        public bool IsActive { get; set; }
+        public bool IsForecast { get; set; }
+        public bool IsNegotiationBC { get; set; }
+        public string MaxForecast { get; set; }
+        public string EmailStatus { get; set; }
+        public string MasterContract { get; set; }
 
         
         
@@ -46,26 +49,30 @@ namespace Sicle.Web.Areas.Contratos.Models
             
             Farol = getFarolIcon(Contrato.Status);
             MaskId =  Contrato.ToString();
-            Nome = Contrato.Name;
-            FarolEndosso = ResourceMap.GetEndorsementIcon(Contrato.EndorsementStatus);
-            StatusEndosso = Contrato.EndorsementStatus.GetEnumDescription();
-            Apelido = Contrato.Nickname;
-            GrupoProduto = Contrato.ProductGroup.Code;
-            GrupoCliente = Contrato.ClientGroup.Code;
-            Inicio = Contrato.Begin.ToStr();
-            Fim = Contrato.End.ToStr();
-            Flexibilidade = Contrato.Flexibility.ToStr();
+            Name = Contrato.Name;
+            FarolEndorsement = ResourceMap.GetEndorsementIcon(Contrato.EndorsementStatus);
+            StatusEndorsement = Contrato.EndorsementStatus.GetEnumDescription();
+            Nickname = Contrato.Nickname;
+            ProductGroup = Contrato.ProductGroup.Code;
+            ClientGroup = Contrato.ClientGroup.Code;
+            Begin = Contrato.Begin.ToStr();
+            End = Contrato.End.ToStr();
+            Flex = Contrato.Flexibility.ToStr();
             Status = Contrato.Status.GetEnumDescription();
-            Observacao = Contrato.Observation;
+            Observation = Contrato.Observation;
             TotalVolume = Contrato.TotalVolume.ToStr();
-            Periodicidade = Contrato.Period.HasValue? Contrato.Period.GetEnumDescription() : "";
-            GrupoEconomico = Contrato.EconomicGroup;
-            PrazoPagamento = Contrato.PaymentTerm != null ? Contrato.PaymentTerm.Code : "";
-            PrevisaoMax = Contrato.MaxForecast.ToStr();
+            Period = Contrato.Period.HasValue? Contrato.Period.GetEnumDescription() : "";
+            EconomicGroup = Contrato.EconomicGroup;
+            PaymentTerm = Contrato.PaymentTerm != null ? Contrato.PaymentTerm.Code : "";
+            MaxForecast = Contrato.MaxForecast.ToStr();
 
-            IsDisponivelBroker = Contrato.IsAvailableForBroker;
-            IsAtivo = Contrato.IsActive;
-            IsPrevisao = Contrato.HasForecast;
+            IsAvailableForBroker = Contrato.IsAvailableForBroker;
+            IsActive = Contrato.IsActive;
+            IsForecast = Contrato.HasForecast;
+            IsNegotiationBC = Contrato.HasNegotiationBC;
+            EmailStatus = ResourceMap.GetMailIcon(Contrato.MailStatus);
+
+            MasterContract = Contrato.ContratoMestre == null ? String.Empty : Contrato.ContratoMestre.ToString();
         }
 
         public string getFarolIcon(ContractStatus status) 

@@ -178,5 +178,13 @@ namespace Sicle.Dados.Context.Config
                 v => (PricingAdjustReferenceType)Enum.Parse(typeof(PricingAdjustReferenceType), v)
             );
         }
+
+        public static ValueConverter MailStatusConverter()
+        {
+            return new ValueConverter<Nullable<MailStatus>, String>(
+                v => v.ToString(),
+                v => (MailStatus)Enum.Parse(typeof(MailStatus), v)
+            );
+        }
     }
 }

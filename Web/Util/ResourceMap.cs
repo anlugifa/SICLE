@@ -49,5 +49,21 @@ namespace Sicle.Web.Util
             }
         }
 
+        public static String GetMailIcon(MailStatus? status)
+        {
+            switch (status)
+            {
+                case MailStatus.SENT:
+                    return CIRCLE_GREEN;
+                case MailStatus.ERROR:
+                    return CIRCLE_RED;
+                case MailStatus.NOT_SENT: 
+                    return CIRCLE_YELLOW;
+                case MailStatus.NONE:                    
+                default:
+                    return DASH;
+            }
+        }
+
     }
 }

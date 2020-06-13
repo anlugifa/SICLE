@@ -71,6 +71,7 @@ namespace Sicle.Business.Contratos
         public IQueryable<ContratoVenda> Query()
         {
             return AsQueryable()
+                    .Include(p => p.ContratoMestre)
                     .Include(p => p.PaymentTerm)
                     .Include(p => p.ClientGroup)
                     .Include(p => p.ProductGroup);

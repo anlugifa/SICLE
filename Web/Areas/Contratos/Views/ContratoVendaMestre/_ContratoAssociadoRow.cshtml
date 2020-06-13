@@ -5,26 +5,26 @@
 <tr>
     <td><img src="@Model.Farol"/></td>
     <td>@Model.MaskId</td>
-    <td><img src="@Model.FarolEndosso"/></td>
-    <td>@Model.StatusEndosso</td>
-    <td>@Model.Nome</td>
+    <td><img src="@Model.FarolEndorsement"/></td>
+    <td>@Model.StatusEndorsement</td>
+    <td>@Model.Name</td>
     @* <td>@Model.Apelido</td> *@
-    <td>@Model.GrupoProduto</td>
-    <td>@Model.GrupoCliente</td>
-    <td>@Model.Inicio</td>
-    <td>@Model.Fim</td>
+    <td>@Model.ProductGroup</td>
+    <td>@Model.ClientGroup</td>
+    <td>@Model.Begin</td>
+    <td>@Model.End</td>
     @* <td>@vm.Flexibilidade</td> *@
     <td>@Model.Status</td>
     <td>@Model.TotalVolume</td>
-    <td>@Model.Periodicidade</td>
+    <td>@Model.Period</td>
     @* <td>@vm.GrupoEconomico</td> *@
     @* <td>@vm.PrazoPagamento</td> *@
     
-    <td>@Html.CheckBoxFor(modelItem => Model.IsDisponivelBroker, new { disabled = "disabled" })</td>
-    <td>@Html.CheckBoxFor(modelItem => Model.IsAtivo, new { disabled = "disabled" })</td>
-    <td>@Html.CheckBoxFor(modelItem => Model.IsPrevisao, new { disabled = "disabled" })</td>
+    <td>@Html.CheckBoxFor(modelItem => Model.IsAvailableForBroker, new { disabled = "disabled" })</td>
+    <td>@Html.CheckBoxFor(modelItem => Model.IsActive, new { disabled = "disabled" })</td>
+    <td>@Html.CheckBoxFor(modelItem => Model.IsForecast, new { disabled = "disabled" })</td>
     
-    <td>@Model.PrevisaoMax</td>
+    <td>@Model.MaxForecast</td>
 
     <td>
         @Html.ActionLink("Editar", "Editar", "ContratoVendaMI", new {id=@Model.Contrato.Id})

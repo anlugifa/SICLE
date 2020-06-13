@@ -69,11 +69,12 @@ namespace Dominio.Entidades.Contrato
         public double? MaxForecast { get; set; }
         public Boolean HasForecast { get; set; }
         public Boolean HasNegotiationBC { get; set; }
-        public Boolean IsOperacaoNNE { get; set; }  
+        public Boolean IsOperacaoNNE { get; set; }
 
         public virtual ContractStatus Status { get; set; }
         public virtual Nullable<PeriodType> Period { get; set; }
         public virtual EndorsementStatus EndorsementStatus { get; set; }
+        public virtual Nullable<MailStatus> MailStatus { get; set; }
 
         public long? CreationUserId { get; set; }
         public virtual Usuario CreationUser { get; set; } = null!;
