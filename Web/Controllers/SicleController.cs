@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Http;
 using Sicle.Web.Util;
 using Dominio.Entidades.Acesso;
 using Sicle.Business.Admin;
-using Sicle.Logs.Util;
+using Sicle.Logs.Utils;
 
 namespace Sicle.Web.Controllers
 {

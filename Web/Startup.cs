@@ -124,7 +124,7 @@ namespace Web
         private void ConfigureSession(IApplicationBuilder app)
         {
             app.UseSession();
-            Sicle.Logs.Util.SessionVariables.Configure(app.ApplicationServices.GetRequiredService<IHttpContextAccessor>());
+            Sicle.Logs.Utils.SessionVariables.Configure(app.ApplicationServices.GetRequiredService<IHttpContextAccessor>());
         }
 
         private void ConfigureRoutes(IApplicationBuilder app)

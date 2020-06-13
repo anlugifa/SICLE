@@ -4,7 +4,7 @@ using Dados.Repository.Base;
 using Dominio.Entidades;
 using System.Linq;
 using Dominio.Entidades.Infra;
-using Sicle.Logs.Util;
+using Sicle.Logs.Utils;
 
 namespace Sicle.Business.Admin
 {

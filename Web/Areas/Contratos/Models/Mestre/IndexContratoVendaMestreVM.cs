@@ -14,6 +14,8 @@ namespace Sicle.Web.Areas.Contratos.Models
 {
     public class IndexContratoVendaMestreVM : PaginatedList<ContratoVendaMestre>
     {
+        public IndexContratoVendaMestreFilter Filter { get; set; }
+
         public IEnumerable<SelectListItem> ListStatus {
             get {
                 return EnumHelper.GetSelectList<ContractStatus>();
@@ -46,10 +48,11 @@ namespace Sicle.Web.Areas.Contratos.Models
             var buss = new Sicle.Business.Contratos.ContratoMestreVendaBus();
             var status = buss.GetMestreStatus(mestre);
 
-            FinalRowResult(model, status.Status, status.EndorsementStatus, status.MinDate, status.MaxDate, status.TotalVolume, status.MaxVolume);
+            FinalRowResult(mestre, model, status.Status, status.EndorsementStatus, status.MinDate, status.MaxDate, status.TotalVolume, status.MaxVolume);
         }
 
-        private void FinalRowResult(ContratoVendaMestreModel model,
+        private void FinalRowResult(ContratoVendaMestre mestre,
+                    ContratoVendaMestreModel model,
                     ContractStatus? status,
                     EndorsementStatus? endorsementStatus,
                     DateTime? minDate,
@@ -61,6 +64,7 @@ namespace Sicle.Web.Areas.Contratos.Models
             model.Farol = GetFarol(status);
             model.EndorsementIcon = GetEndorsementIcon(endorsementStatus);
 
+            model.Nickname = mestre.Nickname;
             model.StatusMestre = status.HasValue ? status.GetEnumDescription() : "";
             model.EndossoMestre = endorsementStatus.HasValue ? endorsementStatus.GetEnumDescription() : "";
             model.MinDate = minDate.HasValue ? minDate.Value.ToString("dd/mm/yyyy") : String.Empty;

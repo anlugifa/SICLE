@@ -18,8 +18,8 @@ namespace Sicle.Web.Areas.Contratos.Models
         public long? ClientGroupId { get; set; }
         public DateTime? Begin { get; set; }
         public DateTime? End { get; set; }
-        public string SortOrder { get; set; }
 
+        public string SortOrder { get; set; }
         public string IdSortParm { get; set; }
         public string NomeSortParm { get; set; }
 
@@ -83,7 +83,6 @@ namespace Sicle.Web.Areas.Contratos.Models
                 this.ProductGroupId = actualFilter.ProductGroupId;
                 this.Begin = actualFilter.Begin;
                 this.End = actualFilter.End; 
-                this.CurrentFilter = CurrentFilter;
             }
         }
 

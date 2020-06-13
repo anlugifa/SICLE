@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Http;
 
-namespace Sicle.Logs.Util
+namespace Sicle.Logs.Utils
 {
     public static class SessionVariables
     {

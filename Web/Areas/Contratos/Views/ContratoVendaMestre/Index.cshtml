@@ -44,7 +44,7 @@
                     <label for="ex1" class="col-form-label">Apelido:</label>
                 </div>
                 <div class="col-sm-3">
-                    <input type="text" name="SearchString" class="form-control" value='@ViewData["currentFilter"]' />
+                    <input type="text" name="SearchNickname" class="form-control" value='@ViewData["SearchNickname"]' />
                 </div>
 
 
@@ -54,7 +54,7 @@
                 <div class="col-sm-3">
 
                     <select class="form-control" data-val="false" id="ddlStatus" name="status"  
-                            asp-items='@(new SelectList(Model.ListStatus, "Value", "Text", ViewData["CurrentStatus"]))'>
+                            asp-items='@(new SelectList(Model.ListStatus, "Value", "Text", @ViewData["SearchStatus"]))'>
                         <option value="">Selecione</option>
                     </select>
 
