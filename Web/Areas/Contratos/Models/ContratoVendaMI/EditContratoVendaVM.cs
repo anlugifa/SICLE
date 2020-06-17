@@ -15,19 +15,17 @@ namespace Sicle.Web.Areas.Contratos.Models
 {
     public class EditContratoVendaVM
     {
-        public long ContratoVendaId { get; set; }
-        public long ContratoMestreId { get; set; }
-        public ContratoVenda Contrato { get; set; }
-
+        public SaleContract Contrato { get; set; }
 
         public IEnumerable<ProductGroup> ProductGroups { get; set; }
-        public IEnumerable<SaleContractQuota> Quotas { get; set; }
 
-        public EditContratoVendaVM(ContratoVenda contrato)
+        public EditContratoVendaVM()
         {
-            this.Contrato = contrato;
-            this.ContratoVendaId = contrato.Id;
-            this.ContratoMestreId = contrato.ContratoMestreId ?? 0;
+        }
+
+        public EditContratoVendaVM(SaleContract contrato)
+        {
+            this.Contrato = contrato;            
         }
     }
 }

@@ -7,9 +7,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Sicle.Business.Contratos
 {
-    public class ContratoVendaBus : SicleBusiness<ContratoVenda>
+    public class ContratoVendaBus : SicleBusiness<SaleContract>
     {
-         public override ContratoVenda MergeFromDB(ContratoVenda localCopy)
+         public override SaleContract MergeFromDB(SaleContract localCopy)
         {
             var objFromDB = Get(localCopy.Id);
 
@@ -17,14 +17,14 @@ namespace Sicle.Business.Contratos
                 throw new ArgumentException("ERRO: ID " + localCopy.Id +
                     " NOT FOUND FOR ENTITY: ContratoVenda");
 
+            objFromDB.Name = localCopy.Name;
             objFromDB.Nickname = localCopy.Nickname;
-            objFromDB.ContratoVendaAnteriorId = localCopy.ContratoVendaAnteriorId;
+            //objFromDB.ContratoVendaAnteriorId = localCopy.ContratoVendaAnteriorId;
             objFromDB.ContratoMestreId = localCopy.ContratoMestreId;                      
 
             objFromDB.Begin = localCopy.Begin;
             objFromDB.End = localCopy.End;
-            objFromDB.Flexibility = localCopy.Flexibility;
-            objFromDB.TotalVolume = localCopy.TotalVolume;
+            
             objFromDB.EconomicGroup = localCopy.EconomicGroup;
             objFromDB.Observation = localCopy.Observation;
 
@@ -34,7 +34,10 @@ namespace Sicle.Business.Contratos
             objFromDB.IsActive = localCopy.IsActive;
 
             objFromDB.Safra = localCopy.Safra;
-            objFromDB.Reason = localCopy.Reason;
+
+            //objFromDB.Flexibility = localCopy.Flexibility;
+            //objFromDB.TotalVolume = localCopy.TotalVolume;
+            //objFromDB.Reason = localCopy.Reason;
 
             objFromDB.CreationDate = localCopy.CreationDate;
             objFromDB.DateOfApproval = localCopy.DateOfApproval;
@@ -43,20 +46,20 @@ namespace Sicle.Business.Contratos
 
             objFromDB.Approver = localCopy.Approver;
             objFromDB.TradingApprover = localCopy.TradingApprover;
-            objFromDB.FinancesApprover = localCopy.FinancesApprover;
+            //objFromDB.FinancesApprover = localCopy.FinancesApprover;
             objFromDB.ContractVersion = localCopy.ContractVersion;
 
-            objFromDB.MaxForecast = localCopy.MaxForecast;
-            objFromDB.HasForecast = localCopy.HasForecast;
+            //objFromDB.MaxForecast = localCopy.MaxForecast;
+            //objFromDB.HasForecast = localCopy.HasForecast;
             objFromDB.HasNegotiationBC = localCopy.HasNegotiationBC;
             objFromDB.IsOperacaoNNE = localCopy.IsOperacaoNNE;
 
-            objFromDB.Status = localCopy.Status;
+            //objFromDB.Status = localCopy.Status;
             objFromDB.Period = localCopy.Period;
             objFromDB.EndorsementStatus = localCopy.EndorsementStatus;
 
             objFromDB.CreationUserId = localCopy.CreationUserId;
-            objFromDB.EditorId = localCopy.EditorId;
+            //objFromDB.EditorId = localCopy.EditorId;
             objFromDB.TraderId = localCopy.TraderId;
             objFromDB.BrokerId = localCopy.BrokerId;
 
@@ -68,7 +71,7 @@ namespace Sicle.Business.Contratos
             return objFromDB;
         } 
 
-        public IQueryable<ContratoVenda> Query()
+        public IQueryable<SaleContract> Query()
         {
             return AsQueryable()
                     .Include(p => p.ContratoMestre)

@@ -36,7 +36,7 @@ namespace Dominio.Entidades.Contrato
         public PricingAdjustReferenceType? AdjustReferenceType { get; set; }
 
         public long ContratoVendaId { get; set; }
-        public ContratoVenda ContratoVenda { get; set; }
+        public SaleContract ContratoVenda { get; set; }
 
         public String EsalqDescriptionId { get; set; }
         public EsalqDescription EsalqDescription { get; set; }        

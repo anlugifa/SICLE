@@ -51,7 +51,7 @@ namespace Sicle.Web.Areas.Contratos.Models
             
         }        
 
-        public ContratoVendaMestreModel(ContratoVendaMestre mestre)
+        public ContratoVendaMestreModel(MasterSaleContract mestre)
         {
             this.Id = mestre.Id;
             this.SicleId = mestre.ToString();
@@ -65,9 +65,9 @@ namespace Sicle.Web.Areas.Contratos.Models
             this.CreationUser = mestre.CreationUser;    
         }
 
-        public static implicit operator ContratoVendaMestre(ContratoVendaMestreModel c)
+        public static implicit operator MasterSaleContract(ContratoVendaMestreModel c)
         {
-            return new ContratoVendaMestre()
+            return new MasterSaleContract()
             {
                 Id = c.Id,
                 Nickname = c.Nickname,

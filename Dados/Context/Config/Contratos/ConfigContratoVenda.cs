@@ -7,11 +7,11 @@ using System.Text;
 
 namespace Sicle.Dados.Context.Config.Contratos
 {
-    public class ConfigContratoVenda
+    public class ConfigSaleContract
     {
         internal static void Config(ModelBuilder model)
         {
-            model.Entity<ContratoVenda>(t =>
+            model.Entity<SaleContract>(t =>
             {
                 t.ToTable("TB_CONTRATOS_VENDA");
                 t.HasKey(p => p.Id);
@@ -20,7 +20,14 @@ namespace Sicle.Dados.Context.Config.Contratos
                                     .ValueGeneratedOnAdd()
                                     .ForOracleUseSequenceHiLo("SEQ_CONTRATOS_VENDAS");
 
-                t.Property(p => p.ContratoVendaAnteriorId).HasColumnName("CD_CONTRATO_VENDA_ANTERIOR");
+
+                t.HasDiscriminator(x => x.InstanceType)                
+                    .HasValue<ApprovalSaleContract>("Approval")
+                    .HasValue<EvaluatedSaleContract>("Evaluated");
+
+                t.Property(p => p.InstanceType).HasColumnName("INSTANCE_TYPE");         
+
+                // t.Property(p => p.ContratoVendaAnteriorId).HasColumnName("CD_CONTRATO_VENDA_ANTERIOR");
                 t.Property(p => p.Nickname).HasColumnName("DS_APELIDO");
                 t.Property(p => p.Name).HasColumnName("NM_CONTRATO");
                 t.Property(p => p.Begin).HasColumnName("DT_INICIO");
@@ -73,42 +80,42 @@ namespace Sicle.Dados.Context.Config.Contratos
                 t.Property(p => p.ContratoMestreId).HasColumnName("CD_SEQ_CONTRATO_MESTRE");
             });
 
-            model.Entity<ContratoVenda>()
+            model.Entity<SaleContract>()
                         .HasOne(b => b.CreationUser)
                         .WithMany()
                         .HasForeignKey(f => f.CreationUserId);
 
-            model.Entity<ContratoVenda>()
+            model.Entity<SaleContract>()
                         .HasOne(b => b.Editor)
                         .WithMany()
                         .HasForeignKey(f => f.EditorId);
 
-            model.Entity<ContratoVenda>()
+            model.Entity<SaleContract>()
                         .HasOne(b => b.Trader)
                         .WithMany()
                         .HasForeignKey(f => f.TraderId);
 
-            model.Entity<ContratoVenda>()
+            model.Entity<SaleContract>()
                         .HasOne(b => b.Broker)
                         .WithMany()
                         .HasForeignKey(f => f.BrokerId);
 
-            model.Entity<ContratoVenda>()
+            model.Entity<SaleContract>()
                         .HasOne(b => b.ProductGroup)
                         .WithMany()
                         .HasForeignKey(f => f.ProductGroupId);       
 
-            model.Entity<ContratoVenda>()
+            model.Entity<SaleContract>()
                         .HasOne(b => b.ClientGroup)
                         .WithMany()
                         .HasForeignKey(f => f.ClientGroupId);       
 
-                model.Entity<ContratoVenda>()
+                model.Entity<SaleContract>()
                         .HasOne(b => b.PaymentTerm)
                         .WithMany()
                         .HasForeignKey(f => f.PaymentTermId);           
 
-            model.Entity<ContratoVenda>()
+            model.Entity<SaleContract>()
                         .HasOne(b => b.ContratoMestre)
                         .WithMany(b => b.Contratos)
                         .HasForeignKey(f => f.ContratoMestreId);

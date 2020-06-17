@@ -32,7 +32,7 @@ namespace Sicle.Web.Areas.Contratos.Models
         }
 
        
-        public IQueryable<ContratoVenda> DoFilter(IQueryable<ContratoVenda> query)
+        public IQueryable<SaleContract> DoFilter(IQueryable<SaleContract> query)
         {
             query = Sort(query);
 
@@ -41,7 +41,7 @@ namespace Sicle.Web.Areas.Contratos.Models
             return query;
         }       
 
-        internal IQueryable<ContratoVenda> Sort(IQueryable<ContratoVenda> query)
+        internal IQueryable<SaleContract> Sort(IQueryable<SaleContract> query)
         {
             switch (SortOrder)
             {

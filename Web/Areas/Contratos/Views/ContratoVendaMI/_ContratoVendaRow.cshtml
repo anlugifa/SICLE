@@ -1,10 +1,10 @@
-@model ContratoVendaModel
+@model ContratoVendaRow
 @using Sicle.Web.Areas.Contratos.Models
 
 
 <tr>
     <td>
-        @Html.ActionLink("Editar", "Editar", "ContratoVendaMI", new {id=@Model.Contrato.Id})
+        <a href="@Url.Action("Edit", "ContratoVendaMI", new {Area = "Contratos", id=@Model.Contrato.Id})" class="btn btn-sm fas fa-pencil-alt"></a>
     </td>
     <td><img src="@Model.Farol"/></td>
     <td>@Model.MaskId</td>
@@ -31,8 +31,6 @@
     
     <td>@Model.MasterContract</td>
     <td>@Html.CheckBoxFor(modelItem => Model.IsNegotiationBC, new { disabled = "disabled" })</td>   
-    <td><img src="@Model.EmailStatus"/></td>
-
-   
+    <td><img src="@Model.EmailStatus"/></td>  
     
 </tr>

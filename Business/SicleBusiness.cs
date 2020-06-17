@@ -182,5 +182,10 @@ namespace Sicle.Business
         {
             return new BaseRepository<TEntity>().GetAllAsync();
         }
+
+        public virtual IEnumerable<TEntity> GetAll()
+        {
+            return new BaseRepository<TEntity>().GetAll();
+        }
     }
 }

@@ -71,8 +71,11 @@ namespace Dados
 
             //contratos
             ConfigBroker.Config(model);
-            ConfigContratoVendaMestre.Config(model);
-            ConfigContratoVenda.Config(model);
+            ConfigMasterSaleContract.Config(model);
+
+            ConfigEvaluatedContract.Config(model);
+            ConfigApprovalContract.Config(model);
+            ConfigSaleContract.Config(model);
             ConfigPaymentTerm.Config(model);
             ConfigProductGroup.Config(model);
 
@@ -116,8 +119,10 @@ namespace Dados
         public DbSet<AssociacaoUsuarioPerfil> AssociacaoUsuarioPerfis { get; set; }
         public DbSet<AssociacaoUsuarioPerfilVenda> AssociacaoUsuarioPerfilVendas { get; set; }
 
-        public DbSet<ContratoVendaMestre> ContratosVendasMestres { get; set; }
-        public DbSet<ContratoVenda> ContratosVendas { get; set; }
+        public DbSet<MasterSaleContract> ContratosVendasMestres { get; set; }
+        public DbSet<SaleContract> ContratosVendas { get; set; }
+        public DbSet<ApprovalSaleContract> ApprovalSaleContracts { get; set; }
+        public DbSet<EvaluatedSaleContract> EvaluatedSaleContracts { get; set; }
 
         public DbSet<Broker> Brokers { get; set; }
         public DbSet<PaymentTerm> PaymentTerms { get; set; }

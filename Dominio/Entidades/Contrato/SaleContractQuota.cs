@@ -20,7 +20,7 @@ namespace Dominio.Entidades.Contrato
         public SaleType Type { get; set; }
 
         public long? ContratoId { get; set; }
-        public ContratoVenda Contrato { get; set; } = null!;
+        public SaleContract Contrato { get; set; } = null!;
         
         public int? OrigemId { get; set; }       
         public Regiao Origem { get; set; }  = null!;

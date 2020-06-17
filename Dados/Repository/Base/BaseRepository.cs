@@ -52,6 +52,14 @@ namespace Dados.Repository.Base
             return list;
         }
 
+        public virtual List<TEntity> GetAll()
+        {
+            var list = _context.Set<TEntity>().ToList();
+
+            return list;
+        }
+
+
         public virtual IQueryable<TEntity> AsQueryable()
         {
             return _context.Set<TEntity>().AsQueryable<TEntity>();

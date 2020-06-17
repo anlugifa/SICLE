@@ -17,12 +17,12 @@ namespace Sicle.Web.Controllers
     [Area("Contratos")]
     public class ContratoVendaMestreController : SicleController
     {
-        private readonly ContratoVendaMestreBus _repo;
+        private readonly MasterSaleContractBus _repo;
         private readonly ContratoVendaBus _repoContract;
 
         public ContratoVendaMestreController() : base()
         {
-            _repo = new ContratoVendaMestreBus();
+            _repo = new MasterSaleContractBus();
             _repoContract = new ContratoVendaBus();
         }
 
@@ -108,7 +108,7 @@ namespace Sicle.Web.Controllers
         {
             if (ValidateModel())
             {
-                var contrato = (ContratoVendaMestre)model;
+                var contrato = (MasterSaleContract)model;
                 await _repo.SaveOrUpdate(contrato);
 
                 if (contrato.Id > 0) {
@@ -123,7 +123,7 @@ namespace Sicle.Web.Controllers
             return RedirectToAction("Edit", model.Id);
         }
 
-        internal ContratoVendaMestre LoadMestre(long id)
+        internal MasterSaleContract LoadMestre(long id)
         {
             return _repo.AsQueryable().Include(p => p.CreationUser).FirstOrDefault(p => p.Id == id);
         }

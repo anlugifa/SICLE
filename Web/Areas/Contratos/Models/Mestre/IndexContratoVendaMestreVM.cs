@@ -12,7 +12,7 @@ using Util;
 
 namespace Sicle.Web.Areas.Contratos.Models
 {
-    public class IndexContratoVendaMestreVM : PaginatedList<ContratoVendaMestre>
+    public class IndexContratoVendaMestreVM : PaginatedList<MasterSaleContract>
     {
         public IndexContratoVendaMestreFilter Filter { get; set; }
 
@@ -22,19 +22,19 @@ namespace Sicle.Web.Areas.Contratos.Models
             }
         }
 
-        public IndexContratoVendaMestreVM(List<ContratoVendaMestre> items,
+        public IndexContratoVendaMestreVM(List<MasterSaleContract> items,
             int count, int pageIndex, int pageSize) : base(items, count, pageIndex, pageSize)
         {
         }
 
-        public static new async Task<IndexContratoVendaMestreVM> CreateAsync(IQueryable<ContratoVendaMestre> source, int pageIndex)
+        public static new async Task<IndexContratoVendaMestreVM> CreateAsync(IQueryable<MasterSaleContract> source, int pageIndex)
         {
             var count = await source.CountAsync();
             var items = await source.Skip((pageIndex - 1) * _pageSize).Take(_pageSize).ToListAsync();
             return new IndexContratoVendaMestreVM(items, count, pageIndex, _pageSize);
         }
 
-        public ContratoVendaMestreModel ConvertModel(ContratoVendaMestre model)
+        public ContratoVendaMestreModel ConvertModel(MasterSaleContract model)
         {
             var viewmodel = new ContratoVendaMestreModel(model);
 
@@ -43,15 +43,15 @@ namespace Sicle.Web.Areas.Contratos.Models
             return viewmodel;
         }  
 
-        public void ConvertModel(ContratoVendaMestre mestre, ContratoVendaMestreModel model)
+        public void ConvertModel(MasterSaleContract mestre, ContratoVendaMestreModel model)
         {
-            var buss = new Sicle.Business.Contratos.ContratoMestreVendaBus();
+            var buss = new Sicle.Business.Contratos.MasterSaleContractBus();
             var status = buss.GetMestreStatus(mestre);
 
             FinalRowResult(mestre, model, status.Status, status.EndorsementStatus, status.MinDate, status.MaxDate, status.TotalVolume, status.MaxVolume);
         }
 
-        private void FinalRowResult(ContratoVendaMestre mestre,
+        private void FinalRowResult(MasterSaleContract mestre,
                     ContratoVendaMestreModel model,
                     ContractStatus? status,
                     EndorsementStatus? endorsementStatus,

@@ -1,4 +1,4 @@
-@model Sicle.Web.Models.PaginatedList<Dominio.Entidades.Contrato.ContratoVenda>
+@model Sicle.Web.Models.PaginatedList<Dominio.Entidades.Contrato.SaleContract>
 @using Sicle.Web.Areas.Contratos.Models
 
 <div class="row">
@@ -37,7 +37,7 @@
             <tbody>
                 @foreach (var item in Model)
                 {
-                    var vm = new ContratoVendaModel(item);
+                    var vm = new ContratoVendaRow(item);
 
                     <partial name="_ContratoAssociadoRow.cshtml" model="@vm"></partial>  
                 }

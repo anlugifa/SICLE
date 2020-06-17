@@ -1,4 +1,5 @@
-@model Sicle.Web.Areas.Contratos.Models.EditContratoVendaVM
+@* @model Sicle.Web.Areas.Contratos.Models.EditContratoVendaVM *@
+@model Dominio.Entidades.Contrato.SaleContract
 @using Dominio.Entidades.Contrato
 @using Util
 
@@ -37,6 +38,13 @@
     </div>
 </div>
 
+    <div class="form-group">
+        <div class="col-md-6">
+            <label class="col-md-6 control-label text-success">@Html.Raw(ViewBag.SuccessMsg)</label>
+            <label class="col-md-6 control-label text-danger">@Html.Raw(ViewBag.ErrorMsg)</label>
+        </div>
+    </div>
+
     <ul class="nav nav-tabs">
         <li class="nav-item">
             <a  href="#tab1" data-toggle="tab"  class="nav-link active">Contrato</a>
@@ -57,7 +65,7 @@
 
     <div class="tab-content ">
         <div class="tab-pane fade show active" id="tab1">              
-            <partial name="_ContratoVendaEdit.cshtml" model="Model"></partial>
+            <partial name="_ContratoVendaEdit.cshtml" model="@Model"></partial>
         </div>
         <div class="tab-pane fade" id="tab2">
             <partial name="_ContratoCotaList.cshtml" model="@Model.Quotas"></partial>           
@@ -66,7 +74,7 @@
             <h3>Volume (TODO)</h3>
         </div>
         <div class="tab-pane fade" id="tab4">
-            <partial name="_ContratoPricingList.cshtml" model="@Model.Contrato"></partial>           
+            <partial name="_ContratoPricingList.cshtml" model="@Model"></partial>           
         </div>   
         <div class="tab-pane fade" id="tab5">
             <h3>Justificativa</h3>
@@ -80,6 +88,15 @@
 
     <script>
 
+        function changeName(element)
+        {
+            var product  = $('#contractProductGroup option:selected').text();
+            var client  = $('#clientGroup').val();
+            var duration  = $('#contractDuration').val();
+            
+            if (!isEmptyOrBlank(product) && !isEmptyOrBlank(client) && !isEmptyOrBlank(duration))
+                $('#contractName').val( product +" - "+ client +" - "+ duration );
+        }
 
         function fetchMasterContract(data, response) {
             items = [];

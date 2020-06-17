@@ -13,10 +13,10 @@ using Sicle.Business.Contratos;
 
 namespace Sicle.Web.Areas.Contratos.Models
 {
-    public class DetailsContratoVendaMestreVM : PaginatedList<ContratoVenda>
+    public class DetailsContratoVendaMestreVM : PaginatedList<SaleContract>
     {
         public long ContratoMestreId { get; set; }
-        public ContratoVendaMestre ContratoMeste { get; set; }
+        public MasterSaleContract ContratoMeste { get; set; }
 
         public IEnumerable<SelectListItem> ListStatus
         {
@@ -26,7 +26,7 @@ namespace Sicle.Web.Areas.Contratos.Models
             }
         }        
 
-        public DetailsContratoVendaMestreVM(ContratoVendaMestre contrato, List<ContratoVenda> items,
+        public DetailsContratoVendaMestreVM(MasterSaleContract contrato, List<SaleContract> items,
             int count, int pageIndex, int pageSize) : base(items, count, pageIndex, pageSize)
         {
             this.ContratoMeste = contrato;
@@ -34,21 +34,21 @@ namespace Sicle.Web.Areas.Contratos.Models
         }
 
         public static async Task<DetailsContratoVendaMestreVM> 
-                CreateAsync(ContratoVendaMestre contrato, IQueryable<ContratoVenda> source, int pageIndex)
+                CreateAsync(MasterSaleContract contrato, IQueryable<SaleContract> source, int pageIndex)
         {
             var count = await source.CountAsync();
             var items = await source.Skip((pageIndex - 1) * _pageSize).Take(_pageSize).ToListAsync();
             return new DetailsContratoVendaMestreVM(contrato, items, count, pageIndex, _pageSize);
         }
 
-        public ContratoVendaModel ConvertoToViewModel(ContratoVenda model)
+        public ContratoVendaRow ConvertoToViewModel(SaleContract model)
         {
-            return new ContratoVendaModel(model);
+            return new ContratoVendaRow(model);
         }        
 
         public String GetTotalVolume()
         {
-            return new ContratoMestreVendaBus().GetTotalVolume(ContratoMeste).ToStr();
+            return new MasterSaleContractBus().GetTotalVolume(ContratoMeste).ToStr();
         }
     }
 }

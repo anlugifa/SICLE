@@ -49,10 +49,8 @@ namespace Sicle.Web.Areas.Contratos.Models
             return JsonSerializer.Deserialize<IndexContratoVendaFilter>(json);
         }
 
-        public IQueryable<ContratoVenda> DoFilter(IQueryable<ContratoVenda> query)
-        {         
-            Save();
-
+        public IQueryable<SaleContract> DoFilter(IQueryable<SaleContract> query)
+        {
             HandleOnSorting();
 
             query = QueryName(query);
@@ -64,6 +62,8 @@ namespace Sicle.Web.Areas.Contratos.Models
             query = QueryEnd(query);
 
             query = Sort(query);
+
+            Save();
 
             return query;
         }
@@ -86,7 +86,7 @@ namespace Sicle.Web.Areas.Contratos.Models
             }
         }
 
-        internal IQueryable<ContratoVenda> QueryName(IQueryable<ContratoVenda> query)
+        internal IQueryable<SaleContract> QueryName(IQueryable<SaleContract> query)
         {
             if (!String.IsNullOrEmpty(Name))
             {
@@ -96,7 +96,7 @@ namespace Sicle.Web.Areas.Contratos.Models
             return query;
         }
 
-        internal IQueryable<ContratoVenda> QueryNickname(IQueryable<ContratoVenda> query)
+        internal IQueryable<SaleContract> QueryNickname(IQueryable<SaleContract> query)
         {
             if (!String.IsNullOrEmpty(Nickname))
             {
@@ -106,7 +106,7 @@ namespace Sicle.Web.Areas.Contratos.Models
             return query;
         }
 
-        internal IQueryable<ContratoVenda> QueryStatus(IQueryable<ContratoVenda> query)
+        internal IQueryable<SaleContract> QueryStatus(IQueryable<SaleContract> query)
         {
             if (Status != null && Status > 0)
             {
@@ -116,7 +116,7 @@ namespace Sicle.Web.Areas.Contratos.Models
             return query;
         }
 
-        internal IQueryable<ContratoVenda> QueryProductGroup(IQueryable<ContratoVenda> query)
+        internal IQueryable<SaleContract> QueryProductGroup(IQueryable<SaleContract> query)
         {
             if (ProductGroupId.HasValue && ProductGroupId.Value > 0)
             {
@@ -126,7 +126,7 @@ namespace Sicle.Web.Areas.Contratos.Models
             return query;
         }
 
-        internal IQueryable<ContratoVenda> QueryClient(IQueryable<ContratoVenda> query)
+        internal IQueryable<SaleContract> QueryClient(IQueryable<SaleContract> query)
         {
             if (ClientGroupId.HasValue && ClientGroupId.Value > 0)
             {
@@ -136,7 +136,7 @@ namespace Sicle.Web.Areas.Contratos.Models
             return query;
         }
 
-        internal IQueryable<ContratoVenda> QueryBegin(IQueryable<ContratoVenda> query)
+        internal IQueryable<SaleContract> QueryBegin(IQueryable<SaleContract> query)
         {
             if (Begin != null)
             {
@@ -146,7 +146,7 @@ namespace Sicle.Web.Areas.Contratos.Models
             return query;
         }
 
-        internal IQueryable<ContratoVenda> QueryEnd(IQueryable<ContratoVenda> query)
+        internal IQueryable<SaleContract> QueryEnd(IQueryable<SaleContract> query)
         {
             if (End != null)
             {
@@ -156,7 +156,7 @@ namespace Sicle.Web.Areas.Contratos.Models
             return query;
         }
 
-        internal IQueryable<ContratoVenda> Sort(IQueryable<ContratoVenda> query)
+        internal IQueryable<SaleContract> Sort(IQueryable<SaleContract> query)
         {
             switch (SortOrder)
             {

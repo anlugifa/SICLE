@@ -7,11 +7,11 @@ using System.Text;
 
 namespace Sicle.Dados.Context.Config.Contratos
 {
-    public class ConfigContratoVendaMestre
+    public class ConfigMasterSaleContract
     {
         internal static void Config(ModelBuilder model)
         {            
-            model.Entity<ContratoVendaMestre>(t =>
+            model.Entity<MasterSaleContract>(t =>
             {
                 t.ToTable("TB_CONTRATOS_MESTRES_VENDA");
                 t.HasKey(p => p.Id);
@@ -28,12 +28,12 @@ namespace Sicle.Dados.Context.Config.Contratos
                 t.Property(p => p.CreationUserId).HasColumnName("CD_USUARIO_CRIACAO");
             });
 
-            model.Entity<ContratoVendaMestre>()
+            model.Entity<MasterSaleContract>()
                         .HasOne(b => b.CreationUser)
                         .WithMany(b => b.ContratosMestres)
                         .HasForeignKey(b => b.CreationUserId).OnDelete(DeleteBehavior.ClientSetNull);
 
-            model.Entity<ContratoVendaMestre>()
+            model.Entity<MasterSaleContract>()
                         .HasMany(b => b.Contratos)
                         .WithOne(b => b.ContratoMestre)
                         .HasForeignKey(b => b.ContratoMestreId)

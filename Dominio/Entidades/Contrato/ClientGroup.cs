@@ -17,5 +17,16 @@ namespace Dominio.Entidades.Contrato
         public String Email { get; set; } = null!;
 
         public ICollection<Client> Clientes { get; set; } = null!;
+
+        public override String ToString()
+        {
+            String first = Description.Substring(0, 1);
+            if (first.Equals("B")) 
+            {
+                return Description.Substring(1, Description.Length-1);			
+            }
+
+            return Description;
+	    }
     }
 }

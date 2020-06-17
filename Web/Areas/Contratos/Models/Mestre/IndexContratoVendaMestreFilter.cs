@@ -59,7 +59,7 @@ namespace Sicle.Web.Areas.Contratos.Models
             return JsonSerializer.Deserialize<CurrentFilter>(json);
         }
 
-        public IQueryable<ContratoVendaMestre> DoFilter(IQueryable<ContratoVendaMestre> query)
+        public IQueryable<MasterSaleContract> DoFilter(IQueryable<MasterSaleContract> query)
         {
             HandleOnSorting();
 
@@ -87,7 +87,7 @@ namespace Sicle.Web.Areas.Contratos.Models
         }
 
 
-        internal IQueryable<ContratoVendaMestre> QueryNickname(IQueryable<ContratoVendaMestre> query)
+        internal IQueryable<MasterSaleContract> QueryNickname(IQueryable<MasterSaleContract> query)
         {
             if (!String.IsNullOrEmpty(SearchNickname))
             {
@@ -97,7 +97,7 @@ namespace Sicle.Web.Areas.Contratos.Models
             return query;
         }
 
-        internal IQueryable<ContratoVendaMestre> QueryStatus(IQueryable<ContratoVendaMestre> query)
+        internal IQueryable<MasterSaleContract> QueryStatus(IQueryable<MasterSaleContract> query)
         {
             if (SearchStatus != null && SearchStatus > 0)
             {
@@ -107,7 +107,7 @@ namespace Sicle.Web.Areas.Contratos.Models
             return query;
         }
 
-        internal IQueryable<ContratoVendaMestre> Sort(IQueryable<ContratoVendaMestre> query)
+        internal IQueryable<MasterSaleContract> Sort(IQueryable<MasterSaleContract> query)
         {
             switch (SortOrder)
             {

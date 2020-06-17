@@ -9,6 +9,9 @@ using Newtonsoft.Json;
 using Microsoft.EntityFrameworkCore;
 using Sicle.Business.Contratos;
 using Sicle.Business.Admin;
+using System.Collections.Generic;
+using Dominio.Entidades.Produtos;
+using Sicle.Logs.Utils;
 
 namespace Sicle.Web.Controllers
 {
@@ -38,38 +41,26 @@ namespace Sicle.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Edit(long id, string sortOrder, int? pageNumber)
+        public IActionResult Edit(long id, string sortOrder, int? pageNumber)
         {
-            ContratoVenda contrato;
+            SaleContract contrato;
             if (id == 0) // novo
             {
-                contrato = new ContratoVenda();                
+                contrato = new SaleContract()
+                {
+                    CreationDate = DateTime.Now,
+                    CreationUserId = SessionVariables.UserId
+                };         
             }
             else 
             {
-                contrato = new ContratoVendaBus().AsQueryable()
-                                .Include(p => p.ContratoMestre)
-                                .Include(p => p.PaymentTerm)
-                                .Include(p => p.ClientGroup)
-                                .Include(p => p.ProductGroup)
-                                .Include(p => p.Broker)
-                                .Include(p => p.Trader)
-                                .Include(p => p.Quotas)
-                                    .ThenInclude(q => q.Origem)
-                                .Include(p => p.Quotas)
-                                    .ThenInclude(q => q.Destino) 
-                                .Include(p => p.PricingPeriods)
-                                    .ThenInclude(p => p.MapPricingRules)
-                                .Include(p => p.PricingRules)
-                                .FirstOrDefault(x => x.Id == id);
+                contrato = LoadContrato(id);
 
                 if (contrato == null)
                     throw new ArgumentException("Id {0} de ContratoVenda não encontrado.");
             }
 
-            var vm = new EditContratoVendaVM(contrato);
-            vm.ProductGroups = await new ProductGroupBus().GetAllAsync();
-            vm.Quotas = contrato.Quotas;
+            // var vm = new EditContratoVendaVM(contrato);                  
 
             // var quotas = from q in _context.SaleContractQuotas
             //         join o in _context.Localidades on q.OrigemId equals o.Id into origem
@@ -97,7 +88,7 @@ namespace Sicle.Web.Controllers
             //                 .OrderByDescending(x => x.Id)
             //                 .ToListAsync();            
 
-            return View("Edit", vm);
+            return View("Edit", contrato);
         }
 
         [HttpGet]
@@ -109,20 +100,46 @@ namespace Sicle.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Save(ContratoVenda modelo)
+        public async Task<IActionResult> Save(SaleContract contrato)
         {
             if (ValidateModel())
             {
-                await new ContratoVendaBus().SaveOrUpdate(modelo);
+                await new ContratoVendaBus().SaveOrUpdate(contrato);
+                ViewBag.SuccessMsg = "Contrato salvo com sucesso!";
             }
 
-            ViewBag.SuccessMsg = "Contrato salvo com sucesso!";
-            return View("Edit", modelo);
+            return View("Edit", contrato);
+        }
+
+        public static IEnumerable<ProductGroup> ListProductGroups()
+        {
+            return new ProductGroupBus().GetAll();  
+        }
+
+        public SaleContract LoadContrato(long id)
+        {
+            return new ContratoVendaBus().AsQueryable()
+                                .Include(p => p.ContratoMestre)
+                                .Include(p => p.PaymentTerm)
+                                .Include(p => p.ClientGroup)
+                                .Include(p => p.ProductGroup)
+                                .Include(p => p.Broker)
+                                .Include(p => p.Trader)
+                                .Include(p => p.CreationUser)
+                                .Include(p => p.Editor)
+                                .Include(p => p.Quotas)
+                                    .ThenInclude(q => q.Origem)
+                                .Include(p => p.Quotas)
+                                    .ThenInclude(q => q.Destino) 
+                                .Include(p => p.PricingPeriods)
+                                    .ThenInclude(p => p.MapPricingRules)
+                                .Include(p => p.PricingRules)
+                                .FirstOrDefault(x => x.Id == id);
         }
 
         public JsonResult GetMasterList(string name)
         {
-            var repo = new ContratoMestreVendaBus();
+            var repo = new MasterSaleContractBus();
             var list = repo.AsQueryable().Where(x => x.Nickname.Contains(name))
                                 .OrderBy(x => x.Nickname).Take(10).ToList();
 
@@ -133,7 +150,11 @@ namespace Sicle.Web.Controllers
         {
             var repo = new ClientGroupBus();
             var list = repo.AsQueryable().Where(x => x.Code.Contains(name))
-                                .OrderBy(x => x.Code).Take(10).ToList();
+                                .OrderBy(x => x.Code).Take(10).ToList().Select(o => new ClientGroup()
+                                {
+                                    Id = o.Id, 
+                                    Code = o.ToString()
+                                });
 
             return Json(list);
         }

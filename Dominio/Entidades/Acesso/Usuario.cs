@@ -40,7 +40,7 @@ namespace Dominio.Entidades.Acesso
 
         public ICollection<AssociacaoUsuarioPerfilVenda> PerfilVendas { get; set; } = null!;
 
-        public ICollection<ContratoVendaMestre> ContratosMestres { get; set; } = null!;
+        public ICollection<MasterSaleContract> ContratosMestres { get; set; } = null!;
 
         // public ICollection<ContratoVenda> ContratosVendas { get; set; }
 

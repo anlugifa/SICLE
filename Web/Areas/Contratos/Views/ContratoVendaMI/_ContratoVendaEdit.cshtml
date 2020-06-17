@@ -1,4 +1,5 @@
-@model Sicle.Web.Areas.Contratos.Models.EditContratoVendaVM
+@* @model Sicle.Web.Areas.Contratos.Models.EditContratoVendaVM *@
+@model Dominio.Entidades.Contrato.SaleContract
 @using Dominio.Entidades.Contrato
 @using Dominio.Entidades.Produtos
 @using Util
@@ -6,50 +7,66 @@
 <form asp-action="Save" method="post">
     <div class="form-group">
 
-        <input type="hidden" class="form-control" name="Id" value="@Model.ContratoMestreId">           
+        <input type="hidden" class="form-control" name="Id" value="@Model.Id">  
+        <input type="hidden" class="form-control" name="Id" value="@Model.CreationUserId">  
+        <input type="hidden" class="form-control" name="Id" value="@Model.CreationDate"> 
 
         <div class="form-group">
             <div class="custom-control custom-checkbox custom-control-inline">
-                <input class="custom-control-input position-static" type="checkbox" asp-for="Contrato.IsActive" id="chkAtivo">
+                <input class="custom-control-input position-static" type="checkbox" asp-for="IsActive" id="chkAtivo">
                 <label class="custom-control-label" for="chkAtivo">Ativo</label>
             </div>
         </div>
 
         <div class="form-group">
-            <label class="col-md-2 control-label" for="Model.Contrato.ContratoMestre.Nickname">Mestre (...)</label>
+            <label class="col-md-2 control-label" for="ContratoMestre.Nickname">Mestre (...)</label>
             <div class="col-md-4">               
                
-                <input type="hidden" id="contratoMestreId" asp-for="@Model.Contrato.ContratoMestreId">
+                <input type="hidden" id="contratoMestreId" asp-for="@Model.ContratoMestreId">
                 <input type="text" id="contratoMestre" class="form-control typeahead" data-provide="typeahead" 
-                        asp-for="@Model.Contrato.ContratoMestre.Nickname" >
+                        asp-for="@Model.ContratoMestre.Nickname" >
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-md-2 control-label" for="Name">Nome</label>
+            <div class="col-md-4">
+                <input type="text" class="form-control" asp-for="@Model.Name" id="contractName">
             </div>
         </div>
 
         <div class="form-group">
             <label class="col-md-2 control-label" for="Nickname">Apelido</label>
             <div class="col-md-4">
-                <input type="text" class="form-control" asp-for="@Model.Contrato.Nickname">
+                <input type="text" class="form-control" asp-for="@Model.Nickname">
             </div>
         </div>
 
         <div class="form-group">
             <label class="col-md-2 control-label" for="Begin">Início</label>
             <div class="col-md-4">
-                <input type="text" class="form-control datepicker" asp-for="@Model.Contrato.Begin">                
+                <input type="text" class="form-control datepicker" asp-for="@Model.Begin">                
             </div>
         </div>
 
         <div class="form-group">
             <label class="col-md-2 control-label" for="End">Fim</label>
             <div class="col-md-4">
-                <input type="text" class="form-control datepicker" asp-for="@Model.Contrato.End">
+                <input type="text" class="form-control datepicker" asp-for="@Model.End">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-md-2 control-label" for="Safra">Vigência</label>
+            <div class="col-md-4">
+                <input type="text" class="form-control datepicker" asp-for="@Model.Safra" onchange="changeName(this)" id="contractDuration" readonly>
             </div>
         </div>
 
         <div class="form-group">
             <label class="col-md-2 control-label" for="Period">Periodicidade</label>
             <div class="col-md-4">
-                <select asp-for="@Model.Contrato.Period" class="form-control"
+                <select asp-for="@Model.Period" class="form-control"
                         asp-items="EnumHelper.GetSelectList<PeriodType>()">
                     <option value="0">Selecione</option>
                 </select>        
@@ -59,39 +76,39 @@
         <div class="form-group">
             <label class="col-md-2 control-label" for="ProductGroupId">Grupo de Produto</label>
             <div class="col-md-4">
-                <select asp-for="@Model.Contrato.ProductGroupId" class="form-control"
-                        asp-items='new SelectList(@Model.ProductGroups, "Id", "Code")'>
+                <select asp-for="@Model.ProductGroupId" class="form-control" onchange="changeName(this)" id="contractProductGroup"
+                        asp-items='new SelectList(@Sicle.Web.Controllers.ContratoVendaMIController.ListProductGroups(), "Id", "Code")'>
                     <option value="0">Selecione</option>
                 </select>        
             </div>
         </div>
 
         <div class="form-group">
-            <label class="col-md-4 control-label" for="clientGroupId">Grupo de Cliente (...)</label>
+            <label class="col-md-4 control-label" for="ClientGroupId">Grupo de Cliente (...)</label>
             <div class="col-md-4">
-                <input type="hidden" id="clientGroupId" asp-for="@Model.Contrato.ClientGroupId">
-                <input type="text" id="clientGroup" class="form-control typeahead" data-provide="typeahead" 
-                        asp-for="@Model.Contrato.ClientGroup.Code" >
+                <input type="hidden" id="clientGroupId" asp-for="@Model.ClientGroupId">
+                <input type="text" id="clientGroup" class="form-control typeahead" data-provide="typeahead"  onchange="changeName(this)"
+                        asp-for="@Model.ClientGroup" >
                 
             </div>
         </div>
 
         <div class="form-group">
-            <label class="col-md-4 control-label" for="paymentTermId">Condição de Pagamento (...)</label>
+            <label class="col-md-4 control-label" for="PaymentTermId">Condição de Pagamento (...)</label>
             <div class="col-md-4">
-                <input type="hidden" id="paymentTermId" asp-for="@Model.Contrato.PaymentTermId">
+                <input type="hidden" id="paymentTermId" asp-for="@Model.PaymentTermId">
                 <input type="text" id="paymentTerm" class="form-control typeahead" data-provide="typeahead" 
-                        asp-for="@Model.Contrato.PaymentTerm.Code" >
+                        asp-for="@Model.PaymentTerm.Code" >
                 
             </div>
         </div>
 
         <div class="form-group">
-            <label class="col-md-4 control-label" for="brokerId">Broker (...)</label>
+            <label class="col-md-4 control-label" for="BrokerId">Broker (...)</label>
             <div class="col-md-4">
-                <input type="hidden" id="brokerId" asp-for="@Model.Contrato.BrokerId">
+                <input type="hidden" id="brokerId" asp-for="@Model.BrokerId">
                 <input type="text" id="broker" class="form-control typeahead" data-provide="typeahead" 
-                        asp-for="@Model.Contrato.Broker.Code" >
+                        asp-for="@Model.Broker.Code" >
                 
             </div>
         </div>        
@@ -99,41 +116,41 @@
         <div class="form-group">
      
             <div class="custom-control custom-checkbox custom-control-inline">
-                <input class="custom-control-input position-static" type="checkbox" asp-for="Contrato.IsAvailableForBroker" id="chkBroker">
+                <input class="custom-control-input position-static" type="checkbox" asp-for="IsAvailableForBroker" id="chkBroker">
                 <label class="custom-control-label" for="chkBroker">Disponível para SCA</label>
             </div>
 
             <div class="custom-control custom-checkbox custom-control-inline">
-                <input class="custom-control-input position-static" type="checkbox" asp-for="Contrato.IsOperacaoNNE" id="chkNNE">
+                <input class="custom-control-input position-static" type="checkbox" asp-for="IsOperacaoNNE" id="chkNNE">
                 <label class="custom-control-label" for="chkNNE">Operação NNE</label>
             </div>
 
             <div class="custom-control custom-checkbox custom-control-inline">
-                <input class="custom-control-input position-static" type="checkbox" asp-for="Contrato.HasNegotiationBC" id="chkBC">
+                <input class="custom-control-input position-static" type="checkbox" asp-for="HasNegotiationBC" id="chkBC">
                 <label class="custom-control-label" for="chkBC">Negociação BC</label>
             </div>            
         
         </div>
 
         <div class="form-group">
-            <label class="col-md-4 control-label" for="traderId">Trader</label>
+            <label class="col-md-4 control-label" for="TraderId">Trader</label>
             <div class="col-md-4">
-                <input type="hidden" id="traderId" asp-for="Contrato.TraderId">
+                <input type="hidden" id="traderId" asp-for="TraderId">
                 <input type="text" id="trader" class="form-control typeahead" data-provide="typeahead" 
-                        asp-for="Contrato.Trader.Nome" >                
+                        asp-for="Trader.Nome" >                
             </div>
         </div>
 
         <div class="form-group">
             <label class="col-md-2 control-label" for="Observation">Observação</label>
             <div class="col-md-4">
-                <textarea type="text" class="form-control" asp-for="Contrato.Observation"></textarea>                
+                <textarea type="text" class="form-control" asp-for="Observation"></textarea>                
             </div>
         </div>       
 
          <div class="form-group">
              <div class="col-md-4">
-                 <input type="submit" class="btn btn-success" value="Salvar">
+                 <button type="submit" class="btn btn-success">Salvar <i class="fas fa-save"></i></button>
              </div>
          </div> 
     </div>
