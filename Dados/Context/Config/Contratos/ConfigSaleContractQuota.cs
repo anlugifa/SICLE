@@ -19,7 +19,7 @@ namespace Sicle.Dados.Context.Config.Contratos
                 t.Property(p => p.Diflog).HasColumnName("VL_DIFLOG");
                 t.Property(p => p.Freight).HasColumnName("VL_FREIGHT");               
                 
-                t.Property(p => p.Type)
+                t.Property(p => p.SaleType)
                                     .HasColumnName("DS_INCOTERM")
                                     .HasConversion(ColumnConverter.SaleTypeConverter());
 

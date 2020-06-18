@@ -18,12 +18,12 @@ namespace Sicle.Web.Controllers
     public class ContratoVendaMestreController : SicleController
     {
         private readonly MasterSaleContractBus _repo;
-        private readonly ContratoVendaBus _repoContract;
+        private readonly ContratoVendaBus<SaleContract> _repoContract;
 
         public ContratoVendaMestreController() : base()
         {
             _repo = new MasterSaleContractBus();
-            _repoContract = new ContratoVendaBus();
+            _repoContract = new ContratoVendaBus<SaleContract>();
         }
 
         public async Task<IActionResult> Index(IndexContratoVendaMestreFilter filter)

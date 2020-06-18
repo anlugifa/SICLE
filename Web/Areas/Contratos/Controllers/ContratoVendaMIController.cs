@@ -28,7 +28,7 @@ namespace Sicle.Web.Controllers
             #region filter
             
             filter.SetViewData(ViewData);
-            var query = new ContratoVendaBus().Query();
+            var query = new ContratoVendaBus<SaleContract>().Query();
 
             query = filter.DoFilter(query);
             #endregion          
@@ -46,7 +46,7 @@ namespace Sicle.Web.Controllers
             SaleContract contrato;
             if (id == 0) // novo
             {
-                contrato = new SaleContract()
+                contrato = new ApprovalSaleContract()
                 {
                     CreationDate = DateTime.Now,
                     CreationUserId = SessionVariables.UserId
@@ -94,7 +94,7 @@ namespace Sicle.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> Remove(int id)
         {
-            await new ContratoVendaBus().Delete(id);
+            await new ContratoVendaBus<SaleContract>().Delete(id);
             return RedirectToAction("Index");
         }      
 
@@ -104,7 +104,7 @@ namespace Sicle.Web.Controllers
         {
             if (ValidateModel())
             {
-                await new ContratoVendaBus().SaveOrUpdate(contrato);
+                await new ContratoVendaBus<SaleContract>().SaveOrUpdate(contrato);
                 ViewBag.SuccessMsg = "Contrato salvo com sucesso!";
             }
 
@@ -118,7 +118,7 @@ namespace Sicle.Web.Controllers
 
         public SaleContract LoadContrato(long id)
         {
-            return new ContratoVendaBus().AsQueryable()
+            return new ContratoVendaBus<SaleContract>().AsQueryable()
                                 .Include(p => p.ContratoMestre)
                                 .Include(p => p.PaymentTerm)
                                 .Include(p => p.ClientGroup)

@@ -17,7 +17,7 @@ namespace Dominio.Entidades.Contrato
 
         public double? Freight { get; set; }
 
-        public SaleType Type { get; set; }
+        public SaleType SaleType { get; set; }
 
         public long? ContratoId { get; set; }
         public SaleContract Contrato { get; set; } = null!;
@@ -37,7 +37,7 @@ namespace Dominio.Entidades.Contrato
 
         public String GetNameQuota()
         {
-            return GetOriginInitials() + " -> " + GetDestinationInitials() + " (" + Type + ")";
+            return GetOriginInitials() + " -> " + GetDestinationInitials() + " (" + SaleType + ")";
         }
 
         public String GetOriginInitials()

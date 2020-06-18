@@ -77,6 +77,7 @@ namespace Sicle.Dados.Context.Config.Contratos
                 t.Property(p => p.ClientGroupId).HasColumnName("CD_SEQ_GRUPO_CLIENTE");
                 t.Property(p => p.PaymentTermId).HasColumnName("CD_SEQ_CONDICAO_PAGAMENTO");
             
+                t.Property(p => p.CGCId).HasColumnName("CD_CADASTRO_CGC");
                 t.Property(p => p.ContratoMestreId).HasColumnName("CD_SEQ_CONTRATO_MESTRE");
             });
 
@@ -119,6 +120,11 @@ namespace Sicle.Dados.Context.Config.Contratos
                         .HasOne(b => b.ContratoMestre)
                         .WithMany(b => b.Contratos)
                         .HasForeignKey(f => f.ContratoMestreId);
+
+            model.Entity<SaleContract>()
+                        .HasOne(b => b.CGC)
+                        .WithMany()
+                        .HasForeignKey(f => f.CGCId);
 
         }
     }

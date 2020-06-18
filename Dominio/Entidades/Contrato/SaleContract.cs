@@ -104,6 +104,9 @@ namespace Dominio.Entidades.Contrato
         public long? ContratoMestreId { get; set; }
         public virtual MasterSaleContract ContratoMestre { get; set; } = null!;
 
+        public int? CGCId {get; set;}
+        public CGCRegister CGC { get; set; }
+
         public virtual ICollection<SaleContractQuota> Quotas { get; set; } = null!;
         public virtual ICollection<SaleContractPricingRule> PricingRules { get; set; } = null!;
         public virtual ICollection<SaleContractPricingPeriod> PricingPeriods { get; set; } = null!;
