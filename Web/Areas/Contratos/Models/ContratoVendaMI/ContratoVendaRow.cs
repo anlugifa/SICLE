@@ -32,9 +32,7 @@ namespace Sicle.Web.Areas.Contratos.Models
         public bool IsNegotiationBC { get; set; }
         public string MaxForecast { get; set; }
         public string EmailStatus { get; set; }
-        public string MasterContract { get; set; }
-
-        
+        public string MasterContract { get; set; }      
         
 
         public ContratoVendaRow(SaleContract contrato)

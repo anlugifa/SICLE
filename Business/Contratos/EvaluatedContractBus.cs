@@ -6,13 +6,13 @@ using System.Linq;
 
 namespace Sicle.Business.Contratos
 {
-    public class ApprovalContractBus : ContratoVendaBus<ApprovalSaleContract>
-    {          
+    public class EvaluatedContractBus : ContratoVendaBus<EvaluatedSaleContract>
+    {        
 
-        public override ApprovalSaleContract MergeFromDB(ApprovalSaleContract localCopy)
+        public override EvaluatedSaleContract MergeFromDB(EvaluatedSaleContract localCopy)
         {
             var objFromDB = base.MergeFromDB(localCopy);
-            objFromDB.EvaluatedContractId = localCopy.EvaluatedContractId;
+            objFromDB.ContractInApprovalId = localCopy.ContractInApprovalId;
             
             return objFromDB;
         }

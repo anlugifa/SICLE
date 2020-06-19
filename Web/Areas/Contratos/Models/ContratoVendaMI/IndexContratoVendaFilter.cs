@@ -18,6 +18,7 @@ namespace Sicle.Web.Areas.Contratos.Models
         public long? ClientGroupId { get; set; }
         public DateTime? Begin { get; set; }
         public DateTime? End { get; set; }
+        public bool FindActive { get; set; }
 
         public string SortOrder { get; set; }
         public string IdSortParm { get; set; }
@@ -60,6 +61,9 @@ namespace Sicle.Web.Areas.Contratos.Models
             query = QueryClient(query);
             query = QueryBegin(query);
             query = QueryEnd(query);
+            query = QueryActive(query);
+
+            query = query.Where(p => !p.IsDeleted);
 
             query = Sort(query);
 
@@ -154,6 +158,11 @@ namespace Sicle.Web.Areas.Contratos.Models
             }
 
             return query;
+        }
+
+        internal IQueryable<SaleContract> QueryActive(IQueryable<SaleContract> query)
+        {            
+            return query.Where (s => s.IsActive == FindActive);
         }
 
         internal IQueryable<SaleContract> Sort(IQueryable<SaleContract> query)

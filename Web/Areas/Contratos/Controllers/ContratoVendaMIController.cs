@@ -28,7 +28,7 @@ namespace Sicle.Web.Controllers
             #region filter
             
             filter.SetViewData(ViewData);
-            var query = new ContratoVendaBus<SaleContract>().Query();
+            var query = new EvaluatedContractBus().Query();
 
             query = filter.DoFilter(query);
             #endregion          
@@ -86,7 +86,7 @@ namespace Sicle.Web.Controllers
             //                 .Include(p => p.Origem)
             //                 .Include(p => p.Destino)
             //                 .OrderByDescending(x => x.Id)
-            //                 .ToListAsync();            
+            //                 .ToListAsync();
 
             return View("Edit", contrato);
         }
