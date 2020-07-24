@@ -16,5 +16,22 @@ namespace Sicle.Business.Contratos
             
             return objFromDB;
         }
+
+        public void AlterContract(SaleContract contract)
+        {
+            // cria o ApprovalSaleContract com base no contrato do banco
+
+            // atribui os campos do Contrato DTO que veio da Tela (no parâmetro)
+
+            // atribui o mestre.
+
+            //Se contrato está com status CREATED_IN_APPROVAL, cria o contrato como Evaludated
+
+            // Se não, 
+            // Puxa todos os Approval associados 
+            // 
+
+        }
+
     }
 }

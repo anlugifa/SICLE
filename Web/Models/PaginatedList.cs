@@ -11,7 +11,7 @@ namespace Sicle.Web.Models
         public int PageIndex { get; private set; }
         public int TotalPages { get; private set; }
 
-        protected const int _pageSize = 20;
+        public const int _pageSize = 20;
 
         public PaginatedList(List<T> items, int count, int pageIndex, int pageSize)
         {
@@ -59,6 +59,6 @@ namespace Sicle.Web.Models
             var count = await source.CountAsync();
             var items = await source.Skip((pageIndex - 1) * pageSize).Take(pageSize).ToListAsync();
             return new PaginatedList<T>(items, count, pageIndex, pageSize);
-        }
+        }        
     }
 }

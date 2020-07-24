@@ -50,7 +50,7 @@ namespace Sicle.Web.Areas.Contratos.Models
             return JsonSerializer.Deserialize<IndexContratoVendaFilter>(json);
         }
 
-        public IQueryable<SaleContract> DoFilter(IQueryable<SaleContract> query)
+        public IQueryable<T> DoFilter<T>(IQueryable<T> query) where T : SaleContract
         {
             HandleOnSorting();
 
@@ -90,7 +90,7 @@ namespace Sicle.Web.Areas.Contratos.Models
             }
         }
 
-        internal IQueryable<SaleContract> QueryName(IQueryable<SaleContract> query)
+        internal IQueryable<T> QueryName<T>(IQueryable<T> query) where T : SaleContract
         {
             if (!String.IsNullOrEmpty(Name))
             {
@@ -100,7 +100,7 @@ namespace Sicle.Web.Areas.Contratos.Models
             return query;
         }
 
-        internal IQueryable<SaleContract> QueryNickname(IQueryable<SaleContract> query)
+        internal IQueryable<T> QueryNickname<T>(IQueryable<T> query) where T : SaleContract
         {
             if (!String.IsNullOrEmpty(Nickname))
             {
@@ -110,7 +110,7 @@ namespace Sicle.Web.Areas.Contratos.Models
             return query;
         }
 
-        internal IQueryable<SaleContract> QueryStatus(IQueryable<SaleContract> query)
+        internal IQueryable<T> QueryStatus<T>(IQueryable<T> query) where T : SaleContract
         {
             if (Status != null && Status > 0)
             {
@@ -120,7 +120,7 @@ namespace Sicle.Web.Areas.Contratos.Models
             return query;
         }
 
-        internal IQueryable<SaleContract> QueryProductGroup(IQueryable<SaleContract> query)
+        internal IQueryable<T> QueryProductGroup<T>(IQueryable<T> query) where T : SaleContract
         {
             if (ProductGroupId.HasValue && ProductGroupId.Value > 0)
             {
@@ -130,7 +130,7 @@ namespace Sicle.Web.Areas.Contratos.Models
             return query;
         }
 
-        internal IQueryable<SaleContract> QueryClient(IQueryable<SaleContract> query)
+        internal IQueryable<T> QueryClient<T>(IQueryable<T> query) where T : SaleContract
         {
             if (ClientGroupId.HasValue && ClientGroupId.Value > 0)
             {
@@ -140,7 +140,7 @@ namespace Sicle.Web.Areas.Contratos.Models
             return query;
         }
 
-        internal IQueryable<SaleContract> QueryBegin(IQueryable<SaleContract> query)
+        internal IQueryable<T> QueryBegin<T>(IQueryable<T> query) where T : SaleContract
         {
             if (Begin != null)
             {
@@ -150,7 +150,7 @@ namespace Sicle.Web.Areas.Contratos.Models
             return query;
         }
 
-        internal IQueryable<SaleContract> QueryEnd(IQueryable<SaleContract> query)
+        internal IQueryable<T> QueryEnd<T>(IQueryable<T> query) where T : SaleContract
         {
             if (End != null)
             {
@@ -160,12 +160,12 @@ namespace Sicle.Web.Areas.Contratos.Models
             return query;
         }
 
-        internal IQueryable<SaleContract> QueryActive(IQueryable<SaleContract> query)
+        internal IQueryable<T> QueryActive<T>(IQueryable<T> query) where T : SaleContract
         {            
             return query.Where (s => s.IsActive == FindActive);
         }
 
-        internal IQueryable<SaleContract> Sort(IQueryable<SaleContract> query)
+        internal IQueryable<T> Sort<T>(IQueryable<T> query) where T : SaleContract
         {
             switch (SortOrder)
             {

@@ -12,6 +12,7 @@ using Sicle.Business.Admin;
 using System.Collections.Generic;
 using Dominio.Entidades.Produtos;
 using Sicle.Logs.Utils;
+using Sicle.Web.Models;
 
 namespace Sicle.Web.Controllers
 {
@@ -28,12 +29,36 @@ namespace Sicle.Web.Controllers
             #region filter
             
             filter.SetViewData(ViewData);
-            var query = new EvaluatedContractBus().Query();
 
-            query = filter.DoFilter(query);
-            #endregion          
+            var query = new EvaluatedContractBus().AsQueryable();
+            query = filter.DoFilter<EvaluatedSaleContract>(query);
+            var evaluatedList = query.AsNoTracking().ToList();
 
-            var vm = await IndexContratoVendaMIVM.CreateAsync(query.AsNoTracking(), filter.PageNumber ?? 1);
+            var query2 = new ApprovalContractBus().AsQueryable();
+            query2 = filter.DoFilter<ApprovalSaleContract>(query2);
+            var approvedList = query2.AsNoTracking().ToList();
+            #endregion
+
+            var list = new List<SaleContract>();
+            foreach(var eval in evaluatedList)
+            {
+                bool includEval = true;
+                foreach(var app in approvedList)
+                {
+                    if (app.EvaluatedContractId == eval.Id)
+                    {
+                        includEval = false;
+                        break;
+                    }
+                }
+
+                if(includEval)
+                    list.Add(eval);
+            }
+
+            var finalList = new List<SaleContract>( approvedList.Concat(list) );           
+            
+            var vm = IndexContratoVendaMIVM<SaleContract>.CreateAsync(finalList, filter.PageNumber ?? 1);
             vm.ProductGroups = await new ProductGroupBus().GetAllAsync();
             vm.Filter = filter;
 
